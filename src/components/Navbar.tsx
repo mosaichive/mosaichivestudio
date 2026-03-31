@@ -1,21 +1,22 @@
-import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Services", href: "/#services" },
-  { label: "Pricing", href: "/#pricing" },
-  { label: "Portfolio", href: "/#portfolio" },
-  { label: "Growth Plans", href: "/#growth" },
-  { label: "Shop", href: "/#shop" },
-  { label: "Contact", href: "/#contact" },
+  { label: "Services", href: "/services" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Portfolio", href: "/portfolio" },
+  { label: "Growth Plans", href: "/growth-plans" },
+  { label: "Shop", href: "/shop" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -23,13 +24,12 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleNavClick = (href: string) => {
+  useEffect(() => {
     setMobileOpen(false);
-    if (href.startsWith("/#")) {
-      const id = href.slice(2);
-      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  const isActive = (href: string) => location.pathname === href;
 
   return (
     <nav
@@ -44,29 +44,36 @@ const Navbar = () => {
         </Link>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-7">
           {navLinks.map((link) => (
-            <button
+            <Link
               key={link.label}
-              onClick={() => handleNavClick(link.href)}
-              className="text-sm text-muted-foreground hover:text-primary transition-colors font-medium"
+              to={link.href}
+              className={`text-sm font-medium transition-colors relative ${
+                isActive(link.href)
+                  ? "text-primary"
+                  : "text-muted-foreground hover:text-primary"
+              }`}
             >
               {link.label}
-            </button>
+              {isActive(link.href) && (
+                <motion.div
+                  layoutId="nav-active"
+                  className="absolute -bottom-1 left-0 right-0 h-0.5 bg-primary rounded-full"
+                />
+              )}
+            </Link>
           ))}
-          <button
-            onClick={() => handleNavClick("/#contact")}
+          <Link
+            to="/contact"
             className="bg-gradient-gold text-primary-foreground px-5 py-2 rounded-lg text-sm font-semibold hover:opacity-90 transition-opacity"
           >
             Get Started
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Toggle */}
-        <button
-          className="md:hidden text-foreground"
-          onClick={() => setMobileOpen(!mobileOpen)}
-        >
+        <button className="lg:hidden text-foreground" onClick={() => setMobileOpen(!mobileOpen)}>
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
@@ -78,24 +85,28 @@ const Navbar = () => {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden bg-background/95 backdrop-blur-xl border-b border-border"
+            className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border"
           >
             <div className="flex flex-col gap-1 p-4">
               {navLinks.map((link) => (
-                <button
+                <Link
                   key={link.label}
-                  onClick={() => handleNavClick(link.href)}
-                  className="text-left py-3 px-4 text-muted-foreground hover:text-primary hover:bg-secondary/50 rounded-lg transition-colors"
+                  to={link.href}
+                  className={`py-3 px-4 rounded-lg transition-colors ${
+                    isActive(link.href)
+                      ? "text-primary bg-primary/10 font-semibold"
+                      : "text-muted-foreground hover:text-primary hover:bg-secondary/50"
+                  }`}
                 >
                   {link.label}
-                </button>
+                </Link>
               ))}
-              <button
-                onClick={() => handleNavClick("/#contact")}
-                className="mt-2 bg-gradient-gold text-primary-foreground px-5 py-3 rounded-lg text-sm font-semibold"
+              <Link
+                to="/contact"
+                className="mt-2 bg-gradient-gold text-primary-foreground px-5 py-3 rounded-lg text-sm font-semibold text-center"
               >
                 Get Started
-              </button>
+              </Link>
             </div>
           </motion.div>
         )}
