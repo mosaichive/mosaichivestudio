@@ -1,7 +1,7 @@
 import PageLayout from "@/components/PageLayout";
 import PageHeader from "@/components/PageHeader";
 import { motion } from "framer-motion";
-import { Palette, Video, Globe, Share2, Clapperboard, ArrowRight } from "lucide-react";
+import { Palette, Video, Globe, Share2, Clapperboard, TrendingUp, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const services = [
@@ -33,15 +33,23 @@ const services = [
     icon: Globe,
     title: "Website Development",
     description: "Fast, modern, and responsive websites built to convert visitors into loyal customers.",
-    details: "We build websites that don't just look good — they perform. Our development team creates responsive, SEO-optimized websites with clean code, fast load times, and intuitive user experiences. From landing pages to full e-commerce platforms, we've got you covered.",
+    details: "We build websites that don't just look good — they perform. Our development team creates responsive, SEO-optimized websites with clean code, fast load times, and intuitive user experiences. From landing pages to full e-commerce platforms.",
     price: "GHS 3,000",
     image: "https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=600&h=400&fit=crop",
   },
   {
     icon: Share2,
-    title: "Social Media Management",
-    description: "Strategic content creation, scheduling, community management, and growth campaigns.",
-    details: "Let us handle your social media presence end-to-end. Our team creates engaging content, manages your community, runs targeted campaigns, and provides detailed analytics. We focus on real engagement and organic growth across Instagram, Facebook, Twitter, LinkedIn, and TikTok.",
+    title: "Digital Marketing",
+    description: "Strategic campaigns across Google, social media, and email to drive traffic and conversions.",
+    details: "Our digital marketing team crafts targeted campaigns that deliver measurable results. From SEO and Google Ads to social media advertising and email marketing, we use data-driven approaches to maximize your ROI.",
+    price: "GHS 1,000",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop",
+  },
+  {
+    icon: TrendingUp,
+    title: "Social Media Growth",
+    description: "Strategic content creation, community management, and organic growth campaigns.",
+    details: "Let us handle your social media presence end-to-end. Our team creates engaging content, manages your community, runs targeted campaigns, and provides detailed analytics. We focus on real engagement and organic growth.",
     price: "GHS 800",
     image: "https://images.unsplash.com/photo-1611162617474-5b21e879e113?w=600&h=400&fit=crop",
   },
@@ -51,29 +59,25 @@ const ServicesPage = () => {
   return (
     <PageLayout>
       <PageHeader
-        badge="What We Do"
-        title="Services Built for"
-        titleAccent="Growth"
-        description="Every service is crafted to help your brand scale with intention and impact. Explore our full range of creative and digital services."
+        title="Our"
+        titleAccent="Services"
+        description="Every service is crafted to help your brand scale with intention and impact. Explore our full range of creative and digital solutions."
         breadcrumbs={[{ label: "Home", href: "/" }, { label: "Services" }]}
       />
 
-      <section className="py-16 md:py-24">
+      <section className="py-20 md:py-28">
         <div className="container mx-auto px-4">
-          <div className="space-y-16">
+          <div className="space-y-20">
             {services.map((service, i) => (
               <motion.div
                 key={service.title}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.1 }}
-                className={`grid md:grid-cols-2 gap-10 items-center ${
-                  i % 2 === 1 ? "md:direction-rtl" : ""
-                }`}
+                className="grid md:grid-cols-2 gap-12 items-center max-w-5xl mx-auto"
               >
                 <div className={i % 2 === 1 ? "md:order-2" : ""}>
-                  <div className="rounded-xl overflow-hidden glass-card">
+                  <div className="rounded-lg overflow-hidden elegant-shadow">
                     <img
                       src={service.image}
                       alt={service.title}
@@ -83,30 +87,28 @@ const ServicesPage = () => {
                   </div>
                 </div>
                 <div className={i % 2 === 1 ? "md:order-1" : ""}>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-5">
-                    <service.icon size={24} className="text-primary" />
+                  <div className="w-11 h-11 rounded-md bg-primary/10 flex items-center justify-center mb-4">
+                    <service.icon size={20} className="text-primary" />
                   </div>
                   <h2 className="font-display text-2xl md:text-3xl font-bold mb-3">
                     {service.title}
                   </h2>
-                  <p className="text-muted-foreground leading-relaxed mb-4">
+                  <p className="text-muted-foreground leading-relaxed mb-4 text-sm">
                     {service.details}
                   </p>
-                  <div className="flex items-center gap-4 mb-6">
-                    <span className="text-primary font-display font-semibold text-lg">
-                      From {service.price}
-                    </span>
-                  </div>
+                  <p className="text-primary font-semibold mb-5">
+                    Starting from {service.price}
+                  </p>
                   <div className="flex flex-wrap gap-3">
                     <Link
                       to="/contact"
-                      className="bg-gradient-gold text-primary-foreground px-6 py-3 rounded-lg font-display font-semibold text-sm hover:opacity-90 transition-opacity flex items-center gap-2"
+                      className="bg-gradient-gold text-primary-foreground px-6 py-2.5 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity flex items-center gap-2"
                     >
-                      Order Now <ArrowRight size={16} />
+                      Order Now <ArrowRight size={14} />
                     </Link>
                     <Link
                       to="/pricing"
-                      className="border border-border text-foreground px-6 py-3 rounded-lg font-display font-medium text-sm hover:border-primary/50 transition-colors"
+                      className="border border-border text-foreground px-6 py-2.5 rounded-md font-medium text-sm hover:border-primary/50 transition-colors"
                     >
                       View Pricing
                     </Link>
@@ -119,11 +121,10 @@ const ServicesPage = () => {
       </section>
 
       {/* CTA */}
-      <section className="py-16 md:py-24 relative">
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-secondary/15 to-background" />
-        <div className="container mx-auto px-4 relative z-10 text-center">
+      <section className="py-20 md:py-28 bg-secondary/40">
+        <div className="container mx-auto px-4 text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
           >
@@ -131,13 +132,13 @@ const ServicesPage = () => {
               Not sure which service you need?
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              Let's chat about your goals and we'll recommend the perfect solution for your brand.
+              Let's chat about your goals and we'll recommend the perfect solution.
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-8 py-4 rounded-lg font-display font-semibold hover:opacity-90 transition-opacity"
+              className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-8 py-3.5 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity"
             >
-              Get a Free Consultation <ArrowRight size={18} />
+              Get a Free Consultation <ArrowRight size={16} />
             </Link>
           </motion.div>
         </div>

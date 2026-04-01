@@ -4,11 +4,13 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index";
+import AboutPage from "./pages/AboutPage";
 import ServicesPage from "./pages/ServicesPage";
 import PricingPage from "./pages/PricingPage";
 import PortfolioPage from "./pages/PortfolioPage";
 import GrowthPlansPage from "./pages/GrowthPlansPage";
 import ShopPage from "./pages/ShopPage";
+import TeamPage from "./pages/TeamPage";
 import ContactPage from "./pages/ContactPage";
 import NotFound from "./pages/NotFound";
 
@@ -22,11 +24,13 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/about" element={<AboutPage />} />
           <Route path="/services" element={<ServicesPage />} />
           <Route path="/pricing" element={<PricingPage />} />
           <Route path="/portfolio" element={<PortfolioPage />} />
           <Route path="/growth-plans" element={<GrowthPlansPage />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/team" element={<TeamPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
