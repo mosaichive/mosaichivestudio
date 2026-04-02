@@ -17,7 +17,7 @@ export function useAdminCrud<T extends { id: string }>(table: TableName, orderBy
       .select("*")
       .order(orderBy, { ascending: false });
     if (error) toast.error(`Failed to load ${table}`);
-    else setItems((data as T[]) ?? []);
+    else setItems((data as unknown as T[]) ?? []);
     setLoading(false);
   }, [table, orderBy]);
 
