@@ -15,17 +15,13 @@ const ScrollProgressIndicator: React.FC = () => {
   );
 };
 
-const HERO_SLUGS = ['salestallysystem', 'terraaidinternational'];
-
 const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 600], [0, 120]);
   const { data: settings } = useSiteSettings();
   const { data: projects } = useProjects({ onlyPublished: true });
 
-  // Pick a featured project for the poster image
   const heroProject =
-    (projects ?? []).find((p) => HERO_SLUGS.includes(p.slug) && p.cover_url) ??
     (projects ?? []).find((p) => p.featured && p.cover_url) ??
     (projects ?? []).find((p) => !!p.cover_url);
 
