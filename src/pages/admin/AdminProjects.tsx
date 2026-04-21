@@ -34,11 +34,13 @@ import {
 
 const SortableRow = ({
   project,
+  homepageRank,
   onToggleFeatured,
   onTogglePublished,
   onDelete,
 }: {
   project: ProjectRow;
+  homepageRank: number | null;
   onToggleFeatured: (p: ProjectRow) => void;
   onTogglePublished: (p: ProjectRow) => void;
   onDelete: (p: ProjectRow) => void;
@@ -72,7 +74,18 @@ const SortableRow = ({
         )}
       </div>
       <div className="flex-1 min-w-0">
-        <p className="font-medium text-foreground truncate">{project.title}</p>
+        <div className="flex items-center gap-2 min-w-0">
+          <p className="font-medium text-foreground truncate">{project.title}</p>
+          {homepageRank ? (
+            <span className="shrink-0 rounded-full bg-secondary/15 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-secondary">
+              Home #{homepageRank}
+            </span>
+          ) : project.featured && !project.published ? (
+            <span className="shrink-0 rounded-full bg-muted px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.16em] text-foreground/55">
+              Home draft
+            </span>
+          ) : null}
+        </div>
         <p className="text-xs text-foreground/60 truncate">
           {project.client} · {project.industry}
         </p>
@@ -82,7 +95,8 @@ const SortableRow = ({
         className={`p-2 rounded-md transition-colors ${
           project.featured ? 'text-secondary' : 'text-foreground/30 hover:text-foreground/60'
         }`}
-        title={project.featured ? 'Featured' : 'Mark as featured'}
+        title={project.featured ? 'Remove from homepage' : 'Show on homepage'}
+        aria-pressed={project.featured}
       >
         <Star size={16} fill={project.featured ? 'currentColor' : 'none'} />
       </button>
@@ -114,6 +128,8 @@ const AdminProjects = () => {
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 5 } }));
 
   const list = projects ?? [];
+  const homepageProjects = list.filter((project) => project.featured && project.published).slice(0, 3);
+  const homepageRankById = new Map(homepageProjects.map((project, index) => [project.id, index + 1]));
 
   const handleDragEnd = async (e: DragEndEvent) => {
     if (!e.over || e.active.id === e.over.id) return;
@@ -134,10 +150,23 @@ const AdminProjects = () => {
   };
 
   const toggleFeatured = async (p: ProjectRow) => {
-    await supabase.from('projects').update({ featured: !p.featured }).eq('id', p.id);
+    const { error } = await supabase.from('projects').update({ featured: !p.featured }).eq('id', p.id);
+    if (error) {
+      toast({ title: 'Failed to update homepage selection', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({
+      title: !p.featured ? 'Added to homepage' : 'Removed from homepage',
+      description: !p.featured && !p.published ? 'Publish this project before it appears publicly.' : undefined,
+    });
   };
   const togglePublished = async (p: ProjectRow) => {
-    await supabase.from('projects').update({ published: !p.published }).eq('id', p.id);
+    const { error } = await supabase.from('projects').update({ published: !p.published }).eq('id', p.id);
+    if (error) {
+      toast({ title: 'Failed to update visibility', description: error.message, variant: 'destructive' });
+      return;
+    }
+    toast({ title: !p.published ? 'Project published' : 'Project hidden from public site' });
   };
 
   const confirmDelete = async () => {
@@ -158,7 +187,7 @@ const AdminProjects = () => {
           <p className="eyebrow mb-2">Content</p>
           <h1 className="font-display text-3xl md:text-4xl">Projects & case studies</h1>
           <p className="mt-2 text-sm text-foreground/60">
-            Drag to reorder. Star to feature on the homepage.
+            Star a published project to show it on the homepage. Drag projects to arrange the homepage order.
           </p>
         </div>
         <Link to="/admin/projects/new">
@@ -178,21 +207,31 @@ const AdminProjects = () => {
           </Link>
         </div>
       ) : (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-          <SortableContext items={list.map((p) => p.id)} strategy={verticalListSortingStrategy}>
-            <div className="space-y-2">
-              {list.map((p) => (
-                <SortableRow
-                  key={p.id}
-                  project={p}
-                  onToggleFeatured={toggleFeatured}
-                  onTogglePublished={togglePublished}
-                  onDelete={setDeleteTarget}
-                />
-              ))}
-            </div>
-          </SortableContext>
-        </DndContext>
+        <div className="space-y-4">
+          <div className="luxe-card bg-card p-4">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-2">Homepage selection</p>
+            <p className="text-sm text-foreground/70">
+              The homepage shows the first three projects marked with a star and set to Published.
+              Use the drag handle to move starred projects above or below each other.
+            </p>
+          </div>
+          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+            <SortableContext items={list.map((p) => p.id)} strategy={verticalListSortingStrategy}>
+              <div className="space-y-2">
+                {list.map((p) => (
+                  <SortableRow
+                    key={p.id}
+                    project={p}
+                    homepageRank={homepageRankById.get(p.id) ?? null}
+                    onToggleFeatured={toggleFeatured}
+                    onTogglePublished={togglePublished}
+                    onDelete={setDeleteTarget}
+                  />
+                ))}
+              </div>
+            </SortableContext>
+          </DndContext>
+        </div>
       )}
 
       <AlertDialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>

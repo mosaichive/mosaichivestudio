@@ -5,33 +5,16 @@ import { useProjects, useSiteSettings } from '@/hooks/useStudioContent';
 import { Skeleton } from '@/components/ui/skeleton';
 import Reveal from '@/components/Reveal';
 
-// Curated order for the homepage editorial selection
-const FEATURED_SLUGS = ['salestallysystem', 'terraaidinternational', 'maggstrove'];
-
 const FeaturedWork = () => {
-  const { data: projects, isLoading } = useProjects({ onlyPublished: true });
+  const { data: projects, isLoading } = useProjects({ onlyPublished: true, onlyFeatured: true });
   const { data: settings } = useSiteSettings();
   const eyebrow = settings?.featured_eyebrow ?? 'Selected Work';
   const headline = settings?.featured_headline ?? 'A small, considered selection.';
   const ctaLabel = settings?.featured_cta_label ?? 'Browse the full index';
   const ctaLink = settings?.featured_cta_link ?? '/portfolio';
+  const list = (projects ?? []).slice(0, 3);
 
-  // Order by curated slugs, then fall back to featured/all
-  const list = React.useMemo(() => {
-    const all = projects ?? [];
-    const picked: typeof all = [];
-    for (const slug of FEATURED_SLUGS) {
-      const found = all.find((p) => p.slug === slug);
-      if (found) picked.push(found);
-    }
-    if (picked.length < 3) {
-      for (const p of all) {
-        if (picked.length >= 3) break;
-        if (!picked.find((x) => x.id === p.id)) picked.push(p);
-      }
-    }
-    return picked.slice(0, 3);
-  }, [projects]);
+  if (!isLoading && list.length === 0) return null;
 
   return (
     <section className="pt-24 md:pt-32 pb-28 md:pb-40 bg-background" id="work">
