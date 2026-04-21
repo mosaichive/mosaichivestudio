@@ -33,6 +33,17 @@ const editableSettingFields = [
   'cta_button_link',
 ] as const satisfies readonly (keyof SiteSettingsRow)[];
 
+const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
+  <div className="luxe-card p-6 bg-card space-y-4">
+    <h2 className="font-display text-xl">{title}</h2>
+    {children}
+  </div>
+);
+
+const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
+  <div className="space-y-2"><Label>{label}</Label>{children}</div>
+);
+
 const AdminSettings = () => {
   const { data, isLoading } = useSiteSettings();
   const queryClient = useQueryClient();
@@ -92,16 +103,6 @@ const AdminSettings = () => {
   if (isLoading || !form.id) {
     return <div className="flex justify-center py-32"><Loader2 className="animate-spin text-secondary" size={28} /></div>;
   }
-
-  const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
-    <div className="luxe-card p-6 bg-card space-y-4">
-      <h2 className="font-display text-xl">{title}</h2>
-      {children}
-    </div>
-  );
-  const Field = ({ label, children }: { label: string; children: React.ReactNode }) => (
-    <div className="space-y-2"><Label>{label}</Label>{children}</div>
-  );
 
   return (
     <div className="space-y-8">
