@@ -40,9 +40,20 @@ const Testimonials = () => {
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <div className="flex items-center gap-4">
-                  <div className="w-11 h-11 rounded-full bg-muted flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div
+                    className={`w-11 h-11 rounded-full flex items-center justify-center overflow-hidden flex-shrink-0 ${
+                      t.avatar_url
+                        ? 'bg-white border border-border/70 p-1.5'
+                        : 'bg-muted'
+                    }`}
+                  >
                     {t.avatar_url ? (
-                      <img src={t.avatar_url} alt={t.author} loading="lazy" className="w-full h-full object-cover" />
+                      <img
+                        src={t.avatar_url}
+                        alt={`${t.author} logo`}
+                        loading="lazy"
+                        className="w-full h-full object-contain"
+                      />
                     ) : (
                       <span className="font-display text-base text-secondary">
                         {t.author.charAt(0)}

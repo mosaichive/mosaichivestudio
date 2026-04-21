@@ -8,6 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Trash2, GripVertical, Loader2 } from 'lucide-react';
+import ImageUploader from '@/components/admin/ImageUploader';
 import {
   Dialog,
   DialogContent,
@@ -40,11 +41,20 @@ interface FormState {
   author: string;
   role: string;
   company: string;
+  avatar_url: string;
   rating: number;
   published: boolean;
 }
 
-const blank: FormState = { quote: '', author: '', role: '', company: '', rating: 5, published: true };
+const blank: FormState = {
+  quote: '',
+  author: '',
+  role: '',
+  company: '',
+  avatar_url: '',
+  rating: 5,
+  published: true,
+};
 
 const Row = ({
   t, onEdit, onDelete,
@@ -61,6 +71,13 @@ const Row = ({
       <button {...attributes} {...listeners} className="touch-none cursor-grab active:cursor-grabbing text-foreground/40 hover:text-foreground p-1">
         <GripVertical size={16} />
       </button>
+      <div className="w-11 h-11 rounded-full bg-white border border-border/70 overflow-hidden flex items-center justify-center shrink-0">
+        {t.avatar_url ? (
+          <img src={t.avatar_url} alt="" className="w-full h-full object-contain p-1.5" />
+        ) : (
+          <span className="font-display text-sm text-primary">{t.author.charAt(0)}</span>
+        )}
+      </div>
       <div className="flex-1 min-w-0">
         <p className="font-display text-base leading-snug text-foreground line-clamp-2">"{t.quote}"</p>
         <p className="mt-2 text-xs text-foreground/60">
@@ -88,7 +105,8 @@ const AdminTestimonials = () => {
   const openEdit = (t: TestimonialRow) => {
     setEditing({
       id: t.id, quote: t.quote, author: t.author, role: t.role ?? '',
-      company: t.company ?? '', rating: t.rating, published: t.published,
+      company: t.company ?? '', avatar_url: t.avatar_url ?? '',
+      rating: t.rating, published: t.published,
     });
     setOpen(true);
   };
@@ -103,6 +121,7 @@ const AdminTestimonials = () => {
     const payload = {
       quote: editing.quote, author: editing.author,
       role: editing.role || null, company: editing.company || null,
+      avatar_url: editing.avatar_url || null,
       rating: editing.rating, published: editing.published,
     };
     const { error } = editing.id
@@ -182,6 +201,13 @@ const AdminTestimonials = () => {
                   <Input value={editing.company} onChange={(e) => setEditing({ ...editing, company: e.target.value })} />
                 </div>
               </div>
+              <ImageUploader
+                value={editing.avatar_url}
+                onChange={(url) => setEditing({ ...editing, avatar_url: url ?? '' })}
+                folder="testimonials"
+                label="Circle logo/photo"
+                aspect="aspect-square"
+              />
               <div className="flex items-center justify-between">
                 <Label>Published</Label>
                 <Switch checked={editing.published} onCheckedChange={(v) => setEditing({ ...editing, published: v })} />
