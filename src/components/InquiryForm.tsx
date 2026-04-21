@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { z } from 'zod';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Send } from 'lucide-react';
+import { submitLeadNotification } from '@/lib/leadNotifications';
 
 const inquirySchema = z.object({
   name: z.string().trim().min(2, 'Please enter your name').max(100),
@@ -65,31 +65,45 @@ const InquiryForm = () => {
     setSubmitting(true);
 
     try {
-      const { error } = await supabase.functions.invoke('send-service-request', {
-        body: {
-          fullName: parsed.data.name,
-          email: parsed.data.email,
-          phone: parsed.data.phone || 'Not provided',
-          company: parsed.data.company || undefined,
-          service: parsed.data.service,
-          serviceType: parsed.data.service,
-          budget: parsed.data.budget,
-          projectDetails: parsed.data.details,
-        },
-      });
+      const legacyServiceRequest = {
+        fullName: parsed.data.name,
+        email: parsed.data.email,
+        phone: parsed.data.phone || 'Not provided',
+        company: parsed.data.company || undefined,
+        service: parsed.data.service,
+        serviceType: parsed.data.service,
+        budget: parsed.data.budget,
+        projectDetails: parsed.data.details,
+      };
 
-      if (error) throw error;
+      await submitLeadNotification({
+        formName: 'Contact inquiry',
+        source: 'contact',
+        contact: {
+          name: parsed.data.name,
+          email: parsed.data.email,
+          phone: parsed.data.phone,
+          company: parsed.data.company,
+        },
+        fields: {
+          Service: parsed.data.service,
+          Budget: parsed.data.budget,
+          Details: parsed.data.details,
+        },
+        legacyServiceRequest,
+      });
 
       (e.target as HTMLFormElement).reset();
       toast({
         title: 'Inquiry received',
         description: "Thanks — we'll be in touch within one working day.",
       });
-    } catch (err: any) {
+    } catch (err) {
       console.error('Inquiry submit error:', err);
+      const message = err instanceof Error ? err.message : 'Please try again or email hello@mosaic06studio.com directly.';
       toast({
         title: 'Something went wrong',
-        description: err?.message ?? 'Please try again or email hello@mosaic06studio.com directly.',
+        description: message,
         variant: 'destructive',
       });
     } finally {

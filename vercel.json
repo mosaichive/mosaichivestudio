@@ -1,4 +1,9 @@
 {
+  "functions": {
+    "api/notify-lead.js": {
+      "maxDuration": 10
+    }
+  },
   "rewrites": [
     {
       "source": "/(.*)",

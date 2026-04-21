@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -13,6 +13,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useToast } from '@/components/ui/use-toast';
+import { Loader2 } from 'lucide-react';
+import { submitLeadNotification } from '@/lib/leadNotifications';
 
 // Define portfolio form schema
 const portfolioFormSchema = z.object({
@@ -64,6 +66,7 @@ const experienceLevels = [
 
 const PortfolioSubmissionPage = () => {
   const { toast } = useToast();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const form = useForm<z.infer<typeof portfolioFormSchema>>({
     resolver: zodResolver(portfolioFormSchema),
     defaultValues: {
@@ -81,18 +84,74 @@ const PortfolioSubmissionPage = () => {
 
   const portfolioType = form.watch("portfolioType");
 
-  const onSubmit = (data: z.infer<typeof portfolioFormSchema>) => {
-    console.log("Form submitted:", data);
-    
-    // In a real application, you would handle the file upload and form submission here
-    // For now, we'll just show a success message
-    toast({
-      title: "Portfolio Submitted",
-      description: "Thank you for sharing your portfolio with us. We'll review it and get back to you soon!",
-    });
+  const onSubmit = async (data: z.infer<typeof portfolioFormSchema>) => {
+    setIsSubmitting(true);
 
-    // Reset form
-    form.reset();
+    try {
+      const uploadedFiles = data.portfolioFile
+        ? Array.from(data.portfolioFile).map((file) => `${file.name} (${Math.round(file.size / 1024)} KB)`)
+        : [];
+      const portfolioReference =
+        data.portfolioType === 'link'
+          ? data.portfolioLink
+          : uploadedFiles.length
+            ? uploadedFiles.join(', ')
+            : 'No file details available';
+      const projectDetails = [
+        `Portfolio type: ${data.portfolioType}`,
+        `Portfolio reference: ${portfolioReference}`,
+        `Specialization: ${data.specialization}`,
+        `Experience: ${data.experience}`,
+        '',
+        data.message,
+      ].join('\n');
+
+      await submitLeadNotification({
+        formName: 'Portfolio submission',
+        source: 'portfolio-submission',
+        contact: {
+          name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+        },
+        fields: {
+          'Portfolio type': data.portfolioType,
+          'Portfolio link': data.portfolioLink || 'Not provided',
+          'Uploaded file names': uploadedFiles.length ? uploadedFiles : 'Not provided',
+          Specialization: data.specialization,
+          Experience: data.experience,
+          Message: data.message,
+        },
+        legacyServiceRequest: {
+          fullName: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          service: 'Portfolio submission',
+          serviceType: `${data.specialization} / ${data.experience}`,
+          projectDetails,
+        },
+      });
+
+      toast({
+        title: "Portfolio Submitted",
+        description: "Thank you for sharing your portfolio with us. We'll review it and get back to you soon!",
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error("Portfolio submit error:", error);
+      const message =
+        error instanceof Error
+          ? error.message
+          : "There was a problem submitting your portfolio. Please try again.";
+      toast({
+        title: "Error",
+        description: message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -342,8 +401,15 @@ const PortfolioSubmissionPage = () => {
                       )}
                     />
                     
-                    <Button type="submit" className="w-full bg-gray-800 hover:bg-gray-700">
-                      Submit Portfolio
+                    <Button type="submit" className="w-full bg-gray-800 hover:bg-gray-700" disabled={isSubmitting}>
+                      {isSubmitting ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Submitting...
+                        </>
+                      ) : (
+                        'Submit Portfolio'
+                      )}
                     </Button>
                   </form>
                 </Form>

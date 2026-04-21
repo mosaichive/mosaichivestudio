@@ -24,6 +24,13 @@ The app expects the following environment variables:
 - `VITE_SUPABASE_PROJECT_ID`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `VITE_SUPABASE_URL`
+- `RESEND_API_KEY`
+- `RESEND_FROM_EMAIL`
+- `TWILIO_ACCOUNT_SID`
+- `TWILIO_AUTH_TOKEN`
+- `TWILIO_FROM_NUMBER` or `TWILIO_MESSAGING_SERVICE_SID`
+- `LEAD_EMAIL_TO`
+- `LEAD_SMS_TO`
 
 Copy `.env.example` to `.env` for local work.
 
@@ -32,8 +39,19 @@ Copy `.env.example` to `.env` for local work.
 This project is ready for Vercel deployment.
 
 - `vercel.json` rewrites all routes to `index.html` so React Router pages work on refresh.
+- `/api/notify-lead` handles public form notifications through Vercel Functions.
 - Canonical and Open Graph URLs are derived from `VITE_SITE_URL` when available.
 - The Lovable-specific dev plugin and hosted scripts have been removed.
+
+## Lead notifications
+
+Public forms submit to `/api/notify-lead`.
+
+- Email notifications use Resend and default to `mosaichive@gmail.com`.
+- SMS notifications use Twilio and default to `0544909011` (`+233544909011`).
+- If Vercel notification secrets are not configured yet, the forms attempt the existing Supabase `send-service-request` function as an email fallback.
+
+Set the non-`VITE_` notification variables in Vercel project settings, not in client-side code.
 
 ## Supabase
 

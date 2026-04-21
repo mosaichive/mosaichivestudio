@@ -9,10 +9,10 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { CalendarIcon, CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
+import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ScrollAnimations from '@/components/ScrollAnimations';
-import { supabase } from '@/integrations/supabase/client';
+import { submitLeadNotification } from '@/lib/leadNotifications';
 
 // Form schema
 const formSchema = z.object({
@@ -75,6 +75,9 @@ const serviceTypeOptions = {
   ]
 };
 
+const getOptionLabel = (options: { value: string; label: string }[], value?: string) =>
+  options.find((option) => option.value === value)?.label ?? value ?? '';
+
 const GetStartedPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -98,28 +101,49 @@ const GetStartedPage = () => {
 
   const onSubmit = async (data: z.infer<typeof formSchema>) => {
     setIsSubmitting(true);
-    console.log("Submitting form:", data);
     
     try {
-      const { data: response, error } = await supabase.functions.invoke('send-service-request', {
-        body: data,
+      const serviceLabel = getOptionLabel(servicesOptions, data.service);
+      const serviceTypeLabel = getOptionLabel(
+        serviceTypeOptions[data.service as keyof typeof serviceTypeOptions] ?? [],
+        data.serviceType
+      );
+      const legacyServiceRequest = {
+        ...data,
+        service: serviceLabel,
+        serviceType: serviceTypeLabel,
+      };
+
+      await submitLeadNotification({
+        formName: 'Service request',
+        source: 'get-started',
+        contact: {
+          name: data.fullName,
+          email: data.email,
+          phone: data.phone,
+          company: data.company,
+        },
+        fields: {
+          'Service category': serviceLabel,
+          'Specific service': serviceTypeLabel,
+          'Budget range': data.budget || 'Not provided',
+          'Preferred start date': data.startDate || 'Not provided',
+          'Project details': data.projectDetails,
+        },
+        legacyServiceRequest,
       });
 
-      if (error) {
-        throw error;
-      }
-
-      console.log("Email sent successfully:", response);
       toast({
         title: "Request Submitted",
         description: "We've received your project request and will be in touch soon!",
       });
       form.reset();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Error submitting form:", error);
+      const message = error instanceof Error ? error.message : "There was a problem submitting your request. Please try again.";
       toast({
         title: "Error",
-        description: "There was a problem submitting your request. Please try again.",
+        description: message,
         variant: "destructive",
       });
     } finally {
