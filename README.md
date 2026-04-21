@@ -29,6 +29,10 @@ The app expects the following environment variables:
 - `GMAIL_FROM_EMAIL`
 - `RESEND_API_KEY`
 - `RESEND_FROM_EMAIL`
+- `AFRICASTALKING_USERNAME`
+- `AFRICASTALKING_API_KEY`
+- `AFRICASTALKING_ENVIRONMENT`
+- `AFRICASTALKING_SENDER_ID`
 - `TWILIO_ACCOUNT_SID`
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_FROM_NUMBER` or `TWILIO_MESSAGING_SERVICE_SID`
@@ -52,7 +56,8 @@ Public forms submit to `/api/notify-lead`.
 
 - Email notifications use Gmail SMTP when `GMAIL_USER` and `GMAIL_APP_PASSWORD` are configured, then fall back to Resend.
 - The default lead inbox is `mosaichive@gmail.com`.
-- SMS notifications use Twilio and default to `0544909011` (`+233544909011`).
+- SMS notifications use Africa's Talking when `AFRICASTALKING_USERNAME` and `AFRICASTALKING_API_KEY` are configured, then fall back to Twilio.
+- The default SMS recipient is `0544909011` (`+233544909011`).
 - If Vercel notification secrets are not configured yet, the forms attempt the existing Supabase `send-service-request` function as an email fallback.
 
 Set the non-`VITE_` notification variables in Vercel project settings, not in client-side code.

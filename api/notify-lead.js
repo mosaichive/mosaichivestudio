@@ -27,6 +27,12 @@ const normalizePhone = (value) => {
   return digits ? `+${digits}` : '';
 };
 
+const compactStatusReason = (channels) =>
+  Object.values(channels)
+    .map((channel) => channel?.reason)
+    .filter(Boolean)
+    .join('; ');
+
 const getBody = (req) => {
   if (!req.body) return {};
   if (typeof req.body === 'string') return JSON.parse(req.body);
@@ -192,7 +198,94 @@ const sendEmail = async (lead) => {
   };
 };
 
-const sendSms = async (lead) => {
+const buildSmsMessage = (lead) => {
+  const detail =
+    lead.fields.Service ||
+    lead.fields['Service category'] ||
+    lead.fields.Specialization ||
+    lead.fields.Message ||
+    lead.formName;
+
+  return [
+    `New ${lead.formName}`,
+    `${lead.contact.name} - ${lead.contact.phone || lead.contact.email}`,
+    String(detail).slice(0, 120),
+  ].join('\n');
+};
+
+const sendAfricasTalkingSms = async (lead) => {
+  const username = process.env.AFRICASTALKING_USERNAME;
+  const apiKey = process.env.AFRICASTALKING_API_KEY;
+
+  if (!username || !apiKey) {
+    return { status: 'skipped', reason: "Africa's Talking credentials are not configured" };
+  }
+
+  const to = normalizePhone(process.env.LEAD_SMS_TO || DEFAULT_SMS_TO);
+  const message = buildSmsMessage(lead);
+  const environment = (process.env.AFRICASTALKING_ENVIRONMENT || 'live').toLowerCase();
+  const endpoint =
+    environment === 'sandbox'
+      ? 'https://api.sandbox.africastalking.com/version1/messaging'
+      : 'https://api.africastalking.com/version1/messaging';
+  const params = new URLSearchParams({
+    username,
+    to,
+    message,
+  });
+
+  if (process.env.AFRICASTALKING_SENDER_ID) {
+    params.set('from', process.env.AFRICASTALKING_SENDER_ID);
+  }
+
+  const response = await fetch(endpoint, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      apiKey,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: params,
+  });
+
+  const result = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    return {
+      status: 'failed',
+      reason: result?.message || result?.errorMessage || `Africa's Talking returned ${response.status}`,
+      provider: 'africastalking',
+    };
+  }
+
+  const recipients = result?.SMSMessageData?.Recipients ?? [];
+  const accepted = recipients.some((recipient) => {
+    const status = String(recipient.status || '').toLowerCase();
+    return status === 'success' || recipient.statusCode === 101 || recipient.statusCode === 102;
+  });
+
+  if (recipients.length > 0 && !accepted) {
+    return {
+      status: 'failed',
+      reason:
+        recipients
+          .map((recipient) => recipient.status || recipient.statusCode || recipient.number)
+          .filter(Boolean)
+          .join(', ') || result?.SMSMessageData?.Message || "Africa's Talking did not accept the message",
+      provider: 'africastalking',
+      response: result,
+    };
+  }
+
+  return {
+    status: 'sent',
+    id: recipients[0]?.messageId || null,
+    to,
+    provider: 'africastalking',
+    response: result?.SMSMessageData?.Message || null,
+  };
+};
+
+const sendTwilioSms = async (lead) => {
   const accountSid = process.env.TWILIO_ACCOUNT_SID;
   const authToken = process.env.TWILIO_AUTH_TOKEN;
   const from = process.env.TWILIO_FROM_NUMBER;
@@ -203,17 +296,7 @@ const sendSms = async (lead) => {
   }
 
   const to = normalizePhone(process.env.LEAD_SMS_TO || DEFAULT_SMS_TO);
-  const detail =
-    lead.fields.Service ||
-    lead.fields['Service category'] ||
-    lead.fields.Specialization ||
-    lead.fields.Message ||
-    lead.formName;
-  const message = [
-    `New ${lead.formName}`,
-    `${lead.contact.name} - ${lead.contact.phone || lead.contact.email}`,
-    String(detail).slice(0, 120),
-  ].join('\n');
+  const message = buildSmsMessage(lead);
 
   const params = new URLSearchParams({
     To: to,
@@ -243,7 +326,29 @@ const sendSms = async (lead) => {
     };
   }
 
-  return { status: 'sent', id: result.sid || null, to };
+  return { status: 'sent', id: result.sid || null, to, provider: 'twilio' };
+};
+
+const sendSms = async (lead) => {
+  const africasTalking = await sendAfricasTalkingSms(lead).catch((error) => ({
+    status: 'failed',
+    reason: error instanceof Error ? error.message : "Africa's Talking SMS send failed",
+    provider: 'africastalking',
+  }));
+  if (africasTalking.status === 'sent') return africasTalking;
+
+  const twilio = await sendTwilioSms(lead).catch((error) => ({
+    status: 'failed',
+    reason: error instanceof Error ? error.message : 'Twilio SMS send failed',
+    provider: 'twilio',
+  }));
+  if (twilio.status === 'sent') return twilio;
+
+  return {
+    status: africasTalking.status === 'failed' || twilio.status === 'failed' ? 'failed' : 'skipped',
+    reason: compactStatusReason({ africasTalking, twilio }),
+    attempted: { africasTalking, twilio },
+  };
 };
 
 export default async function handler(req, res) {
