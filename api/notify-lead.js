@@ -1,3 +1,5 @@
+import nodemailer from 'nodemailer';
+
 const DEFAULT_EMAIL_TO = 'mosaichive@gmail.com';
 const DEFAULT_SMS_TO = '0544909011';
 
@@ -101,7 +103,36 @@ const buildEmail = (lead) => {
   return { html, text };
 };
 
-const sendEmail = async (lead) => {
+const sendGmailEmail = async (lead) => {
+  const user = process.env.GMAIL_USER;
+  const pass = process.env.GMAIL_APP_PASSWORD;
+
+  if (!user || !pass) {
+    return { status: 'skipped', reason: 'Gmail SMTP credentials are not configured' };
+  }
+
+  const to = process.env.LEAD_EMAIL_TO || DEFAULT_EMAIL_TO;
+  const from = process.env.GMAIL_FROM_EMAIL || `Mosaic Hive Website <${user}>`;
+  const { html, text } = buildEmail(lead);
+
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: { user, pass },
+  });
+
+  const result = await transporter.sendMail({
+    from,
+    to,
+    subject: `New ${lead.formName}: ${lead.contact.name}`,
+    html,
+    text,
+    replyTo: lead.contact.email,
+  });
+
+  return { status: 'sent', id: result.messageId || null, to, provider: 'gmail' };
+};
+
+const sendResendEmail = async (lead) => {
   const apiKey = process.env.RESEND_API_KEY;
   if (!apiKey) {
     return { status: 'skipped', reason: 'RESEND_API_KEY is not configured' };
@@ -135,7 +166,30 @@ const sendEmail = async (lead) => {
     };
   }
 
-  return { status: 'sent', id: result.id || null, to };
+  return { status: 'sent', id: result.id || null, to, provider: 'resend' };
+};
+
+const sendEmail = async (lead) => {
+  const gmail = await sendGmailEmail(lead).catch((error) => ({
+    status: 'failed',
+    reason: error instanceof Error ? error.message : 'Gmail SMTP send failed',
+  }));
+  if (gmail.status === 'sent') return gmail;
+
+  const resend = await sendResendEmail(lead).catch((error) => ({
+    status: 'failed',
+    reason: error instanceof Error ? error.message : 'Resend email send failed',
+  }));
+  if (resend.status === 'sent') return resend;
+
+  return {
+    status: resend.status === 'failed' ? 'failed' : gmail.status,
+    reason:
+      resend.status === 'failed'
+        ? resend.reason
+        : `${gmail.reason}; ${resend.reason}`,
+    attempted: { gmail, resend },
+  };
 };
 
 const sendSms = async (lead) => {

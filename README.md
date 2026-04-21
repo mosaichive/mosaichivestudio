@@ -24,6 +24,9 @@ The app expects the following environment variables:
 - `VITE_SUPABASE_PROJECT_ID`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `VITE_SUPABASE_URL`
+- `GMAIL_USER`
+- `GMAIL_APP_PASSWORD`
+- `GMAIL_FROM_EMAIL`
 - `RESEND_API_KEY`
 - `RESEND_FROM_EMAIL`
 - `TWILIO_ACCOUNT_SID`
@@ -47,7 +50,8 @@ This project is ready for Vercel deployment.
 
 Public forms submit to `/api/notify-lead`.
 
-- Email notifications use Resend and default to `mosaichive@gmail.com`.
+- Email notifications use Gmail SMTP when `GMAIL_USER` and `GMAIL_APP_PASSWORD` are configured, then fall back to Resend.
+- The default lead inbox is `mosaichive@gmail.com`.
 - SMS notifications use Twilio and default to `0544909011` (`+233544909011`).
 - If Vercel notification secrets are not configured yet, the forms attempt the existing Supabase `send-service-request` function as an email fallback.
 
