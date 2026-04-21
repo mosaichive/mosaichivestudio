@@ -218,7 +218,7 @@ const AdminSettings = () => {
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Eyebrow"><Input value={form.featured_eyebrow ?? 'Selected Work'} onChange={(e) => set('featured_eyebrow', e.target.value)} /></Field>
           <Field label="CTA label"><Input value={form.featured_cta_label ?? 'Browse the full index'} onChange={(e) => set('featured_cta_label', e.target.value)} /></Field>
-          <div className="sm:col-span-2"><Field label="Headline"><Input value={form.featured_headline ?? 'A small, considered selection.'} onChange={(e) => set('featured_headline', e.target.value)} /></Field></div>
+          <div className="sm:col-span-2"><Field label="Headline"><Input value={form.featured_headline ?? 'Selected work from a serious creative partner.'} onChange={(e) => set('featured_headline', e.target.value)} /></Field></div>
           <div className="sm:col-span-2"><Field label="CTA link"><Input value={form.featured_cta_link ?? '/portfolio'} onChange={(e) => set('featured_cta_link', e.target.value)} /></Field></div>
         </div>
       </Section>
@@ -245,7 +245,7 @@ const AdminSettings = () => {
         <div className="grid sm:grid-cols-2 gap-4">
           <Field label="Eyebrow"><Input value={form.trust_eyebrow ?? 'Selected Clients'} onChange={(e) => set('trust_eyebrow', e.target.value)} /></Field>
           <Field label="Headline"><Input value={form.trust_headline ?? 'Trusted by foundations, founders and ambitious teams.'} onChange={(e) => set('trust_headline', e.target.value)} /></Field>
-          <div className="sm:col-span-2"><Field label="Body"><Textarea rows={3} value={form.trust_body ?? "A small selection of partners we've shaped brand and digital work for."} onChange={(e) => set('trust_body', e.target.value)} /></Field></div>
+          <div className="sm:col-span-2"><Field label="Body"><Textarea rows={3} value={form.trust_body ?? "A growing network of institutions, founders and market leaders we've shaped brand and digital work for."} onChange={(e) => set('trust_body', e.target.value)} /></Field></div>
         </div>
       </Section>
 
@@ -283,7 +283,7 @@ const AdminSettings = () => {
           <Field label="CTA link"><Input value={form.footer_cta_link ?? '/get-started'} onChange={(e) => set('footer_cta_link', e.target.value)} /></Field>
           <Field label="LinkedIn URL"><Input value={form.social_linkedin ?? 'https://linkedin.com'} onChange={(e) => set('social_linkedin', e.target.value)} /></Field>
           <Field label="Instagram URL"><Input value={form.social_instagram ?? 'https://instagram.com'} onChange={(e) => set('social_instagram', e.target.value)} /></Field>
-          <div className="sm:col-span-2"><Field label="CTA body"><Textarea rows={3} value={form.footer_cta_body ?? 'We take on a small number of projects each quarter.'} onChange={(e) => set('footer_cta_body', e.target.value)} /></Field></div>
+          <div className="sm:col-span-2"><Field label="CTA body"><Textarea rows={3} value={form.footer_cta_body ?? 'We partner with ambitious teams on work that deserves strategic depth and excellent execution.'} onChange={(e) => set('footer_cta_body', e.target.value)} /></Field></div>
         </div>
       </Section>
 

@@ -21,45 +21,46 @@ const capabilities: Capability[] = [
     number: '01',
     title: 'Identity Systems',
     description:
-      'Marks, type, colour and editorial systems that hold up across every surface — from a business card to a global campaign.',
-    deliverables: ['Logo & wordmark', 'Type & colour system', 'Brand guidelines', 'Launch toolkit'],
+      'Brand architecture, identity systems and market-ready visual languages built to scale across every touchpoint.',
+    deliverables: ['Brand strategy', 'Logo & wordmark', 'Type & colour system', 'Governance toolkit'],
     related: { label: 'Aurelia Atelier', to: '/portfolio/aurelia-atelier' },
   },
   {
     number: '02',
     title: 'Websites',
     description:
-      'Editorial, conversion-aware sites built with care. Strong typography, considered motion, and copy that earns the click.',
-    deliverables: ['Site architecture', 'UX & UI design', 'Frontend build', 'CMS & handover'],
+      'High-performing editorial and conversion-led websites engineered for credibility, clarity and growth.',
+    deliverables: ['Site architecture', 'UX & UI design', 'Frontend build', 'CMS & analytics'],
     related: { label: 'Terra Aid International', to: '/portfolio/terraaidinternational' },
   },
   {
     number: '03',
     title: 'Campaigns',
     description:
-      'Launch and seasonal campaigns shaped end-to-end — from concept and art direction through to channel-ready assets.',
-    deliverables: ['Concept & art direction', 'Key visuals', 'Channel adaptations', 'Launch rollout'],
+      'Integrated campaigns shaped from strategy to rollout, with assets ready for every channel that matters.',
+    deliverables: ['Campaign strategy', 'Concept & art direction', 'Key visuals', 'Launch rollout'],
+    related: { label: 'Ghana Gold Expo Foundation', to: '/portfolio/gge' },
   },
   {
     number: '04',
     title: 'Motion',
     description:
-      'Animated identity, social cutdowns and product motion that gives static brands a sense of rhythm and life.',
-    deliverables: ['Logo animation', 'Social motion', 'Product micro-motion', 'Edit & post'],
+      'Motion systems, campaign films and animated content that give brands authority, rhythm and recall.',
+    deliverables: ['Logo animation', 'Campaign film', 'Social motion', 'Edit & post'],
   },
   {
     number: '05',
     title: 'Content',
     description:
-      'Editorial direction, photography and copy crafted to make the work feel considered — not stocky, not generic.',
+      'Editorial direction, photography and copy that make brands sound sharper, look stronger and travel further.',
     deliverables: ['Editorial direction', 'Photography', 'Copywriting', 'Asset libraries'],
-    related: { label: 'Noir Roast', to: '/portfolio/noir-roast' },
+    related: { label: 'Ghana Gold Expo Foundation', to: '/portfolio/gge' },
   },
   {
     number: '06',
     title: 'Product Interfaces',
     description:
-      'Dashboards, web apps and tools designed and built with the same editorial care as our brand work.',
+      'Dashboards, web apps and operating tools designed with enterprise-grade clarity and brand-level craft.',
     deliverables: ['Product strategy', 'UX & UI design', 'Frontend development', 'Design system'],
     related: { label: 'SikaFlow', to: '/portfolio/salestallysystem' },
   },
@@ -70,21 +71,21 @@ const proofItems = [
     capability: 'Product Interfaces',
     project: 'SikaFlow',
     outcome:
-      'A clear, considered fintech dashboard. Replaced a brittle internal tool with a product the team is proud to demo.',
+      'A confident fintech dashboard that replaced a brittle internal tool with a product the team is proud to demo.',
     to: '/portfolio/salestallysystem',
   },
   {
     capability: 'Identity & Web',
     project: 'Terra Aid International',
     outcome:
-      'A new identity and editorial site that lifted donor trust and made the mission easier to share at the leadership table.',
+      'A strategic identity and editorial site that lifted donor trust and made the mission easier to share at leadership level.',
     to: '/portfolio/terraaidinternational',
   },
   {
     capability: 'Identity & Content',
     project: 'Aurelia Atelier',
     outcome:
-      'Quiet luxury, executed end to end — from wordmark and editorial system to lookbook and launch site.',
+      'A luxury brand world executed end to end — from wordmark and editorial system to lookbook and launch site.',
     to: '/portfolio/aurelia-atelier',
   },
 ];
@@ -92,7 +93,7 @@ const proofItems = [
 const process = [
   {
     step: 'Discover',
-    body: 'A short, sharp listening phase. We learn the business, the audience, and what success actually looks like.',
+    body: 'A focused intelligence phase. We learn the business, the audience and what success needs to prove.',
   },
   {
     step: 'Shape',
@@ -100,7 +101,7 @@ const process = [
   },
   {
     step: 'Build',
-    body: 'Senior hands across design, copy, motion and engineering — with no hand-offs to junior teams behind the scenes.',
+    body: 'Specialist leadership across design, copy, motion and engineering — with direct ownership from strategy through launch.',
   },
   {
     step: 'Refine',
@@ -114,7 +115,7 @@ const ServicesPage = () => {
   useSEO({
     title: 'Capabilities · Mosaic06 Studio',
     description:
-      'Mosaic06 is an editorial digital studio working across identity, websites, campaigns, motion, content and product interfaces for ambitious brands.',
+      'Mosaic06 is a multidisciplinary creative organization working across identity, websites, campaigns, motion, content and product interfaces for ambitious brands.',
     path: '/services',
   });
 
@@ -143,8 +144,8 @@ const ServicesPage = () => {
               </Reveal>
               <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
                 <p className="text-lg text-foreground/70 leading-relaxed max-w-md">
-                  A small senior studio working with ambitious brands and mission-led teams.
-                  Selective by design — fewer projects, made better.
+                  A multidisciplinary creative organization working with ambitious brands,
+                  institutions and mission-led teams. Strategic by design, built for serious outcomes.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
@@ -175,7 +176,7 @@ const ServicesPage = () => {
             <Reveal as="div" className="mb-16 max-w-2xl">
               <p className="eyebrow mb-6">What we do</p>
               <h2 className="display-section text-foreground text-balance">
-                Six disciplines, one editorial studio.
+                Six disciplines, one integrated creative partner.
               </h2>
             </Reveal>
 
@@ -234,7 +235,7 @@ const ServicesPage = () => {
                 Capabilities, applied.
               </h2>
               <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
-                A few recent engagements where the work moved the business — not just the brand.
+                Recent engagements where the work moved the business — not just the brand.
               </p>
             </Reveal>
 
@@ -273,8 +274,8 @@ const ServicesPage = () => {
                   A calm, deliberate way of building.
                 </h2>
                 <p className="mt-6 text-foreground/70 leading-relaxed">
-                  No bloated process decks. Four short phases, run by senior hands, with the work
-                  visible at every step.
+                  A rigorous operating model with clear decisions, senior ownership and visible progress
+                  at every step.
                 </p>
               </Reveal>
 

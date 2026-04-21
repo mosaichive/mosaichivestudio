@@ -15,7 +15,9 @@ const Footer = () => {
     settings?.footer_body ??
     'An independent creative studio building brands with craft, strategy and a long view.';
   const ctaEyebrow = settings?.footer_cta_eyebrow ?? 'Start something';
-  const ctaBody = settings?.footer_cta_body ?? 'We take on a small number of projects each quarter.';
+  const ctaBody =
+    settings?.footer_cta_body ??
+    'We partner with ambitious teams on work that deserves strategic depth and excellent execution.';
   const ctaLabel = settings?.footer_cta_label ?? 'Start a Project';
   const ctaLink = settings?.footer_cta_link ?? '/get-started';
   const linkedin = settings?.social_linkedin ?? 'https://linkedin.com';

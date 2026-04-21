@@ -11,7 +11,7 @@ const CareersPage = () => {
   useSEO({
     title: 'Careers · Mosaic06 Studio',
     description:
-      'Mosaic06 is a small senior studio. We are not actively hiring right now, but we keep a small list of designers, writers and engineers we admire.',
+      'Mosaic06 is a growing creative organization. We are not actively hiring right now, but we keep a curated network of designers, writers and engineers we admire.',
     path: '/careers',
   });
 
@@ -30,9 +30,9 @@ const CareersPage = () => {
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                We're a small senior studio and we hire slowly. There are no open positions
-                at the moment, but we keep a short list of designers, writers, motion artists
-                and engineers we'd like to work with.
+                We are building a high-calibre creative network and we hire deliberately. There are
+                no open positions at the moment, but we keep a curated list of designers, writers,
+                motion artists and engineers we'd like to work with.
               </p>
             </Reveal>
           </div>

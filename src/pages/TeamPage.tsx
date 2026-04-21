@@ -26,7 +26,7 @@ const TeamPage = () => {
   useSEO({
     title: 'Team · Mosaic06 Studio',
     description:
-      'A small senior team behind Mosaic06 — creative direction, strategy and craft applied to every engagement.',
+      'The leadership and specialist network behind Mosaic06 — creative direction, strategy and craft applied to every engagement.',
     path: '/team',
   });
 
@@ -45,8 +45,9 @@ const TeamPage = () => {
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                Mosaic06 is run by a small senior team, supported by a trusted network of
-                photographers, motion artists and engineers we've worked with for years.
+                Mosaic06 is led by experienced creative and strategy partners, supported by a
+                trusted network of photographers, motion artists and engineers we've worked with
+                for years.
               </p>
             </Reveal>
           </div>

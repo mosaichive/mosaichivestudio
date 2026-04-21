@@ -15,6 +15,8 @@ const ScrollProgressIndicator: React.FC = () => {
   );
 };
 
+const HERO_PROJECT_SLUGS = ['gge', 'ghana-gold-expo-foundation', 'ghana-gold-expo'];
+
 const Hero = () => {
   const { scrollY } = useScroll();
   const y = useTransform(scrollY, [0, 600], [0, 120]);
@@ -22,7 +24,7 @@ const Hero = () => {
   const { data: projects } = useProjects({ onlyPublished: true });
 
   const heroProject =
-    (projects ?? []).find((p) => p.featured && p.cover_url) ??
+    (projects ?? []).find((p) => HERO_PROJECT_SLUGS.includes(p.slug) && p.cover_url) ??
     (projects ?? []).find((p) => !!p.cover_url);
 
   const eyebrow = settings?.hero_eyebrow ?? 'Mosaic06 Studio — Accra';
@@ -88,7 +90,7 @@ const Hero = () => {
                   <div className="absolute bottom-5 left-5 right-5 flex items-end justify-between gap-4 text-primary-foreground">
                     <div>
                       <p className="text-[10px] uppercase tracking-[0.32em] opacity-80">
-                        Featured · {heroProject.year}
+                        Studio feature · {heroProject.year}
                       </p>
                       <p className="font-display text-xl md:text-2xl mt-1.5 leading-tight text-balance">
                         {heroProject.title}

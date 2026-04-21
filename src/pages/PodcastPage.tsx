@@ -122,20 +122,22 @@ const PodcastPage = () => {
     <>
       <Navbar />
       <main className="bg-background">
-        <section className="pt-40 md:pt-48 pb-32 md:pb-48 border-b border-border/60 min-h-[80vh] flex items-center">
-          <div className="container-editorial grid lg:grid-cols-12 gap-12 items-end">
-            <Reveal as="div" className="lg:col-span-8">
-              <p className="eyebrow mb-8">Podcast</p>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
-                Conversations on craft,{' '}
-                <span className="italic text-secondary">coming soon</span>.
-              </h1>
-            </Reveal>
-            <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
-              <p className="text-lg text-foreground/70 leading-relaxed">
-                A small, slow podcast on creative practice, founders and the work of building
-                brands worth remembering. First conversations land later this season.
-              </p>
+        <section className="pt-40 md:pt-48 pb-28 md:pb-40 border-b border-border/60 min-h-[80vh] flex items-center">
+          <div className="container-editorial">
+            <div className="grid lg:grid-cols-12 gap-12 items-end">
+              <Reveal as="div" className="lg:col-span-8">
+                <p className="eyebrow mb-8">Podcast</p>
+                <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+                  Conversations on craft,{' '}
+                  <span className="italic text-secondary">coming soon</span>.
+                </h1>
+              </Reveal>
+              <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
+                <p className="text-lg text-foreground/70 leading-relaxed">
+                  A polished podcast platform from Mosaic06 on creative leadership, founders and
+                  the work of building brands with lasting cultural and commercial weight.
+                  First conversations land later this season.
+                </p>
               <Dialog open={open} onOpenChange={setOpen}>
                 <DialogTrigger asChild>
                   <button
@@ -262,6 +264,26 @@ const PodcastPage = () => {
                   </form>
                 </DialogContent>
               </Dialog>
+              </Reveal>
+            </div>
+
+            <Reveal as="div" className="mt-16 md:mt-24" delay={0.22}>
+              <div className="relative overflow-hidden rounded-sm border border-border bg-primary shadow-2xl">
+                <img
+                  src="/podcast-studio.svg"
+                  alt="Illustration of the Mosaic06 podcast studio with microphones, headphones and a production desk"
+                  className="w-full aspect-[16/7] md:aspect-[16/6] object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-x-0 bottom-0 p-6 md:p-8 bg-gradient-to-t from-primary/90 via-primary/35 to-transparent text-primary-foreground">
+                  <p className="text-xs uppercase tracking-[0.28em] text-secondary mb-2">
+                    Studio conversations
+                  </p>
+                  <p className="font-display text-2xl md:text-4xl max-w-2xl text-balance">
+                    Built for serious voices, strategic ideas and conversations that travel.
+                  </p>
+                </div>
+              </div>
             </Reveal>
           </div>
         </section>

@@ -10,8 +10,8 @@ import { useSEO } from '@/hooks/useSEO';
 const principles = [
   {
     n: '01',
-    title: 'Selective by design',
-    body: 'A small number of engagements each quarter, run by senior hands. No junior hand-offs, no agency theatre.',
+    title: 'Strategic by design',
+    body: 'Focused engagements led by experienced specialists. No agency theatre, no diluted accountability.',
   },
   {
     n: '02',
@@ -34,7 +34,7 @@ const AboutPage = () => {
   useSEO({
     title: 'Studio · Mosaic06',
     description:
-      'Mosaic06 is a small editorial digital studio in Accra working with ambitious brands and mission-led teams across identity, web, campaigns and product.',
+      'Mosaic06 is a multidisciplinary creative organization in Accra working with ambitious brands and mission-led teams across identity, web, campaigns and product.',
     path: '/about',
   });
 
@@ -48,15 +48,15 @@ const AboutPage = () => {
             <Reveal as="div" className="lg:col-span-8">
               <p className="eyebrow mb-8">Studio</p>
               <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
-                A small editorial studio for brands that want to be{' '}
+                A creative organization for brands that want to be{' '}
                 <span className="italic text-secondary">remembered</span>.
               </h1>
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                Mosaic06 is an independent digital studio based in Accra, working with founders,
-                foundations and senior in-house teams. We take on a small number of engagements
-                each quarter and run them with care from start to finish.
+                Mosaic06 is an independent creative organization based in Accra, working with
+                founders, foundations and senior in-house teams. We build brand systems, digital
+                platforms and campaigns with strategic depth from start to finish.
               </p>
             </Reveal>
           </div>

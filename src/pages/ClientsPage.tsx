@@ -28,8 +28,8 @@ const ClientsPage = () => {
             <Reveal as="div" className="lg:col-span-8">
               <p className="eyebrow mb-8">Clients</p>
               <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
-                A small list of{' '}
-                <span className="italic text-secondary">good company</span>.
+                A growing network of{' '}
+                <span className="italic text-secondary">serious partners</span>.
               </h1>
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>

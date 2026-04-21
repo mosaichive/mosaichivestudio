@@ -12,7 +12,7 @@ const StudioIntro = () => {
     settings?.about_headline ?? 'An editorial digital studio for ambitious brands.';
   const body =
     settings?.about_body ??
-    'Mosaic06 is a small, senior team based in Accra. We work across identity, websites, campaigns, motion and product experiences — shaping work with taste, intent, and a quiet sense of craft. The brands we build are easier to trust and harder to ignore.';
+    'Mosaic06 is a multidisciplinary creative organization based in Accra. We work across identity, websites, campaigns, motion and product experiences — shaping brand systems with strategic clarity, cultural intelligence and exceptional craft. The brands we build are easier to trust and harder to ignore.';
   const capabilities = asTextList(settings?.studio_capabilities, DEFAULT_STUDIO_CAPABILITIES);
 
   return (

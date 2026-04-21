@@ -177,7 +177,7 @@ const AdminTestimonials = () => {
       )}
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="max-w-lg">
+        <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>{editing?.id ? 'Edit testimonial' : 'New testimonial'}</DialogTitle>
           </DialogHeader>
@@ -206,7 +206,7 @@ const AdminTestimonials = () => {
                 onChange={(url) => setEditing({ ...editing, avatar_url: url ?? '' })}
                 folder="testimonials"
                 label="Circle logo/photo"
-                aspect="aspect-square"
+                aspect="aspect-[5/2]"
               />
               <div className="flex items-center justify-between">
                 <Label>Published</Label>
@@ -214,7 +214,7 @@ const AdminTestimonials = () => {
               </div>
             </div>
           )}
-          <DialogFooter>
+          <DialogFooter className="sticky bottom-0 -mx-6 -mb-6 border-t border-border bg-background p-4">
             <Button variant="outline" onClick={() => setOpen(false)}>Cancel</Button>
             <Button onClick={save} disabled={saving}>{saving && <Loader2 className="animate-spin" size={14} />} Save</Button>
           </DialogFooter>

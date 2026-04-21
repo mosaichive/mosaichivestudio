@@ -9,7 +9,7 @@ const FeaturedWork = () => {
   const { data: projects, isLoading } = useProjects({ onlyPublished: true, onlyFeatured: true });
   const { data: settings } = useSiteSettings();
   const eyebrow = settings?.featured_eyebrow ?? 'Selected Work';
-  const headline = settings?.featured_headline ?? 'A small, considered selection.';
+  const headline = settings?.featured_headline ?? 'Selected work from a serious creative partner.';
   const ctaLabel = settings?.featured_cta_label ?? 'Browse the full index';
   const ctaLink = settings?.featured_cta_link ?? '/portfolio';
   const list = (projects ?? []).slice(0, 3);

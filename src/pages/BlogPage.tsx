@@ -28,8 +28,8 @@ const JournalPage = () => {
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                We're putting together a small set of writing on identity, editorial web
-                design, motion and the way we work. The first essays land later this season.
+                We're preparing a sharp editorial library on identity, web systems, motion and the
+                strategic work behind brands that endure. The first essays land later this season.
               </p>
             </Reveal>
           </div>

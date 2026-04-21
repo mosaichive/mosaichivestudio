@@ -11,7 +11,7 @@ const TrustLogos = () => {
     settings?.trust_headline ?? 'Trusted by foundations, founders and ambitious teams.';
   const body =
     settings?.trust_body ??
-    "A small selection of partners we've shaped brand and digital work for.";
+    "A growing network of institutions, founders and market leaders we've shaped brand and digital work for.";
 
   if (list.length === 0) return null;
 
