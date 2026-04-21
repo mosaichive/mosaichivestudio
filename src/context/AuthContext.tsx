@@ -31,20 +31,31 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     // Listener FIRST (per Supabase docs), then existing session
     const { data: sub } = supabase.auth.onAuthStateChange((_event, sess) => {
+      setLoading(true);
       setSession(sess);
       setUser(sess?.user ?? null);
       if (sess?.user) {
         // Defer DB call to avoid deadlock inside listener
-        setTimeout(() => loadRoles(sess.user.id), 0);
+        setTimeout(() => {
+          loadRoles(sess.user.id).finally(() => setLoading(false));
+        }, 0);
       } else {
         setRoles([]);
+        setLoading(false);
       }
     });
 
-    supabase.auth.getSession().then(({ data: { session: sess } }) => {
+    supabase.auth.getSession().then(async ({ data: { session: sess } }) => {
       setSession(sess);
       setUser(sess?.user ?? null);
-      if (sess?.user) loadRoles(sess.user.id);
+      if (sess?.user) {
+        await loadRoles(sess.user.id);
+      } else {
+        setRoles([]);
+      }
+      setLoading(false);
+    }).catch(() => {
+      setRoles([]);
       setLoading(false);
     });
 

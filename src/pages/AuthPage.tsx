@@ -9,7 +9,7 @@ import { ArrowLeft, Loader2 } from 'lucide-react';
 import logo from '@/assets/logo.png';
 
 const AuthPage = () => {
-  const { user, isAdmin, loading, signIn, signUp } = useAuth();
+  const { user, isAdmin, loading, signIn, signUp, signOut } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -31,7 +31,7 @@ const AuthPage = () => {
             Your account is signed in but doesn't have admin access yet. Ask an existing
             admin to invite your email, then sign out and sign back in.
           </p>
-          <Button onClick={() => useAuth().signOut().then(() => navigate('/auth'))}>
+          <Button onClick={() => signOut().then(() => navigate('/auth'))}>
             Sign out
           </Button>
         </div>
