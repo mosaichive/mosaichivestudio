@@ -53,9 +53,6 @@ const Navbar = () => {
               mounted && theme === 'dark' ? 'brightness-0 invert' : ''
             }`}
           />
-          <span className="hidden sm:inline font-display text-lg tracking-tight">
-            Mosaic06<span className="text-secondary">.</span>
-          </span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10">
