@@ -71,3 +71,5 @@ Supabase is used for:
 - project submissions / service requests
 
 The `supabase/` directory includes migrations and the `send-service-request` edge function export from the original project.
+
+Apply `supabase/migrations/20260421110000_extend_site_settings_cms.sql` to enable the expanded Website Editor fields for homepage section copy, footer copy, social links, trust copy, and proof cards.

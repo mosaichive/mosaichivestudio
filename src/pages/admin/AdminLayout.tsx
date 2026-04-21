@@ -20,7 +20,7 @@ const navItems = [
   { to: '/admin/projects', icon: FolderKanban, label: 'Projects' },
   { to: '/admin/testimonials', icon: Quote, label: 'Testimonials' },
   { to: '/admin/logos', icon: Building2, label: 'Client Logos' },
-  { to: '/admin/settings', icon: Settings, label: 'Site Settings' },
+  { to: '/admin/settings', icon: Settings, label: 'Website Editor' },
   { to: '/admin/invites', icon: UserPlus, label: 'Admin Invites' },
 ];
 

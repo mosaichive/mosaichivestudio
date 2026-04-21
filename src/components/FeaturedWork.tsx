@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { useProjects } from '@/hooks/useStudioContent';
+import { useProjects, useSiteSettings } from '@/hooks/useStudioContent';
 import { Skeleton } from '@/components/ui/skeleton';
 import Reveal from '@/components/Reveal';
 
@@ -10,6 +10,11 @@ const FEATURED_SLUGS = ['salestallysystem', 'terraaidinternational', 'maggstrove
 
 const FeaturedWork = () => {
   const { data: projects, isLoading } = useProjects({ onlyPublished: true });
+  const { data: settings } = useSiteSettings();
+  const eyebrow = settings?.featured_eyebrow ?? 'Selected Work';
+  const headline = settings?.featured_headline ?? 'A small, considered selection.';
+  const ctaLabel = settings?.featured_cta_label ?? 'Browse the full index';
+  const ctaLink = settings?.featured_cta_link ?? '/portfolio';
 
   // Order by curated slugs, then fall back to featured/all
   const list = React.useMemo(() => {
@@ -33,16 +38,16 @@ const FeaturedWork = () => {
       <div className="container-editorial">
         <div className="grid lg:grid-cols-12 gap-8 mb-14 md:mb-20 items-end">
           <div className="lg:col-span-8">
-            <p className="eyebrow mb-6">Selected Work</p>
+            <p className="eyebrow mb-6">{eyebrow}</p>
             <h2 className="display-section text-foreground text-balance max-w-[20ch]">
-              A small, considered selection.
+              {headline}
             </h2>
           </div>
           <Link
-            to="/portfolio"
+            to={ctaLink}
             className="lg:col-span-4 lg:justify-self-end inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-foreground/30 pb-1 hover:border-secondary hover:text-secondary transition-colors self-end"
           >
-            Browse the full index <ArrowUpRight size={16} />
+            {ctaLabel} <ArrowUpRight size={16} />
           </Link>
         </div>
 

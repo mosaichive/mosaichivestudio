@@ -11,6 +11,15 @@ const Footer = () => {
   const email = settings?.contact_email ?? 'hello@mosaic06studio.com';
   const phone = settings?.contact_phone ?? '+233 20 298 5474';
   const address = settings?.contact_address ?? 'Accra, Ghana';
+  const body =
+    settings?.footer_body ??
+    'An independent creative studio building brands with craft, strategy and a long view.';
+  const ctaEyebrow = settings?.footer_cta_eyebrow ?? 'Start something';
+  const ctaBody = settings?.footer_cta_body ?? 'We take on a small number of projects each quarter.';
+  const ctaLabel = settings?.footer_cta_label ?? 'Start a Project';
+  const ctaLink = settings?.footer_cta_link ?? '/get-started';
+  const linkedin = settings?.social_linkedin ?? 'https://linkedin.com';
+  const instagram = settings?.social_instagram ?? 'https://instagram.com';
 
   return (
     <footer className="bg-primary text-primary-foreground">
@@ -27,8 +36,7 @@ const Footer = () => {
               <span className="font-display text-xl">Mosaic06 Studio</span>
             </Link>
             <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-md mb-8">
-              An independent creative studio building brands with craft,
-              strategy and a long view.
+              {body}
             </p>
             <div className="space-y-3 text-sm">
               <a href={`mailto:${email}`} className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
@@ -70,15 +78,15 @@ const Footer = () => {
 
           {/* CTA block */}
           <div className="lg:col-span-3">
-            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">Start something</p>
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">{ctaEyebrow}</p>
             <p className="text-primary-foreground/75 mb-6 leading-relaxed">
-              We take on a small number of projects each quarter.
+              {ctaBody}
             </p>
             <Link
-              to="/get-started"
+              to={ctaLink}
               className="group inline-flex items-center gap-2 px-5 py-3 bg-secondary text-secondary-foreground rounded-full text-sm font-medium hover:bg-secondary/90 transition-all"
             >
-              Start a Project
+              {ctaLabel}
               <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
@@ -90,10 +98,10 @@ const Footer = () => {
             © {new Date().getFullYear()} Mosaic06 Studio. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
-            <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+            <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-primary-foreground/60 hover:text-secondary transition-colors">
               <Linkedin size={18} />
             </a>
-            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+            <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-primary-foreground/60 hover:text-secondary transition-colors">
               <Instagram size={18} />
             </a>
             <Link to="#" className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors">Privacy</Link>

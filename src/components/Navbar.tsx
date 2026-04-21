@@ -3,6 +3,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import logo from '@/assets/logo.png';
+import { useSiteSettings } from '@/hooks/useStudioContent';
 
 const navLinks = [
   { name: 'Work', path: '/portfolio' },
@@ -18,6 +19,9 @@ const Navbar = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const { pathname } = useLocation();
+  const { data: settings } = useSiteSettings();
+  const ctaLabel = settings?.nav_cta_label ?? 'Start a project';
+  const ctaLink = settings?.nav_cta_link ?? '/get-started';
 
   useEffect(() => setMounted(true), []);
 
@@ -72,10 +76,10 @@ const Navbar = () => {
           </button>
 
           <Link
-            to="/get-started"
+            to={ctaLink}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
           >
-            Start a project
+            {ctaLabel}
             <ArrowUpRight size={14} />
           </Link>
 
@@ -107,10 +111,10 @@ const Navbar = () => {
             </Link>
           ))}
           <Link
-            to="/get-started"
+            to={ctaLink}
             className="mt-8 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-primary-foreground rounded-full font-medium"
           >
-            Start a project <ArrowUpRight size={16} />
+            {ctaLabel} <ArrowUpRight size={16} />
           </Link>
         </div>
       </div>

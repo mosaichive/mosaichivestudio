@@ -1,10 +1,17 @@
 import React from 'react';
-import { useClientLogos } from '@/hooks/useStudioContent';
+import { useClientLogos, useSiteSettings } from '@/hooks/useStudioContent';
 
 const TrustLogos = () => {
   const { data: logos } = useClientLogos({ onlyPublished: true });
+  const { data: settings } = useSiteSettings();
   const list = logos && logos.length > 0 ? logos : [];
   const doubled = [...list, ...list];
+  const eyebrow = settings?.trust_eyebrow ?? 'Selected Clients';
+  const headline =
+    settings?.trust_headline ?? 'Trusted by foundations, founders and ambitious teams.';
+  const body =
+    settings?.trust_body ??
+    "A small selection of partners we've shaped brand and digital work for.";
 
   if (list.length === 0) return null;
 
@@ -12,13 +19,13 @@ const TrustLogos = () => {
     <section className="py-20 md:py-28 bg-muted/30 overflow-hidden border-y border-border">
       <div className="container-editorial mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
         <div>
-          <p className="eyebrow mb-3">Selected Clients</p>
+          <p className="eyebrow mb-3">{eyebrow}</p>
           <h2 className="font-display text-3xl md:text-4xl text-foreground text-balance max-w-[22ch]">
-            Trusted by foundations, founders and ambitious teams.
+            {headline}
           </h2>
         </div>
         <p className="text-sm text-foreground/60 max-w-xs">
-          A small selection of partners we've shaped brand and digital work for.
+          {body}
         </p>
       </div>
       <div className="relative">
@@ -28,7 +35,7 @@ const TrustLogos = () => {
           {doubled.map((logo, i) => (
             <div
               key={`${logo.id}-${i}`}
-              className="flex items-center justify-center min-w-[140px] md:min-w-[180px] h-20 md:h-24 px-6 md:px-8 rounded-sm bg-background/70 dark:bg-background/40 border border-border/50"
+              className="flex items-center justify-center min-w-[140px] md:min-w-[180px] h-20 md:h-24 px-6 md:px-8 rounded-sm bg-background/70 dark:bg-white border border-border/50 dark:border-white/10"
             >
               {logo.logo_url ? (
                 <img
@@ -39,7 +46,7 @@ const TrustLogos = () => {
                   decoding="async"
                 />
               ) : (
-                <div className="font-display text-base md:text-lg tracking-[0.18em] text-foreground/80 whitespace-nowrap uppercase text-center">
+                <div className="font-display text-base md:text-lg tracking-[0.18em] text-foreground/80 dark:text-primary whitespace-nowrap uppercase text-center">
                   {logo.name}
                 </div>
               )}

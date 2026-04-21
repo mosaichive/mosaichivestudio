@@ -7,9 +7,18 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { AlertTriangle, Loader2 } from 'lucide-react';
+import {
+  asProofItems,
+  asTextList,
+  DEFAULT_STUDIO_CAPABILITIES,
+  getDefaultProofItems,
+  ProofItem,
+} from '@/lib/siteContent';
 
 const editableSettingFields = [
+  'nav_cta_label',
+  'nav_cta_link',
   'hero_eyebrow',
   'hero_headline',
   'hero_subheadline',
@@ -20,6 +29,20 @@ const editableSettingFields = [
   'about_eyebrow',
   'about_headline',
   'about_body',
+  'studio_capabilities',
+  'featured_eyebrow',
+  'featured_headline',
+  'featured_cta_label',
+  'featured_cta_link',
+  'proof_eyebrow',
+  'proof_headline',
+  'proof_highlight',
+  'proof_items',
+  'trust_eyebrow',
+  'trust_headline',
+  'trust_body',
+  'testimonials_eyebrow',
+  'testimonials_headline',
   'counter_projects',
   'counter_clients',
   'counter_years',
@@ -31,6 +54,13 @@ const editableSettingFields = [
   'cta_subheadline',
   'cta_button_label',
   'cta_button_link',
+  'footer_body',
+  'footer_cta_eyebrow',
+  'footer_cta_body',
+  'footer_cta_label',
+  'footer_cta_link',
+  'social_linkedin',
+  'social_instagram',
 ] as const satisfies readonly (keyof SiteSettingsRow)[];
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
@@ -50,11 +80,30 @@ const AdminSettings = () => {
   const { toast } = useToast();
   const [form, setForm] = useState<Partial<SiteSettingsRow>>({});
   const [saving, setSaving] = useState(false);
+  const supportedFields = new Set(Object.keys(data ?? {}));
+  const unsupportedAdvancedFields = editableSettingFields.filter((key) => !supportedFields.has(key));
+  const hasFullWebsiteSchema = unsupportedAdvancedFields.length === 0;
+  const capabilitiesText = asTextList(form.studio_capabilities, DEFAULT_STUDIO_CAPABILITIES).join('\n');
+  const proofItems = asProofItems(form.proof_items, getDefaultProofItems(form));
 
   useEffect(() => { if (data) setForm(data); }, [data]);
 
   const set = <K extends keyof SiteSettingsRow>(key: K, value: SiteSettingsRow[K]) =>
     setForm((f) => ({ ...f, [key]: value }));
+  const setList = (key: keyof SiteSettingsRow, value: string) =>
+    setForm((f) => ({
+      ...f,
+      [key]: value
+        .split('\n')
+        .map((item) => item.trim())
+        .filter(Boolean),
+    }));
+  const setProof = (index: number, key: keyof ProofItem, value: string) =>
+    setForm((f) => {
+      const items = asProofItems(f.proof_items, getDefaultProofItems(f)).map((item) => ({ ...item }));
+      items[index] = { ...items[index], [key]: value };
+      return { ...f, proof_items: items };
+    });
 
   const save = async () => {
     if (!form.id) {
@@ -68,9 +117,9 @@ const AdminSettings = () => {
 
     setSaving(true);
     const payload = editableSettingFields.reduce((acc, key) => {
-      acc[key] = form[key] ?? null;
+      if (supportedFields.has(key)) acc[key] = form[key] ?? null;
       return acc;
-    }, {} as Partial<SiteSettingsRow>);
+    }, {} as Record<string, unknown>);
 
     const { data: updated, error } = await supabase
       .from('site_settings')
@@ -97,7 +146,12 @@ const AdminSettings = () => {
     }
 
     await queryClient.invalidateQueries({ queryKey: ['site_settings'] });
-    toast({ title: 'Settings saved', description: 'The public site will update live in open tabs.' });
+    toast({
+      title: 'Settings saved',
+      description: hasFullWebsiteSchema
+        ? 'The public site will update live in open tabs.'
+        : 'Core settings saved. Apply the latest Supabase migration to unlock every homepage section.',
+    });
   };
 
   if (isLoading || !form.id) {
@@ -109,11 +163,31 @@ const AdminSettings = () => {
       <header className="flex items-center justify-between gap-6 flex-wrap">
         <div>
           <p className="eyebrow mb-2">Configuration</p>
-          <h1 className="font-display text-3xl md:text-4xl">Site settings</h1>
-          <p className="mt-2 text-sm text-foreground/60">Edit the copy and numbers used across the public site.</p>
+          <h1 className="font-display text-3xl md:text-4xl">Website editor</h1>
+          <p className="mt-2 text-sm text-foreground/60">Edit homepage copy, navigation, footer, contact details and conversion CTAs.</p>
         </div>
         <Button onClick={save} disabled={saving} size="lg">{saving && <Loader2 className="animate-spin" size={14} />} Save changes</Button>
       </header>
+
+      {!hasFullWebsiteSchema && (
+        <div className="luxe-card p-5 bg-secondary/10 border-secondary/30 flex gap-3 text-sm text-foreground/75">
+          <AlertTriangle className="text-secondary shrink-0 mt-0.5" size={18} />
+          <div>
+            <p className="font-medium text-foreground">Full website editing needs the latest Supabase migration.</p>
+            <p className="mt-1">
+              Core settings will save now. The new homepage-wide controls below become live after applying
+              <code className="mx-1 rounded bg-background px-1.5 py-0.5">20260421110000_extend_site_settings_cms.sql</code>.
+            </p>
+          </div>
+        </div>
+      )}
+
+      <Section title="Navigation">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Header CTA label"><Input value={form.nav_cta_label ?? 'Start a project'} onChange={(e) => set('nav_cta_label', e.target.value)} /></Field>
+          <Field label="Header CTA link"><Input value={form.nav_cta_link ?? '/get-started'} onChange={(e) => set('nav_cta_link', e.target.value)} /></Field>
+        </div>
+      </Section>
 
       <Section title="Hero section">
         <div className="grid sm:grid-cols-2 gap-4">
@@ -135,6 +209,51 @@ const AdminSettings = () => {
         <Field label="Body (one or more paragraphs, separated by line breaks)">
           <Textarea rows={6} value={form.about_body ?? ''} onChange={(e) => set('about_body', e.target.value)} />
         </Field>
+        <Field label="Capability list (one per line)">
+          <Textarea rows={5} value={capabilitiesText} onChange={(e) => setList('studio_capabilities', e.target.value)} />
+        </Field>
+      </Section>
+
+      <Section title="Selected Work section">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Eyebrow"><Input value={form.featured_eyebrow ?? 'Selected Work'} onChange={(e) => set('featured_eyebrow', e.target.value)} /></Field>
+          <Field label="CTA label"><Input value={form.featured_cta_label ?? 'Browse the full index'} onChange={(e) => set('featured_cta_label', e.target.value)} /></Field>
+          <div className="sm:col-span-2"><Field label="Headline"><Input value={form.featured_headline ?? 'A small, considered selection.'} onChange={(e) => set('featured_headline', e.target.value)} /></Field></div>
+          <div className="sm:col-span-2"><Field label="CTA link"><Input value={form.featured_cta_link ?? '/portfolio'} onChange={(e) => set('featured_cta_link', e.target.value)} /></Field></div>
+        </div>
+      </Section>
+
+      <Section title="Proof section">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Eyebrow"><Input value={form.proof_eyebrow ?? 'Proof, not promises'} onChange={(e) => set('proof_eyebrow', e.target.value)} /></Field>
+          <Field label="Gold highlight"><Input value={form.proof_highlight ?? '— and on your P&L.'} onChange={(e) => set('proof_highlight', e.target.value)} /></Field>
+          <div className="sm:col-span-2"><Field label="Headline"><Input value={form.proof_headline ?? 'Work that earns its place on your brand'} onChange={(e) => set('proof_headline', e.target.value)} /></Field></div>
+        </div>
+        <div className="grid lg:grid-cols-3 gap-4">
+          {proofItems.map((item, index) => (
+            <div key={index} className="rounded-lg border border-border p-4 space-y-3">
+              <p className="text-xs uppercase tracking-[0.2em] text-foreground/50">Proof card {index + 1}</p>
+              <Field label="Stat"><Input value={item.stat} onChange={(e) => setProof(index, 'stat', e.target.value)} /></Field>
+              <Field label="Label"><Input value={item.label} onChange={(e) => setProof(index, 'label', e.target.value)} /></Field>
+              <Field label="Body"><Textarea rows={4} value={item.body} onChange={(e) => setProof(index, 'body', e.target.value)} /></Field>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Client logo / trust section">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Eyebrow"><Input value={form.trust_eyebrow ?? 'Selected Clients'} onChange={(e) => set('trust_eyebrow', e.target.value)} /></Field>
+          <Field label="Headline"><Input value={form.trust_headline ?? 'Trusted by foundations, founders and ambitious teams.'} onChange={(e) => set('trust_headline', e.target.value)} /></Field>
+          <div className="sm:col-span-2"><Field label="Body"><Textarea rows={3} value={form.trust_body ?? "A small selection of partners we've shaped brand and digital work for."} onChange={(e) => set('trust_body', e.target.value)} /></Field></div>
+        </div>
+      </Section>
+
+      <Section title="Testimonials section">
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="Eyebrow"><Input value={form.testimonials_eyebrow ?? 'In Their Words'} onChange={(e) => set('testimonials_eyebrow', e.target.value)} /></Field>
+          <Field label="Headline"><Input value={form.testimonials_headline ?? 'What it feels like to work with us.'} onChange={(e) => set('testimonials_headline', e.target.value)} /></Field>
+        </div>
       </Section>
 
       <Section title="Counters">
@@ -151,6 +270,20 @@ const AdminSettings = () => {
           <Field label="Email"><Input value={form.contact_email ?? ''} onChange={(e) => set('contact_email', e.target.value)} /></Field>
           <Field label="Phone"><Input value={form.contact_phone ?? ''} onChange={(e) => set('contact_phone', e.target.value)} /></Field>
           <div className="sm:col-span-2"><Field label="Address"><Input value={form.contact_address ?? ''} onChange={(e) => set('contact_address', e.target.value)} /></Field></div>
+        </div>
+      </Section>
+
+      <Section title="Footer">
+        <Field label="Footer body">
+          <Textarea rows={3} value={form.footer_body ?? 'An independent creative studio building brands with craft, strategy and a long view.'} onChange={(e) => set('footer_body', e.target.value)} />
+        </Field>
+        <div className="grid sm:grid-cols-2 gap-4">
+          <Field label="CTA eyebrow"><Input value={form.footer_cta_eyebrow ?? 'Start something'} onChange={(e) => set('footer_cta_eyebrow', e.target.value)} /></Field>
+          <Field label="CTA label"><Input value={form.footer_cta_label ?? 'Start a Project'} onChange={(e) => set('footer_cta_label', e.target.value)} /></Field>
+          <Field label="CTA link"><Input value={form.footer_cta_link ?? '/get-started'} onChange={(e) => set('footer_cta_link', e.target.value)} /></Field>
+          <Field label="LinkedIn URL"><Input value={form.social_linkedin ?? 'https://linkedin.com'} onChange={(e) => set('social_linkedin', e.target.value)} /></Field>
+          <Field label="Instagram URL"><Input value={form.social_instagram ?? 'https://instagram.com'} onChange={(e) => set('social_instagram', e.target.value)} /></Field>
+          <div className="sm:col-span-2"><Field label="CTA body"><Textarea rows={3} value={form.footer_cta_body ?? 'We take on a small number of projects each quarter.'} onChange={(e) => set('footer_cta_body', e.target.value)} /></Field></div>
         </div>
       </Section>
 

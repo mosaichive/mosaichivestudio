@@ -47,7 +47,7 @@ const ClientsPage = () => {
               {list.map((c) => (
                 <Reveal.Item
                   key={c.id}
-                  className="bg-background flex items-center justify-center p-8 md:p-10 aspect-[4/3]"
+                  className="bg-background dark:bg-white flex items-center justify-center p-8 md:p-10 aspect-[4/3]"
                 >
                   {c.logo_url ? (
                     <img
@@ -58,7 +58,7 @@ const ClientsPage = () => {
                       className="max-h-16 md:max-h-20 w-auto object-contain"
                     />
                   ) : (
-                    <p className="font-display text-base md:text-lg text-foreground/80 text-center tracking-wide">
+                    <p className="font-display text-base md:text-lg text-foreground/80 dark:text-primary text-center tracking-wide">
                       {c.name}
                     </p>
                   )}

@@ -192,6 +192,15 @@ export type Database = {
           cta_button_link: string | null
           cta_headline: string | null
           cta_subheadline: string | null
+          featured_cta_label: string | null
+          featured_cta_link: string | null
+          featured_eyebrow: string | null
+          featured_headline: string | null
+          footer_body: string | null
+          footer_cta_body: string | null
+          footer_cta_eyebrow: string | null
+          footer_cta_label: string | null
+          footer_cta_link: string | null
           hero_cta_primary_label: string | null
           hero_cta_primary_link: string | null
           hero_cta_secondary_label: string | null
@@ -200,6 +209,20 @@ export type Database = {
           hero_headline: string | null
           hero_subheadline: string | null
           id: string
+          nav_cta_label: string | null
+          nav_cta_link: string | null
+          proof_eyebrow: string | null
+          proof_headline: string | null
+          proof_highlight: string | null
+          proof_items: Json | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          studio_capabilities: Json | null
+          testimonials_eyebrow: string | null
+          testimonials_headline: string | null
+          trust_body: string | null
+          trust_eyebrow: string | null
+          trust_headline: string | null
           updated_at: string
         }
         Insert: {
@@ -217,6 +240,15 @@ export type Database = {
           cta_button_link?: string | null
           cta_headline?: string | null
           cta_subheadline?: string | null
+          featured_cta_label?: string | null
+          featured_cta_link?: string | null
+          featured_eyebrow?: string | null
+          featured_headline?: string | null
+          footer_body?: string | null
+          footer_cta_body?: string | null
+          footer_cta_eyebrow?: string | null
+          footer_cta_label?: string | null
+          footer_cta_link?: string | null
           hero_cta_primary_label?: string | null
           hero_cta_primary_link?: string | null
           hero_cta_secondary_label?: string | null
@@ -225,6 +257,20 @@ export type Database = {
           hero_headline?: string | null
           hero_subheadline?: string | null
           id?: string
+          nav_cta_label?: string | null
+          nav_cta_link?: string | null
+          proof_eyebrow?: string | null
+          proof_headline?: string | null
+          proof_highlight?: string | null
+          proof_items?: Json | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          studio_capabilities?: Json | null
+          testimonials_eyebrow?: string | null
+          testimonials_headline?: string | null
+          trust_body?: string | null
+          trust_eyebrow?: string | null
+          trust_headline?: string | null
           updated_at?: string
         }
         Update: {
@@ -242,6 +288,15 @@ export type Database = {
           cta_button_link?: string | null
           cta_headline?: string | null
           cta_subheadline?: string | null
+          featured_cta_label?: string | null
+          featured_cta_link?: string | null
+          featured_eyebrow?: string | null
+          featured_headline?: string | null
+          footer_body?: string | null
+          footer_cta_body?: string | null
+          footer_cta_eyebrow?: string | null
+          footer_cta_label?: string | null
+          footer_cta_link?: string | null
           hero_cta_primary_label?: string | null
           hero_cta_primary_link?: string | null
           hero_cta_secondary_label?: string | null
@@ -250,6 +305,20 @@ export type Database = {
           hero_headline?: string | null
           hero_subheadline?: string | null
           id?: string
+          nav_cta_label?: string | null
+          nav_cta_link?: string | null
+          proof_eyebrow?: string | null
+          proof_headline?: string | null
+          proof_highlight?: string | null
+          proof_items?: Json | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          studio_capabilities?: Json | null
+          testimonials_eyebrow?: string | null
+          testimonials_headline?: string | null
+          trust_body?: string | null
+          trust_eyebrow?: string | null
+          trust_headline?: string | null
           updated_at?: string
         }
         Relationships: []

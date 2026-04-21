@@ -1,20 +1,23 @@
 import React from 'react';
 import { Quote } from 'lucide-react';
-import { useTestimonials } from '@/hooks/useStudioContent';
+import { useSiteSettings, useTestimonials } from '@/hooks/useStudioContent';
 import { Skeleton } from '@/components/ui/skeleton';
 import Reveal from '@/components/Reveal';
 
 const Testimonials = () => {
   const { data: testimonials, isLoading } = useTestimonials({ onlyPublished: true });
+  const { data: settings } = useSiteSettings();
   const featured = (testimonials ?? []).slice(0, 2);
+  const eyebrow = settings?.testimonials_eyebrow ?? 'In Their Words';
+  const headline = settings?.testimonials_headline ?? 'What it feels like to work with us.';
 
   return (
     <section className="py-28 md:py-36 bg-background" id="testimonials">
       <div className="container-editorial">
         <div className="max-w-3xl mb-16 md:mb-20">
-          <p className="eyebrow mb-6">In Their Words</p>
+          <p className="eyebrow mb-6">{eyebrow}</p>
           <h2 className="display-section text-foreground text-balance">
-            What it feels like to work with us.
+            {headline}
           </h2>
         </div>
 

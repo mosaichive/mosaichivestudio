@@ -37,7 +37,7 @@ const AdminDashboard = () => {
         <StatCard label="Projects" value={projects?.length ?? '—'} to="/admin/projects" icon={FolderKanban} />
         <StatCard label="Testimonials" value={testimonials?.length ?? '—'} to="/admin/testimonials" icon={Quote} />
         <StatCard label="Client Logos" value={logos?.length ?? '—'} to="/admin/logos" icon={Building2} />
-        <StatCard label="Site Settings" value="Edit" to="/admin/settings" icon={Settings} />
+        <StatCard label="Website Editor" value="Edit" to="/admin/settings" icon={Settings} />
       </div>
 
       <section className="luxe-card p-8 bg-card">
@@ -45,7 +45,7 @@ const AdminDashboard = () => {
         <ul className="space-y-3 text-sm text-foreground/70 mt-4">
           <li>• <strong className="text-foreground">Projects</strong> — create case studies with cover, gallery, results, and drag to reorder.</li>
           <li>• <strong className="text-foreground">Featured</strong> projects appear in the homepage "Selected Work" grid.</li>
-          <li>• <strong className="text-foreground">Site Settings</strong> control hero, about, counters, contact and CTA copy site-wide.</li>
+          <li>• <strong className="text-foreground">Website Editor</strong> controls homepage copy, navigation CTA, footer, counters, contact and page CTAs.</li>
           <li>• <strong className="text-foreground">Invites</strong> let you grant admin access to other team members by email.</li>
         </ul>
       </section>

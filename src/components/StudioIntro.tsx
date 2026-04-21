@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { useSiteSettings } from '@/hooks/useStudioContent';
+import { asTextList, DEFAULT_STUDIO_CAPABILITIES } from '@/lib/siteContent';
 
 const StudioIntro = () => {
   const { data: settings } = useSiteSettings();
@@ -12,6 +13,7 @@ const StudioIntro = () => {
   const body =
     settings?.about_body ??
     'Mosaic06 is a small, senior team based in Accra. We work across identity, websites, campaigns, motion and product experiences — shaping work with taste, intent, and a quiet sense of craft. The brands we build are easier to trust and harder to ignore.';
+  const capabilities = asTextList(settings?.studio_capabilities, DEFAULT_STUDIO_CAPABILITIES);
 
   return (
     <section className="py-28 md:py-36 bg-background border-t border-border/60" id="studio">
@@ -41,14 +43,7 @@ const StudioIntro = () => {
 
             {/* Capabilities strip — replaces the boxed services grid */}
             <ul className="pt-6 grid grid-cols-2 sm:grid-cols-3 gap-x-8 gap-y-3 text-base text-foreground/80">
-              {[
-                'Identity systems',
-                'Websites',
-                'Campaigns',
-                'Motion',
-                'Content',
-                'Product interfaces',
-              ].map((cap) => (
+              {capabilities.map((cap) => (
                 <li key={cap} className="flex items-center gap-2">
                   <span className="w-1 h-1 rounded-full bg-secondary" />
                   {cap}

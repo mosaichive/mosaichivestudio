@@ -49,6 +49,8 @@ export interface ClientLogoRow {
 
 export interface SiteSettingsRow {
   id: string;
+  nav_cta_label?: string | null;
+  nav_cta_link?: string | null;
   hero_eyebrow: string | null;
   hero_headline: string | null;
   hero_subheadline: string | null;
@@ -59,6 +61,20 @@ export interface SiteSettingsRow {
   about_eyebrow: string | null;
   about_headline: string | null;
   about_body: string | null;
+  studio_capabilities?: unknown;
+  featured_eyebrow?: string | null;
+  featured_headline?: string | null;
+  featured_cta_label?: string | null;
+  featured_cta_link?: string | null;
+  proof_eyebrow?: string | null;
+  proof_headline?: string | null;
+  proof_highlight?: string | null;
+  proof_items?: unknown;
+  trust_eyebrow?: string | null;
+  trust_headline?: string | null;
+  trust_body?: string | null;
+  testimonials_eyebrow?: string | null;
+  testimonials_headline?: string | null;
   counter_projects: number | null;
   counter_clients: number | null;
   counter_years: number | null;
@@ -70,6 +86,13 @@ export interface SiteSettingsRow {
   cta_subheadline: string | null;
   cta_button_label: string | null;
   cta_button_link: string | null;
+  footer_body?: string | null;
+  footer_cta_eyebrow?: string | null;
+  footer_cta_body?: string | null;
+  footer_cta_label?: string | null;
+  footer_cta_link?: string | null;
+  social_linkedin?: string | null;
+  social_instagram?: string | null;
   updated_at: string;
 }
 
