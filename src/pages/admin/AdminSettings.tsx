@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSiteSettings, SiteSettingsRow } from '@/hooks/useStudioContent';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
@@ -8,8 +9,33 @@ import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2 } from 'lucide-react';
 
+const editableSettingFields = [
+  'hero_eyebrow',
+  'hero_headline',
+  'hero_subheadline',
+  'hero_cta_primary_label',
+  'hero_cta_primary_link',
+  'hero_cta_secondary_label',
+  'hero_cta_secondary_link',
+  'about_eyebrow',
+  'about_headline',
+  'about_body',
+  'counter_projects',
+  'counter_clients',
+  'counter_years',
+  'counter_brands',
+  'contact_email',
+  'contact_phone',
+  'contact_address',
+  'cta_headline',
+  'cta_subheadline',
+  'cta_button_label',
+  'cta_button_link',
+] as const satisfies readonly (keyof SiteSettingsRow)[];
+
 const AdminSettings = () => {
   const { data, isLoading } = useSiteSettings();
+  const queryClient = useQueryClient();
   const { toast } = useToast();
   const [form, setForm] = useState<Partial<SiteSettingsRow>>({});
   const [saving, setSaving] = useState(false);
@@ -20,13 +46,47 @@ const AdminSettings = () => {
     setForm((f) => ({ ...f, [key]: value }));
 
   const save = async () => {
-    if (!form.id) return;
+    if (!form.id) {
+      toast({
+        title: 'Nothing to save',
+        description: 'The settings row was not found. Refresh the page and try again.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
     setSaving(true);
-    const { id, ...payload } = form;
-    const { error } = await supabase.from('site_settings').update(payload).eq('id', id);
+    const payload = editableSettingFields.reduce((acc, key) => {
+      acc[key] = form[key] ?? null;
+      return acc;
+    }, {} as Partial<SiteSettingsRow>);
+
+    const { data: updated, error } = await supabase
+      .from('site_settings')
+      .update(payload)
+      .eq('id', form.id)
+      .select('id')
+      .maybeSingle();
+
     setSaving(false);
-    if (error) toast({ title: 'Failed', description: error.message, variant: 'destructive' });
-    else toast({ title: 'Settings saved — site updates live' });
+
+    if (error) {
+      toast({ title: 'Failed to save settings', description: error.message, variant: 'destructive' });
+      return;
+    }
+
+    if (!updated) {
+      toast({
+        title: 'Settings were not saved',
+        description:
+          'Supabase accepted the request but did not update a row. Your account may be missing the admin/editor role.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    await queryClient.invalidateQueries({ queryKey: ['site_settings'] });
+    toast({ title: 'Settings saved', description: 'The public site will update live in open tabs.' });
   };
 
   if (isLoading || !form.id) {

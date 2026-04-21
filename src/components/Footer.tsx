@@ -2,8 +2,16 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { useSiteSettings } from '@/hooks/useStudioContent';
+
+const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const Footer = () => {
+  const { data: settings } = useSiteSettings();
+  const email = settings?.contact_email ?? 'hello@mosaic06studio.com';
+  const phone = settings?.contact_phone ?? '+233 20 298 5474';
+  const address = settings?.contact_address ?? 'Accra, Ghana';
+
   return (
     <footer className="bg-primary text-primary-foreground">
       <div className="container-editorial pt-20 pb-12">
@@ -23,17 +31,17 @@ const Footer = () => {
               strategy and a long view.
             </p>
             <div className="space-y-3 text-sm">
-              <a href="mailto:hello@mosaic06studio.com" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
+              <a href={`mailto:${email}`} className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
                 <Mail size={16} className="text-secondary" />
-                hello@mosaic06studio.com
+                {email}
               </a>
-              <a href="tel:+233202985474" className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
+              <a href={getPhoneHref(phone)} className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
                 <Phone size={16} className="text-secondary" />
-                +233 20 298 5474
+                {phone}
               </a>
               <div className="flex items-center gap-3 text-primary-foreground/80">
                 <MapPin size={16} className="text-secondary" />
-                Accra, Ghana
+                {address}
               </div>
             </div>
           </div>

@@ -5,8 +5,16 @@ import InquiryForm from '@/components/InquiryForm';
 import Reveal from '@/components/Reveal';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { useSiteSettings } from '@/hooks/useStudioContent';
+
+const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const ContactPage = () => {
+  const { data: settings } = useSiteSettings();
+  const email = settings?.contact_email ?? 'hello@mosaic06studio.com';
+  const phone = settings?.contact_phone ?? '+233 20 298 5474';
+  const address = settings?.contact_address ?? 'Accra, Ghana';
+
   useSEO({
     title: 'Contact · Mosaic06 Studio',
     description:
@@ -41,8 +49,8 @@ const ContactPage = () => {
                   <Mail className="w-5 h-5 text-secondary mt-1" />
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Email</p>
-                    <a href="mailto:hello@mosaic06studio.com" className="hover:text-secondary transition-colors">
-                      hello@mosaic06studio.com
+                    <a href={`mailto:${email}`} className="hover:text-secondary transition-colors">
+                      {email}
                     </a>
                   </div>
                 </div>
@@ -50,8 +58,8 @@ const ContactPage = () => {
                   <Phone className="w-5 h-5 text-secondary mt-1" />
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Phone</p>
-                    <a href="tel:+233202985474" className="hover:text-secondary transition-colors">
-                      +233 20 298 5474
+                    <a href={getPhoneHref(phone)} className="hover:text-secondary transition-colors">
+                      {phone}
                     </a>
                   </div>
                 </div>
@@ -59,7 +67,7 @@ const ContactPage = () => {
                   <MapPin className="w-5 h-5 text-secondary mt-1" />
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Studio</p>
-                    Accra, Ghana
+                    {address}
                   </div>
                 </div>
                 <div className="flex items-start gap-4">

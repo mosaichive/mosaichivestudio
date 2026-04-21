@@ -70,6 +70,7 @@ export interface SiteSettingsRow {
   cta_subheadline: string | null;
   cta_button_label: string | null;
   cta_button_link: string | null;
+  updated_at: string;
 }
 
 /* -------- Projects -------- */
