@@ -24,9 +24,6 @@ import CareersPage from "./pages/CareersPage";
 import PortfolioSubmissionPage from "./pages/PortfolioSubmissionPage";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
-import MarketplacePage from "./pages/MarketplacePage";
-import MarketplaceAuthPage from "./pages/MarketplaceAuthPage";
-import MarketplaceAccountPage from "./pages/MarketplaceAccountPage";
 import AdminLayout from "./pages/admin/AdminLayout";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProjects from "./pages/admin/AdminProjects";
@@ -64,9 +61,6 @@ const AnimatedRoutes = () => {
         <Route path="/podcast" element={T(<PodcastPage />)} />
         <Route path="/careers" element={T(<CareersPage />)} />
         <Route path="/portfolio-submission" element={T(<PortfolioSubmissionPage />)} />
-        <Route path="/marketplace" element={T(<MarketplacePage />)} />
-        <Route path="/marketplace/auth" element={T(<MarketplaceAuthPage />)} />
-        <Route path="/marketplace/account" element={T(<MarketplaceAccountPage />)} />
 
         {/* Auth + Admin (no transition wrapper for admin children) */}
         <Route path="/auth" element={T(<AuthPage />)} />
