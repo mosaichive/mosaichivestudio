@@ -4,10 +4,12 @@ import { Menu, X, Sun, Moon, ArrowUpRight } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import logo from '@/assets/logo.png';
 import { useSiteSettings } from '@/hooks/useStudioContent';
+import { useAuth } from '@/context/AuthContext';
 
 const navLinks = [
   { name: 'Work', path: '/portfolio' },
   { name: 'Services', path: '/services' },
+  { name: 'Marketplace', path: '/marketplace' },
   { name: 'Studio', path: '/about' },
   { name: 'Journal', path: '/blog' },
   { name: 'Contact', path: '/contact' },
@@ -20,8 +22,11 @@ const Navbar = () => {
   const [mounted, setMounted] = useState(false);
   const { pathname } = useLocation();
   const { data: settings } = useSiteSettings();
+  const { user, isAdmin } = useAuth();
   const ctaLabel = settings?.nav_cta_label ?? 'Start a project';
   const ctaLink = settings?.nav_cta_link ?? '/get-started';
+  const hubLink = user ? (isAdmin ? '/admin' : '/marketplace/account') : '/marketplace/auth';
+  const hubLabel = user ? (isAdmin ? 'Admin' : 'Hub account') : 'Login / Join';
 
   useEffect(() => setMounted(true), []);
 
@@ -73,6 +78,13 @@ const Navbar = () => {
           </button>
 
           <Link
+            to={hubLink}
+            className="hidden md:inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-full text-sm font-medium text-foreground/75 hover:text-foreground hover:border-foreground/20 transition-colors"
+          >
+            {hubLabel}
+          </Link>
+
+          <Link
             to={ctaLink}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
           >
@@ -112,6 +124,12 @@ const Navbar = () => {
             className="mt-8 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-primary-foreground rounded-full font-medium"
           >
             {ctaLabel} <ArrowUpRight size={16} />
+          </Link>
+          <Link
+            to={hubLink}
+            className="inline-flex items-center justify-center gap-2 px-6 py-4 border border-border rounded-full font-medium text-foreground/80"
+          >
+            {hubLabel}
           </Link>
         </div>
       </div>

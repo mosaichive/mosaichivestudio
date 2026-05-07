@@ -3,6 +3,11 @@ import { Session, User } from '@supabase/supabase-js';
 import { supabase } from '@/integrations/supabase/client';
 
 type Role = 'admin' | 'editor';
+type SignUpOptions = {
+  displayName?: string;
+  redirectTo?: string;
+  metadata?: Record<string, unknown>;
+};
 
 interface AuthContextValue {
   user: User | null;
@@ -11,7 +16,11 @@ interface AuthContextValue {
   isAdmin: boolean;
   loading: boolean;
   signIn: (email: string, password: string) => Promise<{ error: Error | null }>;
-  signUp: (email: string, password: string) => Promise<{ error: Error | null }>;
+  signUp: (
+    email: string,
+    password: string,
+    options?: SignUpOptions,
+  ) => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -67,11 +76,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return { error: error as Error | null };
   };
 
-  const signUp = async (email: string, password: string) => {
+  const signUp = async (email: string, password: string, options?: SignUpOptions) => {
+    const metadata = { ...(options?.metadata ?? {}) };
+    if (options?.displayName && !metadata.display_name) {
+      metadata.display_name = options.displayName;
+    }
+
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo: `${window.location.origin}/admin` },
+      options: {
+        emailRedirectTo: `${window.location.origin}${options?.redirectTo ?? '/admin'}`,
+        data: metadata,
+      },
     });
     return { error: error as Error | null };
   };
@@ -98,6 +115,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useAuth = () => {
   const ctx = useContext(AuthContext);
   if (!ctx) throw new Error('useAuth must be used inside AuthProvider');
