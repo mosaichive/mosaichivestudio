@@ -15,6 +15,7 @@ import * as z from 'zod';
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2 } from 'lucide-react';
 import { submitLeadNotification } from '@/lib/leadNotifications';
+import { useSEO } from '@/hooks/useSEO';
 
 // Define portfolio form schema
 const portfolioFormSchema = z.object({
@@ -67,6 +68,14 @@ const experienceLevels = [
 const PortfolioSubmissionPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useSEO({
+    title: 'Submit Your Portfolio · Mosaic06 Studio',
+    description:
+      'Share your portfolio, creative specialization and experience with Mosaic06 Studio for future collaboration opportunities.',
+    path: '/portfolio-submission',
+  });
+
   const form = useForm<z.infer<typeof portfolioFormSchema>>({
     resolver: zodResolver(portfolioFormSchema),
     defaultValues: {

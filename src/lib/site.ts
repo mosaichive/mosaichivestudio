@@ -1,4 +1,8 @@
-const FALLBACK_SITE_URL = 'https://mosaichive.vercel.app';
+const FALLBACK_SITE_URL = 'https://mosaic06studio.design';
+
+export const SITE_NAME = 'Mosaic06 Studio';
+export const SITE_TWITTER_HANDLE = '@mosaic06studio';
+export const DEFAULT_SOCIAL_IMAGE_PATH = '/logo-favicon.png';
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, '');
 
@@ -15,4 +19,4 @@ export const getSiteUrl = () => {
 
 export const getAbsoluteUrl = (path = '/') => new URL(path, `${getSiteUrl()}/`).toString();
 
-export const getDefaultSocialImageUrl = () => getAbsoluteUrl('/logo-favicon.png');
+export const getDefaultSocialImageUrl = () => getAbsoluteUrl(DEFAULT_SOCIAL_IMAGE_PATH);

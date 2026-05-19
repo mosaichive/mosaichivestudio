@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate, Navigate, Link } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Loader2 } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { useSEO } from '@/hooks/useSEO';
 
 const AuthPage = () => {
   const { user, isAdmin, loading, signIn, signUp, signOut } = useAuth();
@@ -17,9 +18,12 @@ const AuthPage = () => {
   const [password, setPassword] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  useEffect(() => {
-    document.title = 'Studio Admin · Mosaic06';
-  }, []);
+  useSEO({
+    title: 'Studio Admin · Mosaic06 Studio',
+    description: 'Private sign-in for the Mosaic06 Studio administration dashboard.',
+    path: '/auth',
+    noindex: true,
+  });
 
   if (!loading && user && isAdmin) return <Navigate to="/admin" replace />;
   if (!loading && user && !isAdmin) {

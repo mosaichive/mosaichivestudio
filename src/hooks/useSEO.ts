@@ -1,5 +1,10 @@
 import { useEffect } from 'react';
-import { getAbsoluteUrl, getDefaultSocialImageUrl } from '@/lib/site';
+import {
+  SITE_NAME,
+  SITE_TWITTER_HANDLE,
+  getAbsoluteUrl,
+  getDefaultSocialImageUrl,
+} from '@/lib/site';
 
 type SEO = {
   title: string;
@@ -8,6 +13,9 @@ type SEO = {
   path: string;
   ogTitle?: string;
   ogDescription?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
 };
 
 /**
@@ -15,7 +23,16 @@ type SEO = {
  * title + description. Routes that don't call this fall back to index.html
  * defaults.
  */
-export function useSEO({ title, description, path, ogTitle, ogDescription }: SEO) {
+export function useSEO({
+  title,
+  description,
+  path,
+  ogTitle,
+  ogDescription,
+  image,
+  type = 'website',
+  noindex = false,
+}: SEO) {
   useEffect(() => {
     document.title = title;
 
@@ -46,6 +63,7 @@ export function useSEO({ title, description, path, ogTitle, ogDescription }: SEO
     };
 
     const url = getAbsoluteUrl(path);
+    const resolvedImage = image || getDefaultSocialImageUrl();
     const canonical = ensure('link[rel="canonical"]', () => {
       const l = document.createElement('link');
       l.setAttribute('rel', 'canonical');
@@ -54,14 +72,24 @@ export function useSEO({ title, description, path, ogTitle, ogDescription }: SEO
     canonical.setAttribute('href', url);
 
     setMeta('description', description);
+    setMeta(
+      'robots',
+      noindex
+        ? 'noindex,nofollow'
+        : 'index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1'
+    );
     setOg('og:title', ogTitle ?? title);
     setOg('og:description', ogDescription ?? description);
-    setOg('og:type', 'website');
+    setOg('og:type', type);
+    setOg('og:site_name', SITE_NAME);
     setOg('og:url', url);
-    setOg('og:image', getDefaultSocialImageUrl());
+    setOg('og:image', resolvedImage);
+    setOg('og:image:alt', ogTitle ?? title);
     setMeta('twitter:title', ogTitle ?? title);
     setMeta('twitter:description', ogDescription ?? description);
-    setMeta('twitter:image', getDefaultSocialImageUrl());
+    setMeta('twitter:image', resolvedImage);
     setMeta('twitter:card', 'summary_large_image');
-  }, [title, description, path, ogTitle, ogDescription]);
+    setMeta('twitter:site', SITE_TWITTER_HANDLE);
+    setMeta('twitter:creator', SITE_TWITTER_HANDLE);
+  }, [title, description, path, ogTitle, ogDescription, image, noindex, type]);
 }

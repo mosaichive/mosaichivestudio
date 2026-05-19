@@ -1,8 +1,16 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useSEO } from "@/hooks/useSEO";
 
 const NotFound = () => {
   const location = useLocation();
+
+  useSEO({
+    title: 'Page Not Found · Mosaic06 Studio',
+    description: 'The page you requested could not be found.',
+    path: location.pathname,
+    noindex: true,
+  });
 
   useEffect(() => {
     console.error(

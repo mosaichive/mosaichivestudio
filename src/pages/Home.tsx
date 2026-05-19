@@ -10,7 +10,11 @@ import TrustLogos from '@/components/TrustLogos';
 import ConversionCTA from '@/components/ConversionCTA';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
-import { getAbsoluteUrl } from '@/lib/site';
+import {
+  SITE_NAME,
+  getAbsoluteUrl,
+  getDefaultSocialImageUrl,
+} from '@/lib/site';
 
 const Home = () => {
   useSEO({
@@ -40,14 +44,37 @@ const Home = () => {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            '@context': 'https://schema.org',
-            '@type': 'CreativeWork',
-            name: 'Mosaic06 Studio',
-            description:
-              'Editorial digital studio working across identity, websites, campaigns, motion and product experiences.',
-            url: getAbsoluteUrl('/'),
-          }),
+          __html: JSON.stringify([
+            {
+              '@context': 'https://schema.org',
+              '@type': 'Organization',
+              name: SITE_NAME,
+              url: getAbsoluteUrl('/'),
+              logo: getDefaultSocialImageUrl(),
+              image: getDefaultSocialImageUrl(),
+              email: 'mosaichive@gmail.com',
+              telephone: '+233544909011',
+              description:
+                'Editorial digital studio building identity systems, websites, campaigns, motion and product experiences for ambitious brands.',
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'WebSite',
+              name: SITE_NAME,
+              url: getAbsoluteUrl('/'),
+              inLanguage: 'en',
+            },
+            {
+              '@context': 'https://schema.org',
+              '@type': 'ProfessionalService',
+              name: SITE_NAME,
+              url: getAbsoluteUrl('/'),
+              image: getDefaultSocialImageUrl(),
+              areaServed: 'Worldwide',
+              description:
+                'Brand identity, websites, campaigns, motion, content and product interface design for ambitious organizations.',
+            },
+          ]),
         }}
       />
     </>

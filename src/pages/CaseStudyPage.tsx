@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams, Link, Navigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
@@ -7,59 +7,30 @@ import Footer from '@/components/Footer';
 import ConversionCTA from '@/components/ConversionCTA';
 import { useProject, useProjects } from '@/hooks/useStudioContent';
 import { getAbsoluteUrl } from '@/lib/site';
+import { useSEO } from '@/hooks/useSEO';
 
 const CaseStudyPage = () => {
   const { slug } = useParams();
   const { data: project, isLoading } = useProject(slug);
   const { data: allProjects } = useProjects({ onlyPublished: true });
 
-  useEffect(() => {
-    if (!project) return;
-    const url = getAbsoluteUrl(`/portfolio/${project.slug}`);
-    const title = `${project.client} — ${project.title} · Mosaic06 Studio`;
-    const description =
-      project.excerpt ??
-      `${project.title} — a ${project.categories?.[0]?.toLowerCase() ?? 'creative'} project by Mosaic06 Studio for ${project.client}.`;
+  const description =
+    project?.excerpt ??
+    (project
+      ? `${project.title} — a ${project.categories?.[0]?.toLowerCase() ?? 'creative'} project by Mosaic06 Studio for ${project.client}.`
+      : 'Selected work and case studies from Mosaic06 Studio.');
+  const title = project
+    ? `${project.client} — ${project.title} · Mosaic06 Studio`
+    : 'Selected Work · Mosaic06 Studio';
 
-    document.title = title;
-
-    const ensure = (selector: string, factory: () => HTMLElement) => {
-      let el = document.head.querySelector(selector) as HTMLElement | null;
-      if (!el) {
-        el = factory();
-        document.head.appendChild(el);
-      }
-      return el;
-    };
-    const setMeta = (name: string, content: string) => {
-      const el = ensure(`meta[name="${name}"]`, () => {
-        const m = document.createElement('meta');
-        m.setAttribute('name', name);
-        return m;
-      });
-      el.setAttribute('content', content);
-    };
-    const setOg = (property: string, content: string) => {
-      const el = ensure(`meta[property="${property}"]`, () => {
-        const m = document.createElement('meta');
-        m.setAttribute('property', property);
-        return m;
-      });
-      el.setAttribute('content', content);
-    };
-    const canonical = ensure('link[rel="canonical"]', () => {
-      const l = document.createElement('link');
-      l.setAttribute('rel', 'canonical');
-      return l;
-    });
-    canonical.setAttribute('href', url);
-    setMeta('description', description);
-    setOg('og:title', title);
-    setOg('og:description', description);
-    setOg('og:type', 'article');
-    setOg('og:url', url);
-    if (project.cover_url) setOg('og:image', project.cover_url);
-  }, [project]);
+  useSEO({
+    title,
+    description,
+    path: project ? `/portfolio/${project.slug}` : slug ? `/portfolio/${slug}` : '/portfolio',
+    image: project?.cover_url ?? undefined,
+    type: 'article',
+    noindex: !project && !isLoading,
+  });
 
   if (isLoading) {
     return (
@@ -78,6 +49,50 @@ const CaseStudyPage = () => {
   const list = allProjects ?? [];
   const idx = list.findIndex((c) => c.slug === project.slug);
   const next = list.length > 0 ? list[(idx + 1) % list.length] : null;
+  const caseStudyUrl = getAbsoluteUrl(`/portfolio/${project.slug}`);
+  const structuredData = [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'CreativeWork',
+      name: project.title,
+      headline: `${project.client} — ${project.title}`,
+      description,
+      url: caseStudyUrl,
+      image: project.cover_url ? [project.cover_url] : undefined,
+      creator: {
+        '@type': 'Organization',
+        name: 'Mosaic06 Studio',
+        url: getAbsoluteUrl('/'),
+      },
+      about: project.client,
+      dateCreated: project.created_at,
+      dateModified: project.updated_at,
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: getAbsoluteUrl('/'),
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: 'Selected Work',
+          item: getAbsoluteUrl('/portfolio'),
+        },
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: project.title,
+          item: caseStudyUrl,
+        },
+      ],
+    },
+  ];
 
   return (
     <>
@@ -318,6 +333,10 @@ const CaseStudyPage = () => {
         <ConversionCTA />
       </main>
       <Footer />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
     </>
   );
 };

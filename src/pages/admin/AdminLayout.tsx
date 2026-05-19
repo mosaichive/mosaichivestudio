@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navigate, Outlet, NavLink, useNavigate } from 'react-router-dom';
+import { Navigate, Outlet, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/button';
 import {
@@ -14,6 +14,7 @@ import {
   ExternalLink,
 } from 'lucide-react';
 import logo from '@/assets/logo.png';
+import { useSEO } from '@/hooks/useSEO';
 
 const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Overview', end: true },
@@ -26,7 +27,15 @@ const navItems = [
 
 const AdminLayout = () => {
   const { user, isAdmin, loading, signOut } = useAuth();
+  const location = useLocation();
   const navigate = useNavigate();
+
+  useSEO({
+    title: 'Studio Admin · Mosaic06 Studio',
+    description: 'Private administration area for Mosaic06 Studio content and site management.',
+    path: location.pathname,
+    noindex: true,
+  });
 
   if (loading) {
     return (

@@ -13,6 +13,7 @@ import { CheckCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import { submitLeadNotification } from '@/lib/leadNotifications';
+import { useSEO } from '@/hooks/useSEO';
 
 // Form schema
 const formSchema = z.object({
@@ -81,6 +82,13 @@ const getOptionLabel = (options: { value: string; label: string }[], value?: str
 const GetStartedPage = () => {
   const { toast } = useToast();
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useSEO({
+    title: 'Start a Project · Mosaic06 Studio',
+    description:
+      'Request branding, website, campaign, content or product design services from Mosaic06 Studio and share your project brief.',
+    path: '/get-started',
+  });
   
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

@@ -6,10 +6,22 @@ import { blogPosts } from '../data/blogPosts';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { Button } from '@/components/ui/button';
+import { useSEO } from '@/hooks/useSEO';
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const post = blogPosts.find(post => post.slug === slug);
+
+  useSEO({
+    title: post ? `${post.title} · Mosaic06 Studio` : 'Post Not Found · Mosaic06 Studio',
+    description: post
+      ? post.excerpt
+      : 'The journal entry you requested could not be found.',
+    path: slug ? `/blog/${slug}` : '/blog',
+    image: post?.image,
+    type: 'article',
+    noindex: !post,
+  });
 
   if (!post) {
     return (
