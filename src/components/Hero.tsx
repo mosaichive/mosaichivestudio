@@ -27,11 +27,11 @@ const Hero = () => {
     (projects ?? []).find((p) => HERO_PROJECT_SLUGS.includes(p.slug) && p.cover_url) ??
     (projects ?? []).find((p) => !!p.cover_url);
 
-  const eyebrow = settings?.hero_eyebrow ?? 'Mosaic06 Studio — Accra';
+  const eyebrow = settings?.hero_eyebrow ?? 'Mosaic06 Studio — Accra, Ghana';
   const headline = settings?.hero_headline ?? 'Brands and digital experiences people remember.';
   const subheadline =
     settings?.hero_subheadline ??
-    'An editorial digital studio working across identity, web, campaigns, motion and product — for ambitious brands and mission-led businesses.';
+    'A branding, web design and creative campaign studio in Accra, Ghana, building identity systems, websites, motion and digital products for ambitious brands and institutions.';
   const ctaPrimaryLabel = settings?.hero_cta_primary_label ?? 'View selected work';
   const ctaPrimaryLink = settings?.hero_cta_primary_link ?? '/portfolio';
   const ctaSecondaryLabel = settings?.hero_cta_secondary_label ?? 'Start a project';

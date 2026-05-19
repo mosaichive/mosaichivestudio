@@ -32,9 +32,9 @@ const principles = [
 
 const AboutPage = () => {
   useSEO({
-    title: 'Studio · Mosaic06',
+    title: 'About Mosaic06 Studio | Creative Agency in Accra, Ghana',
     description:
-      'Mosaic06 is a multidisciplinary creative organization in Accra working with ambitious brands and mission-led teams across identity, web, campaigns and product.',
+      'Learn about Mosaic06 Studio, a creative agency in Accra, Ghana working across brand identity, website design, campaigns, motion and digital product experiences.',
     path: '/about',
   });
 
@@ -54,9 +54,9 @@ const AboutPage = () => {
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
               <p className="text-lg text-foreground/70 leading-relaxed">
-                Mosaic06 is an independent creative organization based in Accra, working with
-                founders, foundations and senior in-house teams. We build brand systems, digital
-                platforms and campaigns with strategic depth from start to finish.
+                Mosaic06 is an independent creative agency based in Accra, Ghana, working with
+                founders, foundations and senior in-house teams. We build brand identity systems,
+                digital platforms and campaigns with strategic depth from start to finish.
               </p>
             </Reveal>
           </div>
@@ -70,6 +70,10 @@ const AboutPage = () => {
               <h2 className="display-section text-foreground text-balance">
                 Calm, considered, work-led.
               </h2>
+              <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
+                We bring strategy, branding, web design and campaign thinking together so the work
+                is coherent from the first brief to the live experience.
+              </p>
             </Reveal>
             <Reveal.Stagger className="lg:col-span-7 lg:col-start-6 divide-y divide-border/60 border-y border-border/60">
               {principles.map((p) => (

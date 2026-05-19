@@ -16,9 +16,9 @@ const ContactPage = () => {
   const address = settings?.contact_address ?? 'Accra, Ghana';
 
   useSEO({
-    title: 'Contact · Mosaic06 Studio',
+    title: 'Contact Mosaic06 Studio | Creative Agency in Accra, Ghana',
     description:
-      'Tell us about your next project. Mosaic06 replies to every serious inquiry within one working day.',
+      'Contact Mosaic06 Studio in Accra, Ghana for brand identity, web design, campaigns, motion and digital product inquiries.',
     path: '/contact',
   });
 
@@ -34,8 +34,9 @@ const ContactPage = () => {
               <span className="gold-text">next project.</span>
             </h1>
             <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
-              We reply to every serious inquiry within one working day. Share as
-              much or as little as you like — we'll take it from there.
+              We reply to every serious inquiry within one working day. If you need branding,
+              website design, campaign creative or product design support, share the brief and
+              we&apos;ll take it from there.
             </p>
           </Reveal>
 

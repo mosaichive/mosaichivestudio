@@ -38,12 +38,12 @@ const PortfolioGrid = () => {
           <Reveal className="max-w-3xl">
             <p className="eyebrow mb-6">Selected Work</p>
             <h1 className="display-section text-foreground text-balance">
-              A decade of work for brands who care{' '}
-              <span className="gold-text">how it looks.</span>
+              Branding, websites and campaigns that move{' '}
+              <span className="gold-text">brands forward.</span>
             </h1>
             <p className="mt-6 text-lg text-foreground/70 leading-relaxed max-w-2xl">
-              Identity systems, brand films, marketing sites and launch campaigns —
-              built across hospitality, fashion, fintech, non-profit and culture.
+              Brand identity systems, website design, launch campaigns and digital product work
+              delivered from Accra, Ghana across hospitality, fashion, fintech, non-profit and culture.
             </p>
           </Reveal>
         </div>

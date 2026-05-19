@@ -51,9 +51,9 @@ const PodcastPage = () => {
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   useSEO({
-    title: 'Podcast · Mosaic06 Studio',
+    title: 'Podcast | Branding, Founders & Creative Practice',
     description:
-      'A forthcoming Mosaic06 podcast on creative practice, founders and the work of building brands worth remembering.',
+      'A forthcoming Mosaic06 Studio podcast on branding, creative practice, founders and the work of building organizations worth remembering.',
     path: '/podcast',
   });
 

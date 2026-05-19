@@ -8,9 +8,9 @@ import { useSEO } from '@/hooks/useSEO';
 
 const PortfolioPage = () => {
   useSEO({
-    title: 'Selected Work · Mosaic06 Studio',
+    title: 'Portfolio | Branding, Web Design & Campaign Projects | Mosaic06 Studio',
     description:
-      'A selection of identity systems, websites, campaigns and digital products designed and built by Mosaic06 Studio.',
+      'Browse branding, website design, campaign and digital product projects delivered by Mosaic06 Studio in Accra, Ghana and beyond.',
     path: '/portfolio',
   });
 

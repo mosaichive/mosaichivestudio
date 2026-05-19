@@ -9,9 +9,9 @@ import { useSEO } from '@/hooks/useSEO';
 
 const CareersPage = () => {
   useSEO({
-    title: 'Careers · Mosaic06 Studio',
+    title: 'Careers | Mosaic06 Studio',
     description:
-      'Mosaic06 is a growing creative organization. We are not actively hiring right now, but we keep a curated network of designers, writers and engineers we admire.',
+      'Career opportunities and portfolio submissions for designers, writers, motion artists and engineers who want to work with Mosaic06 Studio.',
     path: '/careers',
   });
 

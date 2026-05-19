@@ -7,9 +7,9 @@ import { useSEO } from '@/hooks/useSEO';
 
 const JournalPage = () => {
   useSEO({
-    title: 'Journal · Mosaic06 Studio',
+    title: 'Journal | Branding, Web Design & Creative Strategy Insights',
     description:
-      'Notes from the studio on identity, editorial design, web craft and the work we make for ambitious brands. New writing coming soon.',
+      'Insights from Mosaic06 Studio on branding, web design, editorial systems, campaigns and creative strategy. New writing coming soon.',
     path: '/blog',
   });
 

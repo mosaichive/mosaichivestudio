@@ -9,10 +9,10 @@ const StudioIntro = () => {
   const { data: settings } = useSiteSettings();
   const eyebrow = settings?.about_eyebrow ?? 'The Studio';
   const headline =
-    settings?.about_headline ?? 'An editorial digital studio for ambitious brands.';
+    settings?.about_headline ?? 'A branding and digital studio for ambitious organizations.';
   const body =
     settings?.about_body ??
-    'Mosaic06 is a multidisciplinary creative organization based in Accra. We work across identity, websites, campaigns, motion and product experiences — shaping brand systems with strategic clarity, cultural intelligence and exceptional craft. The brands we build are easier to trust and harder to ignore.';
+    'Mosaic06 is a multidisciplinary creative agency based in Accra, Ghana. We deliver brand identity design, website design, campaign creative, motion and product experiences with strategic clarity, cultural intelligence and exceptional craft. The brands and platforms we build are easier to trust, easier to use and harder to ignore.';
   const capabilities = asTextList(settings?.studio_capabilities, DEFAULT_STUDIO_CAPABILITIES);
 
   return (

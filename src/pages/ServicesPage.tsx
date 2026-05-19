@@ -113,9 +113,9 @@ const ServicesPage = () => {
   const { serviceId } = useParams();
 
   useSEO({
-    title: 'Capabilities · Mosaic06 Studio',
+    title: 'Branding, Web Design & Creative Services in Accra, Ghana | Mosaic06 Studio',
     description:
-      'Mosaic06 is a multidisciplinary creative organization working across identity, websites, campaigns, motion, content and product interfaces for ambitious brands.',
+      'Explore Mosaic06 Studio services across brand identity, website design, campaign creative, motion, content and product design for organizations in Accra, Ghana and beyond.',
     path: '/services',
   });
 
@@ -138,14 +138,14 @@ const ServicesPage = () => {
               <Reveal as="div" className="lg:col-span-8">
                 <p className="eyebrow mb-8">Capabilities</p>
                 <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
-                  Identity, web and campaigns shaped with{' '}
+                  Brand identity, website design and campaigns shaped with{' '}
                   <span className="italic text-secondary">taste and intent</span>.
                 </h1>
               </Reveal>
               <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
                 <p className="text-lg text-foreground/70 leading-relaxed max-w-md">
-                  A multidisciplinary creative organization working with ambitious brands,
-                  institutions and mission-led teams. Strategic by design, built for serious outcomes.
+                  A creative agency in Accra, Ghana working across branding, web design,
+                  campaigns, motion and digital product experiences. Strategic by design, built for serious outcomes.
                 </p>
                 <div className="flex flex-wrap gap-3">
                   <Link
@@ -178,6 +178,10 @@ const ServicesPage = () => {
               <h2 className="display-section text-foreground text-balance">
                 Six disciplines, one integrated creative partner.
               </h2>
+              <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
+                Clients usually come to us when they need a branding agency in Accra, a web design
+                studio in Ghana, or a campaign partner that can carry strategy into execution.
+              </p>
             </Reveal>
 
             <Reveal.Stagger className="divide-y divide-border/60 border-y border-border/60">

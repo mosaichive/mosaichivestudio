@@ -24,9 +24,9 @@ const team = [
 
 const TeamPage = () => {
   useSEO({
-    title: 'Team · Mosaic06 Studio',
+    title: 'Team | Mosaic06 Studio, Accra Creative Agency',
     description:
-      'The leadership and specialist network behind Mosaic06 — creative direction, strategy and craft applied to every engagement.',
+      'Meet the leadership and specialist network behind Mosaic06 Studio, a creative agency in Accra, Ghana.',
     path: '/team',
   });
 

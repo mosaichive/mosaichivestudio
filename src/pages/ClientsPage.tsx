@@ -10,9 +10,9 @@ import { useSEO } from '@/hooks/useSEO';
 
 const ClientsPage = () => {
   useSEO({
-    title: 'Clients · Mosaic06 Studio',
+    title: 'Clients & Partners | Mosaic06 Studio',
     description:
-      'Foundations, founders and ambitious teams Mosaic06 has shaped brand and digital work for.',
+      'See the foundations, founders and organizations that trust Mosaic06 Studio for brand, web and campaign work.',
     path: '/clients',
   });
 

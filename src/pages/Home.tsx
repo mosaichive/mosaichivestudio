@@ -18,9 +18,9 @@ import {
 
 const Home = () => {
   useSEO({
-    title: 'Mosaic06 Studio · Editorial digital studio for ambitious brands',
+    title: 'Branding & Web Design Agency in Accra, Ghana | Mosaic06 Studio',
     description:
-      'Mosaic06 is an editorial digital studio working across identity, websites, campaigns, motion, content and product interfaces for ambitious brands and mission-led teams.',
+      'Mosaic06 Studio is a creative agency in Accra, Ghana delivering brand identity, website design, campaigns, motion and digital product experiences for ambitious organizations.',
     path: '/',
   });
 
@@ -54,8 +54,13 @@ const Home = () => {
               image: getDefaultSocialImageUrl(),
               email: 'mosaichive@gmail.com',
               telephone: '+233544909011',
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Accra',
+                addressCountry: 'GH',
+              },
               description:
-                'Editorial digital studio building identity systems, websites, campaigns, motion and product experiences for ambitious brands.',
+                'Creative agency in Accra, Ghana building identity systems, websites, campaigns, motion and digital product experiences.',
             },
             {
               '@context': 'https://schema.org',
@@ -70,9 +75,14 @@ const Home = () => {
               name: SITE_NAME,
               url: getAbsoluteUrl('/'),
               image: getDefaultSocialImageUrl(),
-              areaServed: 'Worldwide',
+              areaServed: ['Accra', 'Ghana', 'Worldwide'],
+              address: {
+                '@type': 'PostalAddress',
+                addressLocality: 'Accra',
+                addressCountry: 'GH',
+              },
               description:
-                'Brand identity, websites, campaigns, motion, content and product interface design for ambitious organizations.',
+                'Brand identity design, website design, campaign creative, motion and digital product design for ambitious organizations in Ghana and beyond.',
             },
           ]),
         }}
