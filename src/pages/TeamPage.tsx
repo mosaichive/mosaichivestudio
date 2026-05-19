@@ -28,6 +28,7 @@ const TeamPage = () => {
     description:
       'Meet the leadership and specialist network behind Mosaic06 Studio, a creative agency in Accra, Ghana.',
     path: '/team',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio team', 'creative agency team Accra'],
   });
 
   return (

@@ -13,6 +13,7 @@ const CareersPage = () => {
     description:
       'Career opportunities and portfolio submissions for designers, writers, motion artists and engineers who want to work with Mosaic06 Studio.',
     path: '/careers',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio careers', 'creative jobs Accra', 'design portfolio Ghana'],
   });
 
   return (

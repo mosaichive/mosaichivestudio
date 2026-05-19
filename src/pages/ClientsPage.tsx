@@ -14,6 +14,7 @@ const ClientsPage = () => {
     description:
       'See the foundations, founders and organizations that trust Mosaic06 Studio for brand, web and campaign work.',
     path: '/clients',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio clients', 'creative agency Ghana clients'],
   });
 
   const { data: logos } = useClientLogos({ onlyPublished: true });

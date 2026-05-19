@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import {
+  DEFAULT_SITE_KEYWORDS,
   SITE_NAME,
   SITE_TWITTER_HANDLE,
   getAbsoluteUrl,
@@ -16,6 +17,7 @@ type SEO = {
   image?: string;
   type?: 'website' | 'article';
   noindex?: boolean;
+  keywords?: string[] | string;
 };
 
 /**
@@ -32,6 +34,7 @@ export function useSEO({
   image,
   type = 'website',
   noindex = false,
+  keywords,
 }: SEO) {
   useEffect(() => {
     document.title = title;
@@ -64,6 +67,16 @@ export function useSEO({
 
     const url = getAbsoluteUrl(path);
     const resolvedImage = image || getDefaultSocialImageUrl();
+    const keywordList = Array.from(
+      new Set([
+        ...DEFAULT_SITE_KEYWORDS,
+        ...(Array.isArray(keywords)
+          ? keywords
+          : typeof keywords === 'string'
+            ? keywords.split(',')
+            : []),
+      ].map((value) => value.trim()).filter(Boolean))
+    );
     const canonical = ensure('link[rel="canonical"]', () => {
       const l = document.createElement('link');
       l.setAttribute('rel', 'canonical');
@@ -72,6 +85,7 @@ export function useSEO({
     canonical.setAttribute('href', url);
 
     setMeta('description', description);
+    setMeta('keywords', keywordList.join(', '));
     setMeta(
       'robots',
       noindex
@@ -91,5 +105,5 @@ export function useSEO({
     setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:site', SITE_TWITTER_HANDLE);
     setMeta('twitter:creator', SITE_TWITTER_HANDLE);
-  }, [title, description, path, ogTitle, ogDescription, image, noindex, type]);
+  }, [title, description, path, ogTitle, ogDescription, image, keywords, noindex, type]);
 }

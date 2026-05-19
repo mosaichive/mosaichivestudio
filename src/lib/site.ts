@@ -3,6 +3,16 @@ const FALLBACK_SITE_URL = 'https://www.mosaic06studio.design';
 export const SITE_NAME = 'Mosaic06 Studio';
 export const SITE_TWITTER_HANDLE = '@mosaic06studio';
 export const DEFAULT_SOCIAL_IMAGE_PATH = '/logo-favicon.png';
+export const DEFAULT_SITE_KEYWORDS = [
+  'Mosaic Hive',
+  'Mosaic06 Studio',
+  'branding agency Accra',
+  'web design Ghana',
+  'creative agency Accra',
+  'brand identity design Ghana',
+  'website design Accra',
+  'campaign creative Ghana',
+];
 
 const trimTrailingSlash = (value: string) => value.replace(/\/+$/, '');
 

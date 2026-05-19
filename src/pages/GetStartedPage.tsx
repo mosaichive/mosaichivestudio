@@ -88,6 +88,7 @@ const GetStartedPage = () => {
     description:
       'Request branding, website, campaign, content or product design services from Mosaic06 Studio and share your project brief.',
     path: '/get-started',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio project inquiry', 'hire branding agency Accra', 'website design quote Ghana'],
   });
   
   const form = useForm<z.infer<typeof formSchema>>({

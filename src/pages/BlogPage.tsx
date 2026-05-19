@@ -11,6 +11,7 @@ const JournalPage = () => {
     description:
       'Insights from Mosaic06 Studio on branding, web design, editorial systems, campaigns and creative strategy. New writing coming soon.',
     path: '/blog',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio journal', 'branding insights Ghana', 'web design insights Accra'],
   });
 
   return (

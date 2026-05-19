@@ -12,6 +12,12 @@ const PortfolioPage = () => {
     description:
       'Browse branding, website design, campaign and digital product projects delivered by Mosaic06 Studio in Accra, Ghana and beyond.',
     path: '/portfolio',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio portfolio',
+      'branding portfolio Ghana',
+      'web design portfolio Accra',
+    ],
   });
 
   return (

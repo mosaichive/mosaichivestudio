@@ -55,6 +55,7 @@ const PodcastPage = () => {
     description:
       'A forthcoming Mosaic06 Studio podcast on branding, creative practice, founders and the work of building organizations worth remembering.',
     path: '/podcast',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio podcast', 'branding podcast Ghana', 'creative practice podcast'],
   });
 
   const setField = (key: keyof typeof emptyPodcastGuestForm, value: string) => {

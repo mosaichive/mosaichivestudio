@@ -74,6 +74,7 @@ const PortfolioSubmissionPage = () => {
     description:
       'Share your portfolio, creative specialization and experience with Mosaic06 Studio for future collaboration opportunities.',
     path: '/portfolio-submission',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio portfolio submission', 'creative portfolio Ghana'],
   });
 
   const form = useForm<z.infer<typeof portfolioFormSchema>>({

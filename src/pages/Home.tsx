@@ -22,6 +22,13 @@ const Home = () => {
     description:
       'Mosaic06 Studio is a creative agency in Accra, Ghana delivering brand identity, website design, campaigns, motion and digital product experiences for ambitious organizations.',
     path: '/',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio',
+      'branding agency in Accra',
+      'web design agency Ghana',
+      'creative agency Ghana',
+    ],
   });
 
   return (
@@ -49,6 +56,7 @@ const Home = () => {
               '@context': 'https://schema.org',
               '@type': 'Organization',
               name: SITE_NAME,
+              alternateName: ['Mosaic Hive', 'Mosaic06 Studio'],
               url: getAbsoluteUrl('/'),
               logo: getDefaultSocialImageUrl(),
               image: getDefaultSocialImageUrl(),

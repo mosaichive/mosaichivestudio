@@ -20,6 +20,12 @@ const ContactPage = () => {
     description:
       'Contact Mosaic06 Studio in Accra, Ghana for brand identity, web design, campaigns, motion and digital product inquiries.',
     path: '/contact',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio contact',
+      'contact creative agency Accra',
+      'branding agency Ghana contact',
+    ],
   });
 
   return (

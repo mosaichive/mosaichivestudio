@@ -36,6 +36,12 @@ const AboutPage = () => {
     description:
       'Learn about Mosaic06 Studio, a creative agency in Accra, Ghana working across brand identity, website design, campaigns, motion and digital product experiences.',
     path: '/about',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio',
+      'about Mosaic06 Studio',
+      'creative agency Accra Ghana',
+    ],
   });
 
   return (

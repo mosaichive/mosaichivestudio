@@ -30,6 +30,15 @@ const CaseStudyPage = () => {
     image: project?.cover_url ?? undefined,
     type: 'article',
     noindex: !project && !isLoading,
+    keywords: project
+      ? [
+          'Mosaic Hive',
+          'Mosaic06 Studio',
+          `${project.client} case study`,
+          `${project.title} project`,
+          ...(project.categories ?? []).map((category) => `${category} project Ghana`),
+        ]
+      : ['Mosaic Hive', 'Mosaic06 Studio', 'creative case studies Ghana'],
   });
 
   if (isLoading) {

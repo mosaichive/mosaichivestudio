@@ -117,6 +117,13 @@ const ServicesPage = () => {
     description:
       'Explore Mosaic06 Studio services across brand identity, website design, campaign creative, motion, content and product design for organizations in Accra, Ghana and beyond.',
     path: '/services',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio',
+      'branding services Accra',
+      'web design services Ghana',
+      'creative agency services Ghana',
+    ],
   });
 
   // Legacy /services/:serviceId routes (graphic-design, video-editing, etc.)

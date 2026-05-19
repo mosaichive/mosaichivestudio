@@ -29,6 +29,7 @@ const getStaticPages = () => [
   { path: '/services' },
   { path: '/about' },
   { path: '/portfolio' },
+  { path: '/blog' },
   { path: '/contact' },
   { path: '/clients' },
   { path: '/team' },
