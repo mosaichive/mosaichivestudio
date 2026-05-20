@@ -7,6 +7,7 @@ Use this as the source of truth when you set up or update the Google Business Pr
 - Business name: `Mosaic06 Studio`
 - Alternate brand mention: `Mosaic Hive`
 - Website: `https://www.mosaic06studio.design/`
+- Google Business Profile link: `https://share.google/DPzT7qUd7xR8XlSAC`
 - Contact email: `mosaichive@gmail.com`
 - Contact phone: `+233 54 490 9011`
 - Location: `Accra, Greater Accra Region, Ghana`
@@ -16,6 +17,8 @@ Use this as the source of truth when you set up or update the Google Business Pr
 Important:
 - Keep these details exactly aligned between the website, Google Business Profile, social profiles, proposals, invoices, and email signatures.
 - In Google Business Profile, choose the closest real category options available in your region. Category availability can vary by country and business type.
+- Use the Google Business Profile link above anywhere you want to share the live profile publicly.
+- If Google gives you a separate direct review link later, use that specific review URL inside review-request messages for the best conversion.
 
 ## Business description
 
@@ -102,7 +105,7 @@ Use these after a successful project, launch, or delivery milestone.
 
 ### WhatsApp or SMS
 
-`Hi [Name], thank you again for trusting Mosaic06 Studio on [project name]. If you found the experience valuable, would you mind leaving us a short Google review? It really helps new clients understand the quality of our work. Review link: [insert Google review link]`
+`Hi [Name], thank you again for trusting Mosaic06 Studio on [project name]. If you found the experience valuable, would you mind leaving us a short Google review? It really helps new clients understand the quality of our work. Profile link: https://share.google/DPzT7qUd7xR8XlSAC`
 
 ### Short email
 
@@ -112,7 +115,7 @@ Subject: `Quick favor from Mosaic06 Studio`
 
 `Thank you again for working with Mosaic06 Studio on [project name]. If you were happy with the process and outcome, we would really appreciate a short Google review. It helps future clients feel more confident about reaching out to us.`
 
-`You can leave it here: [insert Google review link]`
+`You can start here: https://share.google/DPzT7qUd7xR8XlSAC`
 
 `Thank you,`
 
@@ -120,7 +123,7 @@ Subject: `Quick favor from Mosaic06 Studio`
 
 ### Post-project review ask
 
-`Hi [Name], now that [project name] is live, I wanted to ask one small favor. If the work and experience felt strong from your side, would you leave Mosaic06 Studio a short Google review? Even two or three honest lines would help a lot. Review link: [insert Google review link]`
+`Hi [Name], now that [project name] is live, I wanted to ask one small favor. If the work and experience felt strong from your side, would you leave Mosaic06 Studio a short Google review? Even two or three honest lines would help a lot. Profile link: https://share.google/DPzT7qUd7xR8XlSAC`
 
 ## Review reply templates
 
@@ -209,3 +212,7 @@ Once the profile is live:
 3. Reply to every review professionally.
 4. Keep the phone, address, hours and website perfectly consistent everywhere.
 5. Update photos and services whenever the studio offer evolves.
+
+Current public profile link:
+
+- `https://share.google/DPzT7qUd7xR8XlSAC`
