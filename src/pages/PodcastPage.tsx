@@ -20,6 +20,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { STUDIO_EMAIL } from '@/lib/studioProfile';
 
 const podcastGuestSchema = z.object({
   name: z.string().trim().min(2, 'Please enter your name').max(100),
@@ -112,7 +113,7 @@ const PodcastPage = () => {
       const message =
         error instanceof Error
           ? error.message
-          : 'Please try again or email hello@mosaic06studio.com directly.';
+          : `Please try again or email ${STUDIO_EMAIL} directly.`;
       toast({ title: 'Something went wrong', description: message, variant: 'destructive' });
     } finally {
       setSubmitting(false);

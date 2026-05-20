@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import InquiryForm from '@/components/InquiryForm';
@@ -6,14 +7,17 @@ import Reveal from '@/components/Reveal';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
 import { useSiteSettings } from '@/hooks/useStudioContent';
+import { buildContactStructuredData, getStudioProfile, STUDIO_HOURS_LABEL } from '@/lib/studioProfile';
+import { useStructuredData } from '@/hooks/useStructuredData';
 
 const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const ContactPage = () => {
   const { data: settings } = useSiteSettings();
-  const email = settings?.contact_email ?? 'hello@mosaic06studio.com';
-  const phone = settings?.contact_phone ?? '+233 20 298 5474';
-  const address = settings?.contact_address ?? 'Accra, Ghana';
+  const profile = getStudioProfile(settings);
+  const email = profile.email;
+  const phone = profile.phone;
+  const address = profile.address;
 
   useSEO({
     title: 'Contact Mosaic06 Studio | Creative Agency in Accra, Ghana',
@@ -28,6 +32,8 @@ const ContactPage = () => {
     ],
   });
 
+  useStructuredData(buildContactStructuredData(settings));
+
   return (
     <>
       <Navbar />
@@ -41,8 +47,8 @@ const ContactPage = () => {
             </h1>
             <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
               We reply to every serious inquiry within one working day. If you need branding,
-              website design, campaign creative or product design support, share the brief and
-              we&apos;ll take it from there.
+              website design, campaign creative or product design support in Accra, across Ghana,
+              or remotely, share the brief and we&apos;ll take it from there.
             </p>
           </Reveal>
 
@@ -81,7 +87,7 @@ const ContactPage = () => {
                   <Clock className="w-5 h-5 text-secondary mt-1" />
                   <div>
                     <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Hours</p>
-                    Mon–Fri · 9am – 6pm GMT
+                    {STUDIO_HOURS_LABEL}
                   </div>
                 </div>
               </div>
@@ -92,6 +98,25 @@ const ContactPage = () => {
                   Send the form first — we'll book a 30-minute discovery call once
                   we have the basics.
                 </p>
+              </div>
+
+              <div className="p-6 rounded-2xl bg-muted/40 border border-border space-y-4">
+                <p className="font-display text-xl">Based in Accra, serving Ghana.</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  If you found us through local search, these pages are the clearest route into the
+                  part of the studio you need.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <Link to="/branding-agency-accra" className="block hover:text-secondary transition-colors">
+                    Branding agency in Accra
+                  </Link>
+                  <Link to="/web-design-ghana" className="block hover:text-secondary transition-colors">
+                    Web design in Ghana
+                  </Link>
+                  <Link to="/creative-agency-ghana" className="block hover:text-secondary transition-colors">
+                    Creative agency in Ghana
+                  </Link>
+                </div>
               </div>
             </Reveal>
           </div>

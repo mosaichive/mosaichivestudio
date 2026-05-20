@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { STUDIO_ADDRESS, STUDIO_EMAIL, STUDIO_PHONE } from '@/lib/studioProfile';
 
 const Contact = () => {
   return (
@@ -87,8 +88,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium">Email Us</p>
-                    <a href="mailto:info@mosaic06studio.com" className="text-mosaic-secondary hover:underline">
-                      info@mosaic06studio.com
+                    <a href={`mailto:${STUDIO_EMAIL}`} className="text-mosaic-secondary hover:underline">
+                      {STUDIO_EMAIL}
                     </a>
                   </div>
                 </div>
@@ -99,8 +100,8 @@ const Contact = () => {
                   </div>
                   <div>
                     <p className="font-medium">Call Us</p>
-                    <a href="tel:+233202985474" className="text-mosaic-secondary hover:underline">
-                      +233 20 298 5474
+                    <a href="tel:+233544909011" className="text-mosaic-secondary hover:underline">
+                      {STUDIO_PHONE}
                     </a>
                   </div>
                 </div>
@@ -112,8 +113,7 @@ const Contact = () => {
                   <div>
                     <p className="font-medium">Visit Us</p>
                     <p className="text-foreground/80">
-                      123 Marketing Street, East Legon,<br />
-                      Accra, Ghana
+                      {STUDIO_ADDRESS}
                     </p>
                   </div>
                 </div>

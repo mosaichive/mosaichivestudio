@@ -4,14 +4,16 @@ import { Mail, Phone, MapPin, Linkedin, Instagram, ArrowUpRight } from 'lucide-r
 import logo from '@/assets/logo.png';
 import { useSiteSettings } from '@/hooks/useStudioContent';
 import { seoLandingPages } from '@/data/seoLandingPages';
+import { getStudioProfile } from '@/lib/studioProfile';
 
 const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const Footer = () => {
   const { data: settings } = useSiteSettings();
-  const email = settings?.contact_email ?? 'hello@mosaic06studio.com';
-  const phone = settings?.contact_phone ?? '+233 20 298 5474';
-  const address = settings?.contact_address ?? 'Accra, Ghana';
+  const profile = getStudioProfile(settings);
+  const email = profile.email;
+  const phone = profile.phone;
+  const address = profile.address;
   const body =
     settings?.footer_body ??
     'An independent creative studio building brands with craft, strategy and a long view.';
@@ -21,8 +23,8 @@ const Footer = () => {
     'We partner with ambitious teams on work that deserves strategic depth and excellent execution.';
   const ctaLabel = settings?.footer_cta_label ?? 'Start a Project';
   const ctaLink = settings?.footer_cta_link ?? '/get-started';
-  const linkedin = settings?.social_linkedin ?? 'https://linkedin.com';
-  const instagram = settings?.social_instagram ?? 'https://instagram.com';
+  const linkedin = profile.socialLinks.find((item) => item.includes('linkedin.com')) ?? 'https://linkedin.com';
+  const instagram = profile.socialLinks.find((item) => item.includes('instagram.com')) ?? 'https://instagram.com';
 
   return (
     <footer className="bg-primary text-primary-foreground">

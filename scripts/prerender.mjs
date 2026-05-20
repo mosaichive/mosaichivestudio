@@ -21,6 +21,25 @@ const DEFAULT_KEYWORDS = [
   'website design Accra',
   'campaign creative Ghana',
 ];
+const DEFAULT_CONTACT_EMAIL = 'mosaichive@gmail.com';
+const DEFAULT_CONTACT_PHONE = '+233 54 490 9011';
+const DEFAULT_CONTACT_PHONE_COMPACT = '+233544909011';
+const DEFAULT_CONTACT_ADDRESS = 'Accra, Greater Accra Region, Ghana';
+const DEFAULT_POSTAL_ADDRESS = {
+  '@type': 'PostalAddress',
+  addressLocality: 'Accra',
+  addressRegion: 'Greater Accra Region',
+  addressCountry: 'GH',
+};
+const DEFAULT_OPENING_HOURS = [
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+    opens: '09:00',
+    closes: '18:00',
+  },
+];
+const DEFAULT_SERVICE_AREAS = ['Accra', 'Greater Accra Region', 'Ghana', 'Worldwide'];
 
 const trimTrailingSlash = (value) => String(value || '').replace(/\/+$/, '');
 const getSiteUrl = () => trimTrailingSlash(process.env.VITE_SITE_URL || FALLBACK_SITE_URL);
@@ -373,13 +392,9 @@ function createStaticPages(projects) {
           url: toAbsoluteUrl('/'),
           logo: getDefaultImage(),
           image: getDefaultImage(),
-          email: 'mosaichive@gmail.com',
-          telephone: '+233544909011',
-          address: {
-            '@type': 'PostalAddress',
-            addressLocality: 'Accra',
-            addressCountry: 'GH',
-          },
+          email: DEFAULT_CONTACT_EMAIL,
+          telephone: DEFAULT_CONTACT_PHONE_COMPACT,
+          address: DEFAULT_POSTAL_ADDRESS,
         },
         {
           '@context': 'https://schema.org',
@@ -387,7 +402,21 @@ function createStaticPages(projects) {
           name: 'Mosaic06 Studio',
           alternateName: ['Mosaic Hive'],
           url: toAbsoluteUrl('/'),
-          areaServed: ['Accra', 'Ghana', 'Worldwide'],
+          email: DEFAULT_CONTACT_EMAIL,
+          telephone: DEFAULT_CONTACT_PHONE_COMPACT,
+          address: DEFAULT_POSTAL_ADDRESS,
+          areaServed: DEFAULT_SERVICE_AREAS,
+          openingHoursSpecification: DEFAULT_OPENING_HOURS,
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              contactType: 'sales',
+              email: DEFAULT_CONTACT_EMAIL,
+              telephone: DEFAULT_CONTACT_PHONE_COMPACT,
+              areaServed: ['GH'],
+              availableLanguage: ['en'],
+            },
+          ],
           description:
             'Brand identity design, website design, campaign creative, motion and digital product design for ambitious organizations.',
         },
@@ -874,17 +903,20 @@ function createStaticPages(projects) {
       eyebrow: 'Contact the Studio',
       heading: 'Tell us about your next brand, website or campaign project.',
       intro:
-        'If you need a branding agency in Accra, a web design partner in Ghana, or a campaign studio for a serious launch, send the outline and we will reply with honest next steps.',
+        'If you need a branding agency in Accra, a web design partner in Ghana, or a campaign studio for a serious launch, send the outline and we will reply with honest next steps from our Accra base.',
       sections: [
         {
           title: 'Get in touch',
           paragraphs: [
-            'Email: mosaichive@gmail.com',
-            'Phone: +233 54 490 9011',
-            'Location: Accra, Ghana',
+            `Email: ${DEFAULT_CONTACT_EMAIL}`,
+            `Phone: ${DEFAULT_CONTACT_PHONE}`,
+            `Location: ${DEFAULT_CONTACT_ADDRESS}`,
+            'Studio hours: Mon–Fri · 9am – 6pm GMT',
           ],
           links: [
             { href: '/get-started', label: 'Use the project inquiry form' },
+            { href: '/branding-agency-accra', label: 'See local branding agency page' },
+            { href: '/web-design-ghana', label: 'See local web design page' },
           ],
         },
       ],
@@ -902,6 +934,31 @@ function createStaticPages(projects) {
           url: toAbsoluteUrl('/contact'),
           description:
             'Contact details and inquiry routes for Mosaic06 Studio in Accra, Ghana.',
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Mosaic06 Studio',
+          alternateName: ['Mosaic Hive'],
+          url: toAbsoluteUrl('/'),
+          image: getDefaultImage(),
+          email: DEFAULT_CONTACT_EMAIL,
+          telephone: DEFAULT_CONTACT_PHONE_COMPACT,
+          address: DEFAULT_POSTAL_ADDRESS,
+          areaServed: DEFAULT_SERVICE_AREAS,
+          openingHoursSpecification: DEFAULT_OPENING_HOURS,
+          contactPoint: [
+            {
+              '@type': 'ContactPoint',
+              contactType: 'customer support',
+              url: toAbsoluteUrl('/contact'),
+              email: DEFAULT_CONTACT_EMAIL,
+              telephone: DEFAULT_CONTACT_PHONE_COMPACT,
+              availableLanguage: ['en'],
+            },
+          ],
+          description:
+            'Mosaic06 Studio is an Accra-based creative agency delivering branding, web design, campaigns, motion and digital product experiences.',
         },
         buildBreadcrumbList([
           { name: 'Home', url: toAbsoluteUrl('/') },

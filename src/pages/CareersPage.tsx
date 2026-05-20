@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ConversionCTA from '@/components/ConversionCTA';
 import Reveal from '@/components/Reveal';
 import { useSEO } from '@/hooks/useSEO';
+import { STUDIO_EMAIL } from '@/lib/studioProfile';
 
 const CareersPage = () => {
   useSEO({
@@ -61,10 +62,10 @@ const CareersPage = () => {
                 <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
               <a
-                href="mailto:hello@mosaic06studio.com"
+                href={`mailto:${STUDIO_EMAIL}`}
                 className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/25 text-foreground rounded-full font-medium hover:bg-foreground/5 transition-all"
               >
-                hello@mosaic06studio.com
+                {STUDIO_EMAIL}
               </a>
             </Reveal>
           </div>

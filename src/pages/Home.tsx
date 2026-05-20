@@ -11,13 +11,12 @@ import ConversionCTA from '@/components/ConversionCTA';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import { useStructuredData } from '@/hooks/useStructuredData';
-import {
-  SITE_NAME,
-  getAbsoluteUrl,
-  getDefaultSocialImageUrl,
-} from '@/lib/site';
+import { useSiteSettings } from '@/hooks/useStudioContent';
+import { buildHomeStructuredData } from '@/lib/studioProfile';
 
 const Home = () => {
+  const { data: settings } = useSiteSettings();
+
   useSEO({
     title: 'Branding & Web Design Agency in Accra, Ghana | Mosaic06 Studio',
     description:
@@ -32,48 +31,7 @@ const Home = () => {
     ],
   });
 
-  useStructuredData([
-    {
-      '@context': 'https://schema.org',
-      '@type': 'Organization',
-      name: SITE_NAME,
-      alternateName: ['Mosaic Hive', 'Mosaic06 Studio'],
-      url: getAbsoluteUrl('/'),
-      logo: getDefaultSocialImageUrl(),
-      image: getDefaultSocialImageUrl(),
-      email: 'mosaichive@gmail.com',
-      telephone: '+233544909011',
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Accra',
-        addressCountry: 'GH',
-      },
-      description:
-        'Creative agency in Accra, Ghana building identity systems, websites, campaigns, motion and digital product experiences.',
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: SITE_NAME,
-      url: getAbsoluteUrl('/'),
-      inLanguage: 'en',
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'ProfessionalService',
-      name: SITE_NAME,
-      url: getAbsoluteUrl('/'),
-      image: getDefaultSocialImageUrl(),
-      areaServed: ['Accra', 'Ghana', 'Worldwide'],
-      address: {
-        '@type': 'PostalAddress',
-        addressLocality: 'Accra',
-        addressCountry: 'GH',
-      },
-      description:
-        'Brand identity design, website design, campaign creative, motion and digital product design for ambitious organizations in Ghana and beyond.',
-    },
-  ]);
+  useStructuredData(buildHomeStructuredData(settings));
 
   return (
     <>

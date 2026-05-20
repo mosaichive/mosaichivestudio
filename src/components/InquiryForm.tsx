@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Send } from 'lucide-react';
 import { submitLeadNotification } from '@/lib/leadNotifications';
+import { STUDIO_EMAIL } from '@/lib/studioProfile';
 
 const inquirySchema = z.object({
   name: z.string().trim().min(2, 'Please enter your name').max(100),
@@ -100,7 +101,7 @@ const InquiryForm = () => {
       });
     } catch (err) {
       console.error('Inquiry submit error:', err);
-      const message = err instanceof Error ? err.message : 'Please try again or email hello@mosaic06studio.com directly.';
+      const message = err instanceof Error ? err.message : `Please try again or email ${STUDIO_EMAIL} directly.`;
       toast({
         title: 'Something went wrong',
         description: message,
