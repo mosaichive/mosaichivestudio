@@ -7,7 +7,7 @@ const __dirname = path.dirname(__filename);
 const rootDir = path.resolve(__dirname, '..');
 const distDir = path.join(rootDir, 'dist');
 
-const FALLBACK_SITE_URL = 'https://www.mosaic06studio.design';
+const FALLBACK_SITE_URL = 'https://mosaic06studio.design';
 const FALLBACK_SUPABASE_URL = 'https://nqixloyeucqkzytsgkmu.supabase.co';
 const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xaXhsb3lldWNxa3p5dHNna211Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc0NTA4ODgsImV4cCI6MjA4MzAyNjg4OH0.dxR5_ERx5MXxPsSFjwRyuK2MzV-hEb2QuwN4WUpWWQg';

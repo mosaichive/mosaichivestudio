@@ -1,4 +1,4 @@
-const FALLBACK_SITE_URL = 'https://www.mosaic06studio.design';
+const FALLBACK_SITE_URL = 'https://mosaic06studio.design';
 
 export const SITE_NAME = 'Mosaic06 Studio';
 export const SITE_TWITTER_HANDLE = '@mosaic06studio';

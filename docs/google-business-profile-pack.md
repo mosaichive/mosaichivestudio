@@ -6,7 +6,7 @@ Use this as the source of truth when you set up or update the Google Business Pr
 
 - Business name: `Mosaic06 Studio`
 - Alternate brand mention: `Mosaic Hive`
-- Website: `https://www.mosaic06studio.design/`
+- Website: `https://mosaic06studio.design/`
 - Google Business Profile link: `https://share.google/DPzT7qUd7xR8XlSAC`
 - Contact email: `mosaichive@gmail.com`
 - Contact phone: `+233 54 490 9011`
@@ -190,18 +190,18 @@ Focus on relevant links, not random directories.
 
 ## Simple backlink request copy
 
-`Hi [Name], thank you again for the collaboration on [project name]. Would you be open to adding a short credit and link to Mosaic06 Studio on the project, partner, or press page? A simple mention with https://www.mosaic06studio.design would be perfect.`
+`Hi [Name], thank you again for the collaboration on [project name]. Would you be open to adding a short credit and link to Mosaic06 Studio on the project, partner, or press page? A simple mention with https://mosaic06studio.design would be perfect.`
 
 ## Priority pages to link to
 
 Use these when asking for links or updating profiles:
 
-- Homepage: `https://www.mosaic06studio.design/`
-- Branding page: `https://www.mosaic06studio.design/branding-agency-accra`
-- Web design page: `https://www.mosaic06studio.design/web-design-ghana`
-- Creative agency page: `https://www.mosaic06studio.design/creative-agency-ghana`
-- Portfolio page: `https://www.mosaic06studio.design/portfolio`
-- Contact page: `https://www.mosaic06studio.design/contact`
+- Homepage: `https://mosaic06studio.design/`
+- Branding page: `https://mosaic06studio.design/branding-agency-accra`
+- Web design page: `https://mosaic06studio.design/web-design-ghana`
+- Creative agency page: `https://mosaic06studio.design/creative-agency-ghana`
+- Portfolio page: `https://mosaic06studio.design/portfolio`
+- Contact page: `https://mosaic06studio.design/contact`
 
 ## After setup
 

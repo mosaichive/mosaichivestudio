@@ -48,6 +48,7 @@ This project is ready for Vercel deployment.
 - `vercel.json` rewrites all routes to `index.html` so React Router pages work on refresh.
 - `/api/notify-lead` handles public form notifications through Vercel Functions.
 - Canonical and Open Graph URLs are derived from `VITE_SITE_URL` when available.
+  The production site uses `https://mosaic06studio.design` as the primary hostname.
 - The Lovable-specific dev plugin and hosted scripts have been removed.
 
 ## Lead notifications
