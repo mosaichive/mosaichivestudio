@@ -225,6 +225,19 @@ const buildBreadcrumbList = (items) => ({
   })),
 });
 
+const buildFaqPage = (faqs) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+});
+
 function applyPageTemplate(template, page) {
   const canonical = toAbsoluteUrl(page.path);
   const ogImage = page.image || getDefaultImage();
@@ -430,6 +443,336 @@ function createStaticPages(projects) {
         buildBreadcrumbList([
           { name: 'Home', url: toAbsoluteUrl('/') },
           { name: 'Services', url: toAbsoluteUrl('/services') },
+        ]),
+      ],
+    },
+    {
+      path: '/branding-agency-accra',
+      title: 'Branding Agency in Accra, Ghana | Mosaic06 Studio',
+      description:
+        'Mosaic06 Studio is a branding agency in Accra helping ambitious organizations shape strategy, identity systems and launch-ready brand experiences.',
+      keywords: [
+        'Mosaic Hive',
+        'Mosaic06 Studio',
+        'branding agency Accra',
+        'brand identity design Ghana',
+        'brand strategy agency Ghana',
+      ],
+      eyebrow: 'Branding Agency in Accra',
+      heading: 'Brand strategy and identity systems for organizations that need authority in public.',
+      intro:
+        'Mosaic06 Studio builds brand identities that hold up in the market, in the boardroom and across every public-facing touchpoint. Mosaic Hive remains part of that same brand story, but this is the studio expression clients hire for strategic creative work.',
+      sections: [
+        {
+          title: 'What clients usually need',
+          paragraphs: [
+            'Most teams arrive here because the business has grown faster than the brand, the organization is preparing for a more visible moment, or leadership needs a system that can scale beyond one campaign.',
+          ],
+          list: [
+            'Brand positioning and narrative clarity',
+            'Naming support, messaging direction and identity architecture',
+            'A visual system that works across real channels and real teams',
+          ],
+        },
+        {
+          title: 'What Mosaic06 Studio delivers',
+          paragraphs: [
+            'We connect strategy to design execution so the brand does not fracture between concept, rollout and daily use.',
+          ],
+          list: [
+            'Brand strategy, identity design and governance tools',
+            'Launch assets, editorial content direction and rollout support',
+            'Web design and campaign integration when the brand needs to go live fast',
+          ],
+        },
+        {
+          title: 'Relevant routes',
+          paragraphs: [
+            'Follow these internal routes to see the studio’s public work and project intake flow.',
+          ],
+          links: [
+            { href: '/portfolio/gge', label: 'See the Ghana Gold Expo Foundation case study' },
+            { href: '/services', label: 'Explore full studio services' },
+            { href: '/get-started', label: 'Start a brand project' },
+          ],
+        },
+        {
+          title: 'Frequently asked questions',
+          paragraphs: [
+            'What kind of branding projects do you take on in Accra? We work on rebrands, launches, institutional identity systems, founder-led business positioning and brand refreshes that need to translate clearly across digital and physical channels.',
+            'Do you only design logos? No. The studio focuses on the larger system: brand strategy, verbal direction, visual identity, rollout thinking and the tools teams need to use the brand well after launch.',
+            'Can branding and web design happen together? Yes. Many engagements combine brand identity and website design so the strategy, visual system and live experience feel coherent from day one.',
+          ],
+        },
+      ],
+      cta: {
+        eyebrow: 'Brand brief',
+        title: 'If the organization has outgrown its current identity, this is the right place to start.',
+        body: 'Send the business context, goals and timeline. We will reply with a grounded view of scope, fit and the smartest next move.',
+        href: '/get-started',
+        label: 'Start a branding project',
+      },
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Branding Agency in Accra, Ghana',
+          url: toAbsoluteUrl('/branding-agency-accra'),
+          description:
+            'Branding agency landing page for Mosaic06 Studio in Accra, Ghana.',
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Mosaic06 Studio',
+          alternateName: ['Mosaic Hive'],
+          url: toAbsoluteUrl('/branding-agency-accra'),
+          areaServed: ['Accra', 'Ghana', 'Worldwide'],
+          serviceType: 'Branding Agency in Accra',
+          description:
+            'Brand strategy, identity systems and launch-ready brand experiences for ambitious organizations.',
+        },
+        buildFaqPage([
+          {
+            question: 'What kind of branding projects do you take on in Accra?',
+            answer:
+              'We work on rebrands, launches, institutional identity systems, founder-led business positioning and brand refreshes that need to translate clearly across digital and physical channels.',
+          },
+          {
+            question: 'Do you only design logos?',
+            answer:
+              'No. The studio focuses on the larger system: brand strategy, verbal direction, visual identity, rollout thinking and the tools teams need to use the brand well after launch.',
+          },
+          {
+            question: 'Can branding and web design happen together?',
+            answer:
+              'Yes. Many engagements combine brand identity and website design so the strategy, visual system and live experience feel coherent from day one.',
+          },
+        ]),
+        buildBreadcrumbList([
+          { name: 'Home', url: toAbsoluteUrl('/') },
+          { name: 'Branding Agency Accra', url: toAbsoluteUrl('/branding-agency-accra') },
+        ]),
+      ],
+    },
+    {
+      path: '/web-design-ghana',
+      title: 'Web Design in Ghana | Website Design Studio in Accra | Mosaic06 Studio',
+      description:
+        'Mosaic06 Studio designs and builds editorial, conversion-led websites in Ghana for brands, institutions and mission-led organizations.',
+      keywords: [
+        'Mosaic Hive',
+        'Mosaic06 Studio',
+        'web design Ghana',
+        'website design Accra',
+        'web design studio Ghana',
+      ],
+      eyebrow: 'Web Design in Ghana',
+      heading: 'Editorial, conversion-led websites built for credibility, clarity and growth.',
+      intro:
+        'We design websites that make an organization easier to trust, easier to understand and easier to choose. That means stronger strategy up front, sharper structure in the middle and better execution when the site goes live.',
+      sections: [
+        {
+          title: 'What strong web design changes',
+          paragraphs: [
+            'A serious website does more than look polished. It clarifies the offer, strengthens trust signals and gives every visitor a cleaner route to action.',
+          ],
+          list: [
+            'Sharper information architecture and page hierarchy',
+            'Editorial visual design aligned to brand positioning',
+            'Conversion-aware page flows for inquiries, applications or fundraising',
+          ],
+        },
+        {
+          title: 'How the studio builds websites',
+          paragraphs: [
+            'We combine strategy, content structure, UI design and front-end implementation so the public experience stays coherent from concept to launch.',
+          ],
+          list: [
+            'Discovery, UX planning and design direction',
+            'Responsive UI systems, front-end build and CMS thinking',
+            'SEO-minded page structure, technical hygiene and launch readiness',
+          ],
+        },
+        {
+          title: 'Relevant routes',
+          paragraphs: [
+            'These linked pages deepen the website story with proof, broader services and direct contact.',
+          ],
+          links: [
+            {
+              href: '/portfolio/terraaidinternational',
+              label: 'See the Terra Aid International website case study',
+            },
+            { href: '/services', label: 'See all web and digital services' },
+            { href: '/contact', label: 'Talk to the studio about your website' },
+          ],
+        },
+        {
+          title: 'Frequently asked questions',
+          paragraphs: [
+            'Do you build custom websites or use templates? We design custom websites around the organization’s goals, content and brand position. The objective is a site that feels distinctive, performant and easier to maintain over time.',
+            'Can you redesign an existing website? Yes. Redesign work is common when the brand has matured, the current site no longer supports growth, or leadership needs better structure, credibility and conversion.',
+            'Do you consider SEO while designing the website? Yes. Page architecture, metadata, internal linking, content hierarchy and technical SEO are considered during the build so the site launches with a stronger search foundation.',
+          ],
+        },
+      ],
+      cta: {
+        eyebrow: 'Website brief',
+        title: 'If the current site undersells the work, let’s fix that at the strategy level and the execution level.',
+        body: 'Share what the website needs to do, who it needs to persuade and what has not been working well enough so far.',
+        href: '/get-started',
+        label: 'Start a website project',
+      },
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Web Design in Ghana',
+          url: toAbsoluteUrl('/web-design-ghana'),
+          description:
+            'Website design landing page for Mosaic06 Studio in Accra, Ghana.',
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Mosaic06 Studio',
+          alternateName: ['Mosaic Hive'],
+          url: toAbsoluteUrl('/web-design-ghana'),
+          areaServed: ['Accra', 'Ghana', 'Worldwide'],
+          serviceType: 'Web Design in Ghana',
+          description:
+            'Editorial, conversion-led website design and build services for ambitious organizations.',
+        },
+        buildFaqPage([
+          {
+            question: 'Do you build custom websites or use templates?',
+            answer:
+              'We design custom websites around the organization’s goals, content and brand position. The objective is a site that feels distinctive, performant and easier to maintain over time.',
+          },
+          {
+            question: 'Can you redesign an existing website?',
+            answer:
+              'Yes. Redesign work is common when the brand has matured, the current site no longer supports growth, or leadership needs better structure, credibility and conversion.',
+          },
+          {
+            question: 'Do you consider SEO while designing the website?',
+            answer:
+              'Yes. Page architecture, metadata, internal linking, content hierarchy and technical SEO are considered during the build so the site launches with a stronger search foundation.',
+          },
+        ]),
+        buildBreadcrumbList([
+          { name: 'Home', url: toAbsoluteUrl('/') },
+          { name: 'Web Design Ghana', url: toAbsoluteUrl('/web-design-ghana') },
+        ]),
+      ],
+    },
+    {
+      path: '/creative-agency-ghana',
+      title: 'Creative Agency in Ghana | Brand, Web & Campaign Studio | Mosaic06 Studio',
+      description:
+        'Mosaic06 Studio is a creative agency in Ghana delivering branding, website design, campaign creative, content and motion for ambitious organizations.',
+      keywords: [
+        'Mosaic Hive',
+        'Mosaic06 Studio',
+        'creative agency Ghana',
+        'creative agency Accra',
+        'campaign agency Ghana',
+      ],
+      eyebrow: 'Creative Agency in Ghana',
+      heading: 'One creative partner across brand, web, campaigns, content and digital experiences.',
+      intro:
+        'Some briefs need more than one specialist and less than five disconnected vendors. Mosaic06 Studio exists for that middle ground: integrated creative leadership with the craft standard of a boutique and the seriousness expected by visible organizations.',
+      sections: [
+        {
+          title: 'What an integrated creative agency changes',
+          paragraphs: [
+            'The advantage is coherence. Strategy, design, messaging and rollout support one another instead of competing for attention or drifting apart across vendors.',
+          ],
+          list: [
+            'A single creative point of view across the full engagement',
+            'Faster decisions and less fragmentation between teams',
+            'A stronger end result across campaigns, websites and brand systems',
+          ],
+        },
+        {
+          title: 'What the studio covers in practice',
+          paragraphs: [
+            'Engagements can start with brand, web or campaign work and expand where needed, without losing the quality or discipline of the original brief.',
+          ],
+          list: [
+            'Brand positioning, identity systems and launch support',
+            'Website strategy, UX, UI and front-end implementation',
+            'Campaign creative, content systems, motion and presentation assets',
+          ],
+        },
+        {
+          title: 'Relevant routes',
+          paragraphs: [
+            'These pages show the breadth of the studio and where that breadth turns into proof.',
+          ],
+          links: [
+            { href: '/portfolio', label: 'Browse selected work' },
+            { href: '/portfolio/gge', label: 'See the Ghana Gold Expo Foundation project' },
+            { href: '/contact', label: 'Contact Mosaic06 Studio' },
+          ],
+        },
+        {
+          title: 'Frequently asked questions',
+          paragraphs: [
+            'What makes Mosaic06 Studio different from hiring separate freelancers? The studio provides integrated creative leadership, clearer accountability and a more coherent end product across strategy, brand, web and campaign execution.',
+            'Do you work only in Ghana? The studio is based in Accra, Ghana, and works with organizations locally and internationally when the scope and fit are right.',
+            'Can one engagement include branding, a website and campaign assets? Yes. That integrated model is one of the studio’s strengths, especially when a launch, rebrand or institutional push needs consistency across every public touchpoint.',
+          ],
+        },
+      ],
+      cta: {
+        eyebrow: 'Studio engagement',
+        title: 'If the brief cuts across brand, web and public communication, bring it to one creative partner.',
+        body: 'We can help define the scope, sequence the work and identify where integrated execution will make the biggest difference.',
+        href: '/contact',
+        label: 'Talk to the studio',
+      },
+      jsonLd: [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'WebPage',
+          name: 'Creative Agency in Ghana',
+          url: toAbsoluteUrl('/creative-agency-ghana'),
+          description:
+            'Creative agency landing page for Mosaic06 Studio in Ghana.',
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'ProfessionalService',
+          name: 'Mosaic06 Studio',
+          alternateName: ['Mosaic Hive'],
+          url: toAbsoluteUrl('/creative-agency-ghana'),
+          areaServed: ['Accra', 'Ghana', 'Worldwide'],
+          serviceType: 'Creative Agency in Ghana',
+          description:
+            'Integrated branding, website design, campaign creative, content and motion for ambitious organizations.',
+        },
+        buildFaqPage([
+          {
+            question: 'What makes Mosaic06 Studio different from hiring separate freelancers?',
+            answer:
+              'The studio provides integrated creative leadership, clearer accountability and a more coherent end product across strategy, brand, web and campaign execution.',
+          },
+          {
+            question: 'Do you work only in Ghana?',
+            answer:
+              'The studio is based in Accra, Ghana, and works with organizations locally and internationally when the scope and fit are right.',
+          },
+          {
+            question: 'Can one engagement include branding, a website and campaign assets?',
+            answer:
+              'Yes. That integrated model is one of the studio’s strengths, especially when a launch, rebrand or institutional push needs consistency across every public touchpoint.',
+          },
+        ]),
+        buildBreadcrumbList([
+          { name: 'Home', url: toAbsoluteUrl('/') },
+          { name: 'Creative Agency Ghana', url: toAbsoluteUrl('/creative-agency-ghana') },
         ]),
       ],
     },

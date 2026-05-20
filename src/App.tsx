@@ -22,6 +22,7 @@ import TeamPage from "./pages/TeamPage";
 import PodcastPage from "./pages/PodcastPage";
 import CareersPage from "./pages/CareersPage";
 import PortfolioSubmissionPage from "./pages/PortfolioSubmissionPage";
+import SeoLandingPage from "./pages/SeoLandingPage";
 import NotFound from "./pages/NotFound";
 import AuthPage from "./pages/AuthPage";
 import AdminLayout from "./pages/admin/AdminLayout";
@@ -32,6 +33,7 @@ import AdminTestimonials from "./pages/admin/AdminTestimonials";
 import AdminLogos from "./pages/admin/AdminLogos";
 import AdminSettings from "./pages/admin/AdminSettings";
 import AdminInvites from "./pages/admin/AdminInvites";
+import { seoLandingPageMap } from "./data/seoLandingPages";
 
 const queryClient = new QueryClient();
 
@@ -61,6 +63,18 @@ const AnimatedRoutes = () => {
         <Route path="/podcast" element={T(<PodcastPage />)} />
         <Route path="/careers" element={T(<CareersPage />)} />
         <Route path="/portfolio-submission" element={T(<PortfolioSubmissionPage />)} />
+        <Route
+          path="/branding-agency-accra"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/branding-agency-accra"]} />)}
+        />
+        <Route
+          path="/web-design-ghana"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/web-design-ghana"]} />)}
+        />
+        <Route
+          path="/creative-agency-ghana"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/creative-agency-ghana"]} />)}
+        />
 
         {/* Auth + Admin (no transition wrapper for admin children) */}
         <Route path="/auth" element={T(<AuthPage />)} />

@@ -27,6 +27,9 @@ const escapeXml = (value) =>
 const getStaticPages = () => [
   { path: '/' },
   { path: '/services' },
+  { path: '/branding-agency-accra' },
+  { path: '/web-design-ghana' },
+  { path: '/creative-agency-ghana' },
   { path: '/about' },
   { path: '/portfolio' },
   { path: '/blog' },

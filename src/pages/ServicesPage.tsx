@@ -7,6 +7,7 @@ import ScrollAnimations from '@/components/ScrollAnimations';
 import ConversionCTA from '@/components/ConversionCTA';
 import Reveal from '@/components/Reveal';
 import { useSEO } from '@/hooks/useSEO';
+import { seoLandingPages } from '@/data/seoLandingPages';
 
 type Capability = {
   number: string;
@@ -275,7 +276,52 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        {/* 4. How we work */}
+        {/* 4. Search entry points */}
+        <section className="py-24 md:py-32 border-b border-border/60">
+          <div className="container-editorial">
+            <Reveal as="div" className="mb-16 max-w-2xl">
+              <p className="eyebrow mb-6">Search guides</p>
+              <h2 className="display-section text-foreground text-balance">
+                Built for the way clients actually search.
+              </h2>
+              <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
+                These focused pages answer the highest-intent searches around branding, web design
+                and creative agency work in Accra and Ghana, while still pointing back into the
+                broader studio offer.
+              </p>
+            </Reveal>
+
+            <Reveal.Stagger className="grid gap-6 lg:grid-cols-3">
+              {seoLandingPages.map((page) => (
+                <Reveal.Item key={page.path}>
+                  <Link
+                    to={page.path}
+                    className="group block h-full rounded-[1.75rem] border border-border/60 bg-background p-8 hover:border-secondary/50 hover:bg-muted/20 transition-all"
+                  >
+                    <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">
+                      SEO landing page
+                    </p>
+                    <h3 className="font-display text-2xl md:text-3xl text-foreground tracking-[-0.01em] leading-tight">
+                      {page.label}
+                    </h3>
+                    <p className="mt-5 text-base text-foreground/72 leading-relaxed">
+                      {page.description}
+                    </p>
+                    <span className="mt-8 inline-flex items-center gap-2 text-sm font-medium text-foreground">
+                      Open page
+                      <ArrowUpRight
+                        size={14}
+                        className="text-secondary transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      />
+                    </span>
+                  </Link>
+                </Reveal.Item>
+              ))}
+            </Reveal.Stagger>
+          </div>
+        </section>
+
+        {/* 5. How we work */}
         <section className="py-24 md:py-32">
           <div className="container-editorial">
             <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
@@ -309,7 +355,7 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        {/* 5. Closing CTA — reuse site-wide premium block */}
+        {/* 6. Closing CTA — reuse site-wide premium block */}
         <ConversionCTA />
       </main>
 

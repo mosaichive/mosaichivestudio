@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Mail, Phone, MapPin, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
 import logo from '@/assets/logo.png';
 import { useSiteSettings } from '@/hooks/useStudioContent';
+import { seoLandingPages } from '@/data/seoLandingPages';
 
 const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
@@ -28,7 +29,7 @@ const Footer = () => {
       <div className="container-editorial pt-20 pb-12">
         <div className="grid lg:grid-cols-12 gap-12 mb-16 pb-16 border-b border-primary-foreground/15">
           {/* Studio block */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <Link to="/" className="inline-flex items-center gap-3 mb-6">
               <img
                 src={logo}
@@ -78,8 +79,22 @@ const Footer = () => {
             </ul>
           </div>
 
+          {/* Search links */}
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">Search</p>
+            <ul className="space-y-3 text-primary-foreground/75">
+              {seoLandingPages.map((page) => (
+                <li key={page.path}>
+                  <Link to={page.path} className="hover:text-secondary transition-colors">
+                    {page.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* CTA block */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-2">
             <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">{ctaEyebrow}</p>
             <p className="text-primary-foreground/75 mb-6 leading-relaxed">
               {ctaBody}
