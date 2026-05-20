@@ -16,7 +16,7 @@ const TestimonialCard = ({ testimonial, ariaHidden = false }: TestimonialCardPro
       <Quote className="h-7 w-7" strokeWidth={1.25} />
       <div className="h-px flex-1 bg-border/80" />
     </div>
-    <p className="mt-8 font-display text-[1.75rem] leading-[1.38] tracking-[-0.02em] text-foreground md:text-[2.1rem]">
+    <p className="mt-8 font-display text-[1.35rem] leading-[1.48] tracking-[-0.015em] text-foreground md:text-[1.65rem]">
       &ldquo;{testimonial.quote}&rdquo;
     </p>
     <div className="mt-10 flex items-center gap-4">

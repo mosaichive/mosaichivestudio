@@ -112,7 +112,7 @@ const Hero = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.35 }}
             >
-              <p className="text-lg md:text-xl text-foreground/70 leading-relaxed max-w-md mb-10">
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-md mb-10">
                 {subheadline}
               </p>
 

@@ -89,10 +89,10 @@ const SeoLandingPage = ({ page }: SeoLandingPageProps) => {
             <div className="grid lg:grid-cols-12 gap-12 items-start">
               <Reveal as="div" className="lg:col-span-8">
                 <p className="eyebrow mb-8">{page.eyebrow}</p>
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[5.4rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+                <h1 className="display-page text-foreground text-balance">
                   {page.heading}
                 </h1>
-                <p className="mt-8 max-w-3xl text-lg md:text-xl text-foreground/72 leading-relaxed">
+                <p className="mt-8 max-w-3xl text-base md:text-lg text-foreground/72 leading-relaxed">
                   {page.intro}
                 </p>
               </Reveal>
@@ -259,7 +259,7 @@ const SeoLandingPage = ({ page }: SeoLandingPageProps) => {
                   <p className="eyebrow mb-6 text-secondary before:bg-secondary">
                     {page.cta.eyebrow}
                   </p>
-                  <h2 className="font-display text-4xl md:text-6xl lg:text-[4.75rem] leading-[1.02] tracking-[-0.02em] text-balance max-w-[16ch]">
+                  <h2 className="font-display text-[clamp(2.2rem,4.8vw,4rem)] leading-[1.05] tracking-[-0.02em] text-balance max-w-[16ch]">
                     {page.cta.headline}
                   </h2>
                   <p className="mt-7 max-w-2xl text-lg text-primary-foreground/76 leading-relaxed">

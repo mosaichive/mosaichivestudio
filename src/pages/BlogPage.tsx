@@ -22,13 +22,13 @@ const JournalPage = () => {
           <div className="container-editorial grid lg:grid-cols-12 gap-12 items-end">
             <Reveal as="div" className="lg:col-span-8">
               <p className="eyebrow mb-8">Journal</p>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+              <h1 className="display-page text-foreground text-balance">
                 Notes from the studio,{' '}
                 <span className="italic text-secondary">soon</span>.
               </h1>
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
-              <p className="text-lg text-foreground/70 leading-relaxed">
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
                 We're preparing a sharp editorial library on identity, web systems, motion and the
                 strategic work behind brands that endure. The first essays land later this season.
               </p>

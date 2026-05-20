@@ -48,10 +48,10 @@ const ConversionCTA = () => {
               <p className="eyebrow mb-6 text-secondary before:bg-secondary">
                 Work with the studio
               </p>
-              <h2 className="font-display text-4xl md:text-6xl lg:text-[5rem] leading-[1.02] tracking-[-0.02em] text-balance max-w-[18ch]">
+              <h2 className="font-display text-[clamp(2.2rem,4.8vw,4rem)] leading-[1.05] tracking-[-0.02em] text-balance max-w-[18ch]">
                 {renderHeadline()}
               </h2>
-              <p className="mt-8 text-lg md:text-xl text-primary-foreground/75 max-w-xl leading-relaxed">
+              <p className="mt-8 text-base md:text-lg text-primary-foreground/75 max-w-xl leading-relaxed">
                 {subheadline}
               </p>
             </div>

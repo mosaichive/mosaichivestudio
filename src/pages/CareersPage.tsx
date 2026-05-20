@@ -25,13 +25,13 @@ const CareersPage = () => {
           <div className="container-editorial grid lg:grid-cols-12 gap-12 items-end">
             <Reveal as="div" className="lg:col-span-8">
               <p className="eyebrow mb-8">Careers</p>
-              <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+              <h1 className="display-page text-foreground text-balance">
                 No open roles{' '}
                 <span className="italic text-secondary">right now</span>.
               </h1>
             </Reveal>
             <Reveal as="div" className="lg:col-span-4" delay={0.15}>
-              <p className="text-lg text-foreground/70 leading-relaxed">
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
                 We are building a high-calibre creative network and we hire deliberately. There are
                 no open positions at the moment, but we keep a curated list of designers, writers,
                 motion artists and engineers we'd like to work with.

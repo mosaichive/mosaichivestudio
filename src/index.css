@@ -132,11 +132,15 @@
   }
 
   .display-hero {
-    @apply font-display text-[clamp(2.5rem,7vw,6rem)] leading-[1.02] tracking-[-0.02em] font-medium;
+    @apply font-display text-[clamp(2.35rem,5.8vw,4.85rem)] leading-[1.04] tracking-[-0.02em] font-medium;
+  }
+
+  .display-page {
+    @apply font-display text-[clamp(2.45rem,5.6vw,4.7rem)] leading-[1.04] tracking-[-0.02em] font-medium;
   }
 
   .display-section {
-    @apply font-display text-[clamp(2rem,4.5vw,3.75rem)] leading-[1.05] tracking-[-0.02em] font-medium;
+    @apply font-display text-[clamp(1.95rem,4vw,3.2rem)] leading-[1.08] tracking-[-0.02em] font-medium;
   }
 
   .text-balance {

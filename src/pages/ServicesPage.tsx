@@ -145,13 +145,13 @@ const ServicesPage = () => {
             <div className="grid lg:grid-cols-12 gap-12 items-end">
               <Reveal as="div" className="lg:col-span-8">
                 <p className="eyebrow mb-8">Capabilities</p>
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+                <h1 className="display-page text-foreground text-balance">
                   Brand identity, website design and campaigns shaped with{' '}
                   <span className="italic text-secondary">taste and intent</span>.
                 </h1>
               </Reveal>
               <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
-                <p className="text-lg text-foreground/70 leading-relaxed max-w-md">
+                <p className="text-base md:text-lg text-foreground/70 leading-relaxed max-w-md">
                   A creative agency in Accra, Ghana working across branding, web design,
                   campaigns, motion and digital product experiences. Strategic by design, built for serious outcomes.
                 </p>

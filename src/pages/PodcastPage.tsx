@@ -129,13 +129,13 @@ const PodcastPage = () => {
             <div className="grid lg:grid-cols-12 gap-12 items-end">
               <Reveal as="div" className="lg:col-span-8">
                 <p className="eyebrow mb-8">Podcast</p>
-                <h1 className="font-display text-5xl md:text-7xl lg:text-[5.5rem] leading-[1.02] tracking-[-0.02em] text-foreground text-balance">
+                <h1 className="display-page text-foreground text-balance">
                   Conversations on craft,{' '}
                   <span className="italic text-secondary">coming soon</span>.
                 </h1>
               </Reveal>
               <Reveal as="div" className="lg:col-span-4 space-y-8" delay={0.15}>
-                <p className="text-lg text-foreground/70 leading-relaxed">
+                <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
                   A polished podcast platform from Mosaic06 on creative leadership, founders and
                   the work of building brands with lasting cultural and commercial weight.
                   First conversations land later this season.
