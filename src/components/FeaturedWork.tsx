@@ -17,9 +17,9 @@ const FeaturedWork = () => {
   if (!isLoading && list.length === 0) return null;
 
   return (
-    <section className="pt-24 md:pt-32 pb-28 md:pb-40 bg-background" id="work">
+    <section className="pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="work">
       <div className="container-editorial">
-        <div className="grid lg:grid-cols-12 gap-8 mb-14 md:mb-20 items-end">
+        <div className="grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end">
           <div className="lg:col-span-8">
             <p className="eyebrow mb-6">{eyebrow}</p>
             <h2 className="display-section text-foreground text-balance max-w-[20ch]">
@@ -35,31 +35,28 @@ const FeaturedWork = () => {
         </div>
 
         {isLoading ? (
-          <div className="grid grid-cols-12 gap-6 md:gap-10">
-            <Skeleton className="col-span-12 lg:col-span-8 aspect-[16/11] rounded-sm" />
-            <Skeleton className="col-span-12 lg:col-span-4 aspect-[4/5] rounded-sm" />
-            <Skeleton className="col-span-12 lg:col-span-12 aspect-[16/8] rounded-sm" />
+          <div className="grid grid-cols-12 gap-5 md:gap-7">
+            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/10] rounded-sm" />
+            <Skeleton className="col-span-12 lg:col-span-4 lg:col-start-9 aspect-[4/4.6] rounded-sm" />
+            <Skeleton className="col-span-12 lg:col-span-7 lg:col-start-4 aspect-[16/7] rounded-sm" />
           </div>
         ) : (
-          <Reveal.Stagger className="grid grid-cols-12 gap-y-16 md:gap-y-24 gap-x-6 md:gap-x-10" stagger={0.14}>
-            {/* Project 1 — large left, two-thirds */}
+          <Reveal.Stagger className="grid grid-cols-12 gap-y-10 md:gap-y-14 gap-x-5 md:gap-x-7" stagger={0.12}>
             {list[0] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-8" y={32}>
-                <ProjectCard project={list[0]} aspect="aspect-[16/11]" priority />
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:max-w-[54rem]" y={26}>
+                <ProjectCard project={list[0]} aspect="aspect-[16/10]" priority />
               </Reveal.Item>
             )}
 
-            {/* Project 2 — tall right, one-third, offset down */}
             {list[1] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-4 lg:mt-24" y={32}>
-                <ProjectCard project={list[1]} aspect="aspect-[4/5]" />
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-12 lg:max-w-[22rem]" y={26}>
+                <ProjectCard project={list[1]} aspect="aspect-[4/4.6]" />
               </Reveal.Item>
             )}
 
-            {/* Project 3 — full-bleed wide, offset right */}
             {list[2] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-10 lg:col-start-3" y={32}>
-                <ProjectCard project={list[2]} aspect="aspect-[16/8]" />
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:col-start-4 lg:max-w-[54rem]" y={26}>
+                <ProjectCard project={list[2]} aspect="aspect-[16/7]" />
               </Reveal.Item>
             )}
           </Reveal.Stagger>
@@ -86,7 +83,7 @@ type CardProps = {
 
 const ProjectCard: React.FC<CardProps> = ({ project, aspect, priority }) => (
   <Link to={`/portfolio/${project.slug}`} className="group block">
-    <div className={`relative overflow-hidden rounded-sm bg-muted ${aspect} mb-6`}>
+    <div className={`relative overflow-hidden rounded-[1.1rem] border border-border/60 bg-muted ${aspect} mb-4 shadow-[0_20px_50px_-34px_hsl(var(--foreground)/0.28)]`}>
       {project.cover_url ? (
         <img
           src={project.cover_url}
@@ -98,26 +95,26 @@ const ProjectCard: React.FC<CardProps> = ({ project, aspect, priority }) => (
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
-          <span className="font-display text-5xl md:text-6xl text-primary/30 tracking-tight">
+          <span className="font-display text-4xl md:text-5xl text-primary/30 tracking-tight">
             {project.client?.[0] ?? project.title?.[0] ?? 'M'}
           </span>
         </div>
       )}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-      <div className="absolute bottom-5 right-5 w-11 h-11 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-        <ArrowUpRight size={16} />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent opacity-20 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+        <ArrowUpRight size={15} />
       </div>
     </div>
-    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.28em] text-foreground/45 mb-3">
+    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] text-foreground/45 mb-2">
       <span>{project.categories?.[0] ?? project.industry}</span>
       <span className="w-1 h-1 rounded-full bg-foreground/30" />
       <span>{project.year}</span>
     </div>
-    <h3 className="font-display text-2xl md:text-3xl leading-snug text-foreground group-hover:text-secondary transition-colors duration-300 text-balance">
+    <h3 className="font-display text-[1.55rem] md:text-[2rem] leading-[1.12] text-foreground group-hover:text-secondary transition-colors duration-300 text-balance">
       {project.title}
     </h3>
     {project.excerpt && (
-      <p className="mt-2 text-foreground/60 leading-relaxed max-w-prose">{project.excerpt}</p>
+      <p className="mt-2 text-sm md:text-[0.96rem] text-foreground/60 leading-relaxed max-w-[52ch]">{project.excerpt}</p>
     )}
   </Link>
 );
