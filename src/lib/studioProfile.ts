@@ -1,5 +1,5 @@
 import type { SiteSettingsRow } from '@/hooks/useStudioContent';
-import { SITE_NAME, getAbsoluteUrl, getDefaultSocialImageUrl } from '@/lib/site';
+import { SITE_NAME, getAbsoluteUrl, getDefaultSiteIconUrl, getDefaultSocialImageUrl } from '@/lib/site';
 
 export const STUDIO_EMAIL = 'mosaichive@gmail.com';
 export const STUDIO_PHONE = '+233 54 490 9011';
@@ -78,6 +78,7 @@ export const getStudioProfile = (settings?: StudioSettingsLike) => {
     ],
     sameAs,
     socialLinks: sameAs,
+    logo: getDefaultSiteIconUrl(),
     image: getDefaultSocialImageUrl(),
     serviceAreas: STUDIO_SERVICE_AREAS,
   };
@@ -93,7 +94,7 @@ export const buildHomeStructuredData = (settings?: StudioSettingsLike) => {
       name: profile.name,
       alternateName: profile.alternateNames,
       url: getAbsoluteUrl('/'),
-      logo: profile.image,
+      logo: profile.logo,
       image: profile.image,
       email: profile.email,
       telephone: profile.phone,
@@ -115,6 +116,7 @@ export const buildHomeStructuredData = (settings?: StudioSettingsLike) => {
       name: profile.name,
       alternateName: ['Mosaic Hive'],
       url: getAbsoluteUrl('/'),
+      logo: profile.logo,
       image: profile.image,
       email: profile.email,
       telephone: profile.phone,
@@ -156,6 +158,7 @@ export const buildContactStructuredData = (settings?: StudioSettingsLike) => {
       name: profile.name,
       alternateName: ['Mosaic Hive'],
       url: getAbsoluteUrl('/'),
+      logo: profile.logo,
       image: profile.image,
       email: profile.email,
       telephone: profile.phone,

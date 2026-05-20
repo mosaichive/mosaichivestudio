@@ -3,6 +3,7 @@ const FALLBACK_SITE_URL = 'https://www.mosaic06studio.design';
 export const SITE_NAME = 'Mosaic06 Studio';
 export const SITE_TWITTER_HANDLE = '@mosaic06studio';
 export const DEFAULT_SOCIAL_IMAGE_PATH = '/logo-favicon.png';
+export const DEFAULT_SITE_ICON_PATH = '/site-icon.png';
 export const DEFAULT_SITE_KEYWORDS = [
   'Mosaic Hive',
   'Mosaic06 Studio',
@@ -30,3 +31,4 @@ export const getSiteUrl = () => {
 export const getAbsoluteUrl = (path = '/') => new URL(path, `${getSiteUrl()}/`).toString();
 
 export const getDefaultSocialImageUrl = () => getAbsoluteUrl(DEFAULT_SOCIAL_IMAGE_PATH);
+export const getDefaultSiteIconUrl = () => getAbsoluteUrl(DEFAULT_SITE_ICON_PATH);

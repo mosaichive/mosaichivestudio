@@ -44,6 +44,7 @@ const DEFAULT_SERVICE_AREAS = ['Accra', 'Greater Accra Region', 'Ghana', 'Worldw
 const trimTrailingSlash = (value) => String(value || '').replace(/\/+$/, '');
 const getSiteUrl = () => trimTrailingSlash(process.env.VITE_SITE_URL || FALLBACK_SITE_URL);
 const getDefaultImage = () => `${getSiteUrl()}/logo-favicon.png`;
+const getDefaultLogo = () => `${getSiteUrl()}/site-icon.png`;
 
 function parseEnvFile(contents) {
   return contents
@@ -390,7 +391,7 @@ function createStaticPages(projects) {
           name: 'Mosaic06 Studio',
           alternateName: ['Mosaic Hive', 'Mosaic06 Studio'],
           url: toAbsoluteUrl('/'),
-          logo: getDefaultImage(),
+          logo: getDefaultLogo(),
           image: getDefaultImage(),
           email: DEFAULT_CONTACT_EMAIL,
           telephone: DEFAULT_CONTACT_PHONE_COMPACT,
@@ -402,6 +403,7 @@ function createStaticPages(projects) {
           name: 'Mosaic06 Studio',
           alternateName: ['Mosaic Hive'],
           url: toAbsoluteUrl('/'),
+          logo: getDefaultLogo(),
           email: DEFAULT_CONTACT_EMAIL,
           telephone: DEFAULT_CONTACT_PHONE_COMPACT,
           address: DEFAULT_POSTAL_ADDRESS,
@@ -941,6 +943,7 @@ function createStaticPages(projects) {
           name: 'Mosaic06 Studio',
           alternateName: ['Mosaic Hive'],
           url: toAbsoluteUrl('/'),
+          logo: getDefaultLogo(),
           image: getDefaultImage(),
           email: DEFAULT_CONTACT_EMAIL,
           telephone: DEFAULT_CONTACT_PHONE_COMPACT,
