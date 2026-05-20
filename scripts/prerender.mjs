@@ -399,6 +399,14 @@ function createStaticPages(projects) {
         },
         {
           '@context': 'https://schema.org',
+          '@type': 'WebSite',
+          name: 'Mosaic06 Studio',
+          alternateName: ['Mosaic06', 'Mosaic Hive'],
+          url: toAbsoluteUrl('/'),
+          inLanguage: 'en',
+        },
+        {
+          '@context': 'https://schema.org',
           '@type': 'ProfessionalService',
           name: 'Mosaic06 Studio',
           alternateName: ['Mosaic Hive'],

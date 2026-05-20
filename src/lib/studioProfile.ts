@@ -107,6 +107,7 @@ export const buildHomeStructuredData = (settings?: StudioSettingsLike) => {
       '@context': 'https://schema.org',
       '@type': 'WebSite',
       name: profile.name,
+      alternateName: ['Mosaic06', 'Mosaic Hive'],
       url: getAbsoluteUrl('/'),
       inLanguage: 'en',
     },

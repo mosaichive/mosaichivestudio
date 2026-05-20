@@ -48,11 +48,12 @@ const Navbar = () => {
         <Link to="/" className="flex items-center gap-3" aria-label="Mosaic06 Studio home">
           <img
             src={logo}
-            alt=""
+            alt="Mosaic06 Studio"
             className={`h-9 w-auto transition-transform duration-300 hover:scale-105 ${
               mounted && theme === 'dark' ? 'brightness-0 invert' : ''
             }`}
           />
+          <span className="sr-only">Mosaic06 Studio</span>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-10">
