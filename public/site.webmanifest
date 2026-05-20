@@ -1,0 +1,19 @@
+{
+  "name": "Mosaic06 Studio",
+  "short_name": "Mosaic06",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/site-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#120a16",
+  "background_color": "#120a16",
+  "display": "standalone"
+}

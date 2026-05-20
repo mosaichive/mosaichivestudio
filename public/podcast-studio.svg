@@ -1,0 +1,63 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#160d1e"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#roomGlow)"/>
+  <path d="M0 680H1600V900H0V680Z" fill="#211329"/>
+  <path d="M126 130H496V490H126V130Z" fill="#211329" stroke="#4a3458" stroke-width="3"/>
+  <path d="M558 130H928V490H558V130Z" fill="#211329" stroke="#4a3458" stroke-width="3"/>
+  <path d="M990 130H1370V490H990V130Z" fill="#211329" stroke="#4a3458" stroke-width="3"/>
+  <g opacity=".62">
+    <path d="M174 180H450M174 240H450M174 300H450M174 360H450M174 420H450" stroke="#6b5278" stroke-width="16" stroke-linecap="round"/>
+    <path d="M606 180H882M606 240H882M606 300H882M606 360H882M606 420H882" stroke="#6b5278" stroke-width="16" stroke-linecap="round"/>
+    <path d="M1040 180H1322M1040 240H1322M1040 300H1322M1040 360H1322M1040 420H1322" stroke="#6b5278" stroke-width="16" stroke-linecap="round"/>
+  </g>
+  <ellipse cx="800" cy="705" rx="462" ry="88" fill="#0e0915" opacity=".58"/>
+  <path d="M382 606C382 552 426 508 480 508H1120C1174 508 1218 552 1218 606V708H382V606Z" fill="#382143" stroke="#5a3b69" stroke-width="3"/>
+  <path d="M318 706H1282C1301 706 1316 721 1316 740V777H284V740C284 721 299 706 318 706Z" fill="#d6a64b"/>
+  <path d="M284 777H1316V820H284V777Z" fill="#b7832b"/>
+  <path d="M600 570H1000C1034 570 1062 598 1062 632V706H538V632C538 598 566 570 600 570Z" fill="#1b1024" stroke="#5f446d" stroke-width="3"/>
+  <rect x="596" y="616" width="408" height="52" rx="14" fill="#2a1836"/>
+  <circle cx="642" cy="642" r="13" fill="#d6a64b"/>
+  <circle cx="694" cy="642" r="13" fill="#d6a64b"/>
+  <circle cx="746" cy="642" r="13" fill="#d6a64b"/>
+  <rect x="808" y="630" width="156" height="24" rx="12" fill="#4d315c"/>
+  <g filter="url(#softShadow)">
+    <path d="M473 432H523V610H473V432Z" fill="#0f0916"/>
+    <rect x="432" y="308" width="132" height="202" rx="66" fill="#23132e" stroke="#d6a64b" stroke-width="10"/>
+    <rect x="472" y="274" width="52" height="128" rx="26" fill="#d6a64b"/>
+    <path d="M430 410H566" stroke="#d6a64b" stroke-width="8" stroke-linecap="round"/>
+    <path d="M498 610V690" stroke="#0f0916" stroke-width="18" stroke-linecap="round"/>
+    <path d="M438 690H558" stroke="#0f0916" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <g filter="url(#softShadow)">
+    <path d="M1078 432H1128V610H1078V432Z" fill="#0f0916"/>
+    <rect x="1037" y="308" width="132" height="202" rx="66" fill="#23132e" stroke="#d6a64b" stroke-width="10"/>
+    <rect x="1077" y="274" width="52" height="128" rx="26" fill="#d6a64b"/>
+    <path d="M1035 410H1171" stroke="#d6a64b" stroke-width="8" stroke-linecap="round"/>
+    <path d="M1103 610V690" stroke="#0f0916" stroke-width="18" stroke-linecap="round"/>
+    <path d="M1043 690H1163" stroke="#0f0916" stroke-width="18" stroke-linecap="round"/>
+  </g>
+  <path d="M692 386C692 326 740 278 800 278C860 278 908 326 908 386" stroke="#d6a64b" stroke-width="18" stroke-linecap="round"/>
+  <rect x="650" y="366" width="66" height="126" rx="33" fill="#23132e" stroke="#d6a64b" stroke-width="8"/>
+  <rect x="884" y="366" width="66" height="126" rx="33" fill="#23132e" stroke="#d6a64b" stroke-width="8"/>
+  <path d="M780 520H820V690H780V520Z" fill="#0f0916"/>
+  <circle cx="800" cy="482" r="56" fill="#d6a64b"/>
+  <circle cx="800" cy="482" r="34" fill="#160d1e"/>
+  <path d="M350 628C310 548 270 504 224 496" stroke="#d6a64b" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1250 628C1290 548 1330 504 1376 496" stroke="#d6a64b" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="224" cy="496" r="12" fill="#d6a64b"/>
+  <circle cx="1376" cy="496" r="12" fill="#d6a64b"/>
+  <g opacity=".72">
+    <path d="M168 596C270 566 348 552 442 548" stroke="#f0d394" stroke-width="3" stroke-linecap="round"/>
+    <path d="M1432 596C1330 566 1252 552 1158 548" stroke="#f0d394" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  <defs>
+    <radialGradient id="roomGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(800 360) rotate(90) scale(620 790)">
+      <stop stop-color="#4a285a"/>
+      <stop offset=".55" stop-color="#190f22"/>
+      <stop offset="1" stop-color="#0f0916"/>
+    </radialGradient>
+    <filter id="softShadow" x="160" y="110" width="1280" height="720" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="26" stdDeviation="24" flood-color="#000000" flood-opacity=".42"/>
+    </filter>
+  </defs>
+</svg>

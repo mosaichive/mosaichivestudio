@@ -1,113 +1,106 @@
-import PageLayout from "@/components/PageLayout";
-import PageHeader from "@/components/PageHeader";
-import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import ConversionCTA from '@/components/ConversionCTA';
+import Reveal from '@/components/Reveal';
+import { useSEO } from '@/hooks/useSEO';
 
 const team = [
   {
-    name: "Kwame Asante",
-    role: "Founder & Creative Director",
-    bio: "With over 8 years in creative design, Kwame leads the agency's vision and ensures every project reflects excellence and innovation.",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    name: 'Maxwell Osei-Bosompem',
+    role: 'Founder · Creative Direction',
+    image: '/lovable-uploads/e594de62-18f6-46e4-a266-716e18dc50db.png',
+    bio: 'Maxwell leads the studio and sets creative direction across identity, web and campaigns. He works directly on every engagement.',
   },
   {
-    name: "Ama Mensah",
-    role: "Head of Digital Marketing",
-    bio: "Ama specializes in social media strategy and paid advertising, helping brands achieve real, organic audience growth.",
-    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Daniel Osei",
-    role: "Lead Developer",
-    bio: "Daniel builds fast, responsive websites and web applications that convert visitors into loyal customers.",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Efua Adjei",
-    role: "Motion Graphics Designer",
-    bio: "Efua creates eye-catching animations and video content that bring brand stories to life on every platform.",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Kofi Boateng",
-    role: "Brand Strategist",
-    bio: "Kofi develops comprehensive brand strategies that align visual identity with business objectives for lasting impact.",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
-  },
-  {
-    name: "Nana Akua",
-    role: "Content Creator",
-    bio: "Nana produces compelling written and visual content that engages audiences and builds brand loyalty across channels.",
-    image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&h=400&fit=crop&crop=face",
+    name: 'Richard Owusu Sekyere',
+    role: 'Strategy · Consulting',
+    image: '/lovable-uploads/ff985dfe-0c19-4dda-85a4-dffe3ff86ac2.png',
+    bio: 'Richard partners with founders and leadership teams on positioning, narrative and the strategic side of brand work.',
   },
 ];
 
 const TeamPage = () => {
+  useSEO({
+    title: 'Team | Mosaic06 Studio, Accra Creative Agency',
+    description:
+      'Meet the leadership and specialist network behind Mosaic06 Studio, a creative agency in Accra, Ghana.',
+    path: '/team',
+    keywords: ['Mosaic Hive', 'Mosaic06 Studio team', 'creative agency team Accra'],
+  });
+
   return (
-    <PageLayout>
-      <PageHeader
-        title="Meet"
-        titleAccent="The Team"
-        description="The talented people behind Mosaic Hive who bring creativity, strategy, and passion to every project."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Team" }]}
-      />
-
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {team.map((member, i) => (
-              <motion.div
-                key={member.name}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
-                className="bg-card rounded-lg border border-border/60 overflow-hidden hover:border-primary/30 transition-all elegant-shadow"
-              >
-                <div className="aspect-square overflow-hidden">
-                  <img
-                    src={member.image}
-                    alt={member.name}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="font-display text-lg font-semibold">{member.name}</h3>
-                  <p className="text-primary text-sm font-medium mb-3">{member.role}</p>
-                  <p className="text-muted-foreground text-sm leading-relaxed">{member.bio}</p>
-                </div>
-              </motion.div>
-            ))}
+    <>
+      <Navbar />
+      <main className="bg-background">
+        <section className="pt-40 md:pt-48 pb-20 md:pb-28 border-b border-border/60">
+          <div className="container-editorial grid lg:grid-cols-12 gap-12 items-end">
+            <Reveal as="div" className="lg:col-span-8">
+              <p className="eyebrow mb-8">Team</p>
+              <h1 className="display-page text-foreground text-balance">
+                The hands behind{' '}
+                <span className="italic text-secondary">the work</span>.
+              </h1>
+            </Reveal>
+            <Reveal as="div" className="lg:col-span-4" delay={0.15}>
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
+                Mosaic06 is led by experienced creative and strategy partners, supported by a
+                trusted network of photographers, motion artists and engineers we've worked with
+                for years.
+              </p>
+            </Reveal>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28 bg-secondary/40">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Want to join the team?
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              We're always looking for talented creatives who share our passion for excellence.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-8 py-3.5 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity"
-            >
-              Get in Touch <ArrowRight size={16} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </PageLayout>
+        <section className="py-24 md:py-32">
+          <div className="container-editorial">
+            <Reveal.Stagger className="grid md:grid-cols-2 gap-12 md:gap-16">
+              {team.map((m) => (
+                <Reveal.Item key={m.name} className="group">
+                  <div className="relative overflow-hidden rounded-sm bg-muted aspect-[4/5] mb-6">
+                    <img
+                      src={m.image}
+                      alt={m.name}
+                      loading="lazy"
+                      decoding="async"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
+                    />
+                  </div>
+                  <p className="text-xs uppercase tracking-[0.24em] text-foreground/45 mb-3">
+                    {m.role}
+                  </p>
+                  <h2 className="font-display text-3xl md:text-4xl text-foreground tracking-[-0.01em] mb-3">
+                    {m.name}
+                  </h2>
+                  <p className="text-foreground/70 leading-relaxed max-w-prose">{m.bio}</p>
+                </Reveal.Item>
+              ))}
+            </Reveal.Stagger>
+
+            <Reveal as="div" className="mt-24 max-w-xl" delay={0.1}>
+              <p className="eyebrow mb-6">Join us</p>
+              <h3 className="font-display text-3xl md:text-4xl text-foreground tracking-[-0.01em] mb-4">
+                We hire slowly and rarely.
+              </h3>
+              <p className="text-foreground/70 leading-relaxed mb-6">
+                If your craft feels close to ours, we'd still love to see your work.
+              </p>
+              <Link
+                to="/careers"
+                className="group inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-foreground/30 pb-1 hover:border-secondary hover:text-secondary transition-colors"
+              >
+                Careers <ArrowUpRight size={14} />
+              </Link>
+            </Reveal>
+          </div>
+        </section>
+
+        <ConversionCTA />
+      </main>
+      <Footer />
+    </>
   );
 };
 

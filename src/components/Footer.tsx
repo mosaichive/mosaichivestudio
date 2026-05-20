@@ -1,128 +1,130 @@
-import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin } from "lucide-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
+import logo from '@/assets/logo.png';
+import { useSiteSettings } from '@/hooks/useStudioContent';
+import { seoLandingPages } from '@/data/seoLandingPages';
+import { getStudioProfile } from '@/lib/studioProfile';
 
-const quickLinks = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Pricing", href: "/pricing" },
-  { label: "Portfolio", href: "/portfolio" },
-  { label: "Growth Plans", href: "/growth-plans" },
-  { label: "Shop", href: "/shop" },
-  { label: "Team", href: "/team" },
-  { label: "Contact", href: "/contact" },
-];
-
-const serviceLinks = [
-  "Graphic Design",
-  "Motion Graphics",
-  "Video Production",
-  "Website Development",
-  "Digital Marketing",
-  "Social Media Growth",
-];
+const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const Footer = () => {
+  const { data: settings } = useSiteSettings();
+  const profile = getStudioProfile(settings);
+  const email = profile.email;
+  const phone = profile.phone;
+  const address = profile.address;
+  const body =
+    settings?.footer_body ??
+    'An independent creative studio building brands with craft, strategy and a long view.';
+  const ctaEyebrow = settings?.footer_cta_eyebrow ?? 'Start something';
+  const ctaBody =
+    settings?.footer_cta_body ??
+    'We partner with ambitious teams on work that deserves strategic depth and excellent execution.';
+  const ctaLabel = settings?.footer_cta_label ?? 'Start a Project';
+  const ctaLink = settings?.footer_cta_link ?? '/get-started';
+  const linkedin = profile.socialLinks.find((item) => item.includes('linkedin.com')) ?? 'https://linkedin.com';
+  const instagram = profile.socialLinks.find((item) => item.includes('instagram.com')) ?? 'https://instagram.com';
+
   return (
-    <footer className="bg-dark text-white/80">
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
-          {/* Brand */}
-          <div>
-            <h3 className="font-display text-2xl font-bold mb-4">
-              <span className="text-gradient-gold">Mosaic</span>{" "}
-              <span className="text-white">Hive</span>
-            </h3>
-            <p className="text-white/60 text-sm leading-relaxed mb-6">
-              A premium creative agency specializing in design, digital marketing,
-              and real social media growth services based in Accra, Ghana.
+    <footer className="bg-primary text-primary-foreground">
+      <div className="container-editorial pt-20 pb-12">
+        <div className="grid lg:grid-cols-12 gap-12 mb-16 pb-16 border-b border-primary-foreground/15">
+          {/* Studio block */}
+          <div className="lg:col-span-4">
+            <Link to="/" className="inline-flex items-center gap-3 mb-6">
+              <img
+                src={logo}
+                alt="Mosaic06 Studio"
+                className="h-10 w-auto brightness-0 invert"
+              />
+              <span className="font-display text-xl">Mosaic06 Studio</span>
+            </Link>
+            <p className="text-primary-foreground/70 text-lg leading-relaxed max-w-md mb-8">
+              {body}
             </p>
-            <div className="space-y-3">
-              <div className="flex items-center gap-3 text-sm text-white/60">
-                <Mail size={14} className="text-primary shrink-0" />
-                <span>hello@mosaichive.studio</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-white/60">
-                <Phone size={14} className="text-primary shrink-0" />
-                <span>+233 XX XXX XXXX</span>
-              </div>
-              <div className="flex items-center gap-3 text-sm text-white/60">
-                <MapPin size={14} className="text-primary shrink-0" />
-                <span>Accra, Ghana</span>
+            <div className="space-y-3 text-sm">
+              <a href={`mailto:${email}`} className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
+                <Mail size={16} className="text-secondary" />
+                {email}
+              </a>
+              <a href={getPhoneHref(phone)} className="flex items-center gap-3 text-primary-foreground/80 hover:text-secondary transition-colors">
+                <Phone size={16} className="text-secondary" />
+                {phone}
+              </a>
+              <div className="flex items-center gap-3 text-primary-foreground/80">
+                <MapPin size={16} className="text-secondary" />
+                {address}
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-display text-base font-semibold text-white mb-5">
-              Quick Links
-            </h4>
-            <ul className="space-y-2.5">
-              {quickLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    to={link.href}
-                    className="text-sm text-white/50 hover:text-primary transition-colors"
-                  >
-                    {link.label}
+          {/* Studio links */}
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">Studio</p>
+            <ul className="space-y-3 text-primary-foreground/75">
+              <li><Link to="/about" className="hover:text-secondary transition-colors">About</Link></li>
+              <li><Link to="/team" className="hover:text-secondary transition-colors">Team</Link></li>
+              <li><Link to="/careers" className="hover:text-secondary transition-colors">Careers</Link></li>
+              <li><Link to="/clients" className="hover:text-secondary transition-colors">Clients</Link></li>
+            </ul>
+          </div>
+
+          {/* Work links */}
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">Work</p>
+            <ul className="space-y-3 text-primary-foreground/75">
+              <li><Link to="/portfolio" className="hover:text-secondary transition-colors">Portfolio</Link></li>
+              <li><Link to="/services" className="hover:text-secondary transition-colors">Services</Link></li>
+              <li><Link to="/blog" className="hover:text-secondary transition-colors">Journal</Link></li>
+              <li><Link to="/podcast" className="hover:text-secondary transition-colors">Podcast</Link></li>
+            </ul>
+          </div>
+
+          {/* Search links */}
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">Search</p>
+            <ul className="space-y-3 text-primary-foreground/75">
+              {seoLandingPages.map((page) => (
+                <li key={page.path}>
+                  <Link to={page.path} className="hover:text-secondary transition-colors">
+                    {page.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services */}
-          <div>
-            <h4 className="font-display text-base font-semibold text-white mb-5">
-              Services
-            </h4>
-            <ul className="space-y-2.5">
-              {serviceLinks.map((s) => (
-                <li key={s}>
-                  <Link
-                    to="/services"
-                    className="text-sm text-white/50 hover:text-primary transition-colors"
-                  >
-                    {s}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Newsletter / CTA */}
-          <div>
-            <h4 className="font-display text-base font-semibold text-white mb-5">
-              Start a Project
-            </h4>
-            <p className="text-sm text-white/50 leading-relaxed mb-5">
-              Ready to elevate your brand? Let's discuss your project and create
-              something remarkable together.
+          {/* CTA block */}
+          <div className="lg:col-span-2">
+            <p className="text-xs uppercase tracking-[0.24em] text-secondary mb-5">{ctaEyebrow}</p>
+            <p className="text-primary-foreground/75 mb-6 leading-relaxed">
+              {ctaBody}
             </p>
             <Link
-              to="/contact"
-              className="inline-block bg-gradient-gold text-primary-foreground px-6 py-2.5 rounded-md text-sm font-semibold hover:opacity-90 transition-opacity"
+              to={ctaLink}
+              className="group inline-flex items-center gap-2 px-5 py-3 bg-secondary text-secondary-foreground rounded-full text-sm font-medium hover:bg-secondary/90 transition-all"
             >
-              Get in Touch
+              {ctaLabel}
+              <ArrowUpRight size={14} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
         </div>
 
-        <div className="mt-14 pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} Mosaic Hive. All rights reserved.
+        {/* Bottom row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
+          <p className="text-sm text-primary-foreground/60">
+            © {new Date().getFullYear()} Mosaic06 Studio. All rights reserved.
           </p>
-          <div className="flex items-center gap-6">
-            {["Instagram", "Twitter", "Facebook", "LinkedIn"].map((s) => (
-              <a
-                key={s}
-                href="#"
-                className="text-xs text-white/40 hover:text-primary transition-colors"
-              >
-                {s}
-              </a>
-            ))}
+          <div className="flex items-center gap-5">
+            <a href={linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Linkedin size={18} />
+            </a>
+            <a href={instagram} target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="text-primary-foreground/60 hover:text-secondary transition-colors">
+              <Instagram size={18} />
+            </a>
+            <Link to="#" className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors">Privacy</Link>
+            <Link to="#" className="text-sm text-primary-foreground/60 hover:text-secondary transition-colors">Terms</Link>
           </div>
         </div>
       </div>

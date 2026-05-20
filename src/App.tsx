@@ -1,88 +1,113 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { AuthProvider } from "@/contexts/AuthContext";
-import ProtectedRoute from "@/components/ProtectedRoute";
-import AdminLayout from "@/components/admin/AdminLayout";
-
-import Index from "./pages/Index";
-import AboutPage from "./pages/AboutPage";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
+import { AnimatePresence } from "framer-motion";
+import { AuthProvider } from "./context/AuthContext";
+import LoadingScreen from "./components/LoadingScreen";
+import PageTransition from "./components/PageTransition";
+import ScrollToTop from "./components/ScrollToTop";
+import Home from "./pages/Home";
 import ServicesPage from "./pages/ServicesPage";
-import PricingPage from "./pages/PricingPage";
+import AboutPage from "./pages/AboutPage";
 import PortfolioPage from "./pages/PortfolioPage";
-import GrowthPlansPage from "./pages/GrowthPlansPage";
-import ShopPage from "./pages/ShopPage";
-import TeamPage from "./pages/TeamPage";
+import CaseStudyPage from "./pages/CaseStudyPage";
+import BlogPage from "./pages/BlogPage";
+import BlogPostPage from "./pages/BlogPostPage";
 import ContactPage from "./pages/ContactPage";
+import ClientsPage from "./pages/ClientsPage";
+import GetStartedPage from "./pages/GetStartedPage";
+import TeamPage from "./pages/TeamPage";
+import PodcastPage from "./pages/PodcastPage";
+import CareersPage from "./pages/CareersPage";
+import PortfolioSubmissionPage from "./pages/PortfolioSubmissionPage";
+import SeoLandingPage from "./pages/SeoLandingPage";
 import NotFound from "./pages/NotFound";
-
-import LoginPage from "./pages/admin/LoginPage";
-import ResetPasswordPage from "./pages/admin/ResetPasswordPage";
-import DashboardPage from "./pages/admin/DashboardPage";
-import AdminHomePage from "./pages/admin/AdminHomePage";
-import AdminAboutPage from "./pages/admin/AdminAboutPage";
-import AdminServicesPage from "./pages/admin/AdminServicesPage";
-import AdminPricingPage from "./pages/admin/AdminPricingPage";
-import AdminPortfolioPage from "./pages/admin/AdminPortfolioPage";
-import AdminGrowthPlansPage from "./pages/admin/AdminGrowthPlansPage";
-import AdminShopPage from "./pages/admin/AdminShopPage";
-import AdminTeamPage from "./pages/admin/AdminTeamPage";
-import AdminContactPage from "./pages/admin/AdminContactPage";
-import AdminMessagesPage from "./pages/admin/AdminMessagesPage";
-import AdminMediaPage from "./pages/admin/AdminMediaPage";
-import AdminSeoPage from "./pages/admin/AdminSeoPage";
-import AdminSettingsPage from "./pages/admin/AdminSettingsPage";
+import AuthPage from "./pages/AuthPage";
+import AdminLayout from "./pages/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminProjects from "./pages/admin/AdminProjects";
+import AdminProjectEditor from "./pages/admin/AdminProjectEditor";
+import AdminTestimonials from "./pages/admin/AdminTestimonials";
+import AdminLogos from "./pages/admin/AdminLogos";
+import AdminSettings from "./pages/admin/AdminSettings";
+import AdminInvites from "./pages/admin/AdminInvites";
+import { seoLandingPageMap } from "./data/seoLandingPages";
 
 const queryClient = new QueryClient();
 
+// Wrap a page element in the cinematic transition.
+const T = (el: React.ReactNode) => <PageTransition>{el}</PageTransition>;
+
+const AnimatedRoutes = () => {
+  const location = useLocation();
+  // Skip transitions inside admin (it has its own layout / nested routes)
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  return (
+    <AnimatePresence mode="wait" initial={false}>
+      <Routes location={location} key={isAdmin ? "admin" : location.pathname}>
+        <Route path="/" element={T(<Home />)} />
+        <Route path="/services" element={T(<ServicesPage />)} />
+        <Route path="/services/:serviceId" element={T(<ServicesPage />)} />
+        <Route path="/about" element={T(<AboutPage />)} />
+        <Route path="/portfolio" element={T(<PortfolioPage />)} />
+        <Route path="/portfolio/:slug" element={T(<CaseStudyPage />)} />
+        <Route path="/blog" element={T(<BlogPage />)} />
+        <Route path="/blog/:slug" element={T(<BlogPostPage />)} />
+        <Route path="/contact" element={T(<ContactPage />)} />
+        <Route path="/clients" element={T(<ClientsPage />)} />
+        <Route path="/team" element={T(<TeamPage />)} />
+        <Route path="/get-started" element={T(<GetStartedPage />)} />
+        <Route path="/podcast" element={T(<PodcastPage />)} />
+        <Route path="/careers" element={T(<CareersPage />)} />
+        <Route path="/portfolio-submission" element={T(<PortfolioSubmissionPage />)} />
+        <Route
+          path="/branding-agency-accra"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/branding-agency-accra"]} />)}
+        />
+        <Route
+          path="/web-design-ghana"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/web-design-ghana"]} />)}
+        />
+        <Route
+          path="/creative-agency-ghana"
+          element={T(<SeoLandingPage page={seoLandingPageMap["/creative-agency-ghana"]} />)}
+        />
+
+        {/* Auth + Admin (no transition wrapper for admin children) */}
+        <Route path="/auth" element={T(<AuthPage />)} />
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="projects" element={<AdminProjects />} />
+          <Route path="projects/:id" element={<AdminProjectEditor />} />
+          <Route path="testimonials" element={<AdminTestimonials />} />
+          <Route path="logos" element={<AdminLogos />} />
+          <Route path="settings" element={<AdminSettings />} />
+          <Route path="invites" element={<AdminInvites />} />
+        </Route>
+
+        <Route path="*" element={T(<NotFound />)} />
+      </Routes>
+    </AnimatePresence>
+  );
+};
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
+    <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
       <BrowserRouter>
         <AuthProvider>
-          <Routes>
-            {/* Public Routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/growth-plans" element={<GrowthPlansPage />} />
-            <Route path="/shop" element={<ShopPage />} />
-            <Route path="/team" element={<TeamPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-
-            {/* Auth Routes */}
-            <Route path="/admin/login" element={<LoginPage />} />
-            <Route path="/reset-password" element={<ResetPasswordPage />} />
-
-            {/* Protected Admin Routes */}
-            <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-              <Route index element={<DashboardPage />} />
-              <Route path="home" element={<AdminHomePage />} />
-              <Route path="about" element={<AdminAboutPage />} />
-              <Route path="services" element={<AdminServicesPage />} />
-              <Route path="pricing" element={<AdminPricingPage />} />
-              <Route path="portfolio" element={<AdminPortfolioPage />} />
-              <Route path="growth-plans" element={<AdminGrowthPlansPage />} />
-              <Route path="shop" element={<AdminShopPage />} />
-              <Route path="team" element={<AdminTeamPage />} />
-              <Route path="contact" element={<AdminContactPage />} />
-              <Route path="messages" element={<AdminMessagesPage />} />
-              <Route path="media" element={<AdminMediaPage />} />
-              <Route path="seo" element={<AdminSeoPage />} />
-              <Route path="settings" element={<AdminSettingsPage />} />
-            </Route>
-
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <TooltipProvider>
+            <LoadingScreen />
+            <Toaster />
+            <ScrollToTop />
+            <AnimatedRoutes />
+          </TooltipProvider>
         </AuthProvider>
       </BrowserRouter>
-    </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

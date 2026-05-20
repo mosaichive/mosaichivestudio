@@ -1,0 +1,20 @@
+{
+  "functions": {
+    "api/sitemap.js": {
+      "maxDuration": 10
+    },
+    "api/notify-lead.js": {
+      "maxDuration": 10
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}

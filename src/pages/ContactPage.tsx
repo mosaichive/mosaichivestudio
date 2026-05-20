@@ -1,170 +1,129 @@
-import { useState } from "react";
-import PageLayout from "@/components/PageLayout";
-import PageHeader from "@/components/PageHeader";
-import { motion } from "framer-motion";
-import { Send, CheckCircle, Mail, Phone, MapPin, Clock } from "lucide-react";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import InquiryForm from '@/components/InquiryForm';
+import Reveal from '@/components/Reveal';
+import { Mail, Phone, MapPin, Clock } from 'lucide-react';
+import { useSEO } from '@/hooks/useSEO';
+import { useSiteSettings } from '@/hooks/useStudioContent';
+import { buildContactStructuredData, getStudioProfile, STUDIO_HOURS_LABEL } from '@/lib/studioProfile';
+import { useStructuredData } from '@/hooks/useStructuredData';
 
-const contactInfo = [
-  { icon: Mail, label: "Email", value: "hello@mosaichive.studio" },
-  { icon: Phone, label: "Phone", value: "+233 XX XXX XXXX" },
-  { icon: MapPin, label: "Office", value: "Accra, Ghana" },
-  { icon: Clock, label: "Hours", value: "Mon – Fri, 9AM – 6PM GMT" },
-];
+const getPhoneHref = (phone: string) => `tel:${phone.replace(/[^\d+]/g, '')}`;
 
 const ContactPage = () => {
-  const [submitted, setSubmitted] = useState(false);
+  const { data: settings } = useSiteSettings();
+  const profile = getStudioProfile(settings);
+  const email = profile.email;
+  const phone = profile.phone;
+  const address = profile.address;
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-    setTimeout(() => setSubmitted(false), 3000);
-  };
+  useSEO({
+    title: 'Contact Mosaic06 Studio | Creative Agency in Accra, Ghana',
+    description:
+      'Contact Mosaic06 Studio in Accra, Ghana for brand identity, web design, campaigns, motion and digital product inquiries.',
+    path: '/contact',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio contact',
+      'contact creative agency Accra',
+      'branding agency Ghana contact',
+    ],
+  });
+
+  useStructuredData(buildContactStructuredData(settings));
 
   return (
-    <PageLayout>
-      <PageHeader
-        title="Start a New"
-        titleAccent="Project"
-        description="Ready to take your brand to the next level? Fill out the form below and our team will get back to you within 24 hours."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "Contact" }]}
-      />
+    <>
+      <Navbar />
+      <main className="pt-32 md:pt-40 pb-28 bg-background">
+        <section className="container-editorial">
+          <Reveal className="max-w-3xl mb-16">
+            <p className="eyebrow mb-6">Contact</p>
+            <h1 className="display-section text-foreground text-balance">
+              Tell us about your{' '}
+              <span className="gold-text">next project.</span>
+            </h1>
+            <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
+              We reply to every serious inquiry within one working day. If you need branding,
+              website design, campaign creative or product design support in Accra, across Ghana,
+              or remotely, share the brief and we&apos;ll take it from there.
+            </p>
+          </Reveal>
 
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto grid md:grid-cols-5 gap-12">
-            {/* Contact Info */}
-            <motion.div
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="md:col-span-2 space-y-8"
-            >
-              <div>
-                <h3 className="font-display text-xl font-semibold mb-6">Get in Touch</h3>
-                <div className="space-y-5">
-                  {contactInfo.map((item) => (
-                    <div key={item.label} className="flex items-start gap-3">
-                      <div className="w-10 h-10 rounded-md bg-primary/10 flex items-center justify-center shrink-0">
-                        <item.icon size={16} className="text-primary" />
-                      </div>
-                      <div>
-                        <p className="text-sm text-muted-foreground">{item.label}</p>
-                        <p className="text-sm font-medium">{item.value}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Social */}
-              <div>
-                <h4 className="font-display text-sm font-semibold mb-3">Follow Us</h4>
-                <div className="flex gap-3">
-                  {["Instagram", "Twitter", "Facebook", "LinkedIn"].map((s) => (
-                    <a
-                      key={s}
-                      href="#"
-                      className="text-xs text-muted-foreground hover:text-primary transition-colors border border-border px-3 py-1.5 rounded-md"
-                    >
-                      {s}
+          <div className="grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <Reveal as="div" delay={0.1} className="lg:col-span-7">
+              <InquiryForm />
+            </Reveal>
+            <Reveal as="div" delay={0.2} className="lg:col-span-4 lg:col-start-9 space-y-10">
+              <div className="space-y-5 text-foreground/80">
+                <div className="flex items-start gap-4">
+                  <Mail className="w-5 h-5 text-secondary mt-1" />
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Email</p>
+                    <a href={`mailto:${email}`} className="hover:text-secondary transition-colors">
+                      {email}
                     </a>
-                  ))}
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Phone className="w-5 h-5 text-secondary mt-1" />
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Phone</p>
+                    <a href={getPhoneHref(phone)} className="hover:text-secondary transition-colors">
+                      {phone}
+                    </a>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <MapPin className="w-5 h-5 text-secondary mt-1" />
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Studio</p>
+                    {address}
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <Clock className="w-5 h-5 text-secondary mt-1" />
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.2em] text-foreground/50 mb-1">Hours</p>
+                    {STUDIO_HOURS_LABEL}
+                  </div>
                 </div>
               </div>
 
-              {/* Map */}
-              <div className="rounded-lg overflow-hidden border border-border/60 aspect-video elegant-shadow">
-                <iframe
-                  title="Mosaic Hive Location"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d254090.60968150067!2d-0.36171!3d5.6037!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9084b2b7a773%3A0xbed14ed8650e2dd3!2sAccra%2C%20Ghana!5e0!3m2!1sen!2s!4v1"
-                  className="w-full h-full border-0"
-                  allowFullScreen
-                  loading="lazy"
-                />
+              <div className="p-6 rounded-2xl bg-muted/60 border border-border">
+                <p className="font-display text-xl mb-2">Prefer a call?</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  Send the form first — we'll book a 30-minute discovery call once
+                  we have the basics.
+                </p>
               </div>
-            </motion.div>
 
-            {/* Form */}
-            <motion.form
-              initial={{ opacity: 0, x: 16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              onSubmit={handleSubmit}
-              className="md:col-span-3 bg-card rounded-lg p-8 border border-border/60 space-y-5 h-fit elegant-shadow"
-            >
-              <h3 className="font-display text-xl font-semibold mb-2">Send us a message</h3>
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Name</label>
-                  <input
-                    type="text"
-                    required
-                    placeholder="Your name"
-                    className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Email</label>
-                  <input
-                    type="email"
-                    required
-                    placeholder="you@example.com"
-                    className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  />
+              <div className="p-6 rounded-2xl bg-muted/40 border border-border space-y-4">
+                <p className="font-display text-xl">Based in Accra, serving Ghana.</p>
+                <p className="text-sm text-foreground/70 leading-relaxed">
+                  If you found us through local search, these pages are the clearest route into the
+                  part of the studio you need.
+                </p>
+                <div className="space-y-2 text-sm">
+                  <Link to="/branding-agency-accra" className="block hover:text-secondary transition-colors">
+                    Branding agency in Accra
+                  </Link>
+                  <Link to="/web-design-ghana" className="block hover:text-secondary transition-colors">
+                    Web design in Ghana
+                  </Link>
+                  <Link to="/creative-agency-ghana" className="block hover:text-secondary transition-colors">
+                    Creative agency in Ghana
+                  </Link>
                 </div>
               </div>
-              <div className="grid sm:grid-cols-2 gap-5">
-                <div>
-                  <label className="block text-sm font-medium mb-2">Business Type</label>
-                  <input
-                    type="text"
-                    placeholder="e.g. Fashion, Tech, Food"
-                    className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium mb-2">Service Needed</label>
-                  <select className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm focus:outline-none focus:border-primary/50 transition-colors">
-                    <option value="">Select a service</option>
-                    <option>Graphic Design</option>
-                    <option>Motion Graphics</option>
-                    <option>Video Production</option>
-                    <option>Website Development</option>
-                    <option>Digital Marketing</option>
-                    <option>Social Media Growth</option>
-                    <option>Growth Plan</option>
-                  </select>
-                </div>
-              </div>
-              <div>
-                <label className="block text-sm font-medium mb-2">Message</label>
-                <textarea
-                  rows={5}
-                  placeholder="Tell us about your project..."
-                  className="w-full bg-background border border-border rounded-md px-4 py-2.5 text-sm placeholder:text-muted-foreground focus:outline-none focus:border-primary/50 transition-colors resize-none"
-                />
-              </div>
-              <button
-                type="submit"
-                className="w-full bg-gradient-gold text-primary-foreground py-3 rounded-md font-semibold text-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity"
-              >
-                {submitted ? (
-                  <>
-                    <CheckCircle size={16} />
-                    Message Sent!
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} />
-                    Send Message
-                  </>
-                )}
-              </button>
-            </motion.form>
+            </Reveal>
           </div>
-        </div>
-      </section>
-    </PageLayout>
+        </section>
+      </main>
+      <Footer />
+    </>
   );
 };
 

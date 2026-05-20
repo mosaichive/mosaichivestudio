@@ -10,406 +10,376 @@ export type Database = {
   // Allows to automatically instantiate createClient with right options
   // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
   __InternalSupabase: {
-    PostgrestVersion: "14.4"
+    PostgrestVersion: "14.1"
   }
   public: {
     Tables: {
-      contact_messages: {
+      admin_invites: {
         Row: {
+          accepted_at: string | null
           created_at: string
           email: string
           id: string
-          is_read: boolean
-          message: string
-          name: string
-          phone: string | null
-          status: string
-          subject: string | null
+          invited_by: string | null
+          role: Database["public"]["Enums"]["app_role"]
         }
         Insert: {
+          accepted_at?: string | null
           created_at?: string
           email: string
           id?: string
-          is_read?: boolean
-          message: string
-          name: string
-          phone?: string | null
-          status?: string
-          subject?: string | null
+          invited_by?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
         }
         Update: {
+          accepted_at?: string | null
           created_at?: string
           email?: string
           id?: string
-          is_read?: boolean
-          message?: string
+          invited_by?: string | null
+          role?: Database["public"]["Enums"]["app_role"]
+        }
+        Relationships: []
+      }
+      client_logos: {
+        Row: {
+          created_at: string
+          featured: boolean
+          id: string
+          link_url: string | null
+          logo_url: string | null
+          name: string
+          position: number
+          published: boolean
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          featured?: boolean
+          id?: string
+          link_url?: string | null
+          logo_url?: string | null
+          name: string
+          position?: number
+          published?: boolean
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          featured?: boolean
+          id?: string
+          link_url?: string | null
+          logo_url?: string | null
           name?: string
-          phone?: string | null
-          status?: string
-          subject?: string | null
-        }
-        Relationships: []
-      }
-      global_settings: {
-        Row: {
-          created_at: string
-          id: string
-          setting_key: string
-          setting_value: Json | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          setting_key: string
-          setting_value?: Json | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          setting_key?: string
-          setting_value?: Json | null
+          position?: number
+          published?: boolean
           updated_at?: string
         }
         Relationships: []
       }
-      growth_plans: {
+      profiles: {
         Row: {
-          benefits: Json | null
+          avatar_url: string | null
           created_at: string
-          details: string | null
+          display_name: string | null
+          email: string | null
           id: string
-          is_featured: boolean
-          is_published: boolean
-          price: number | null
-          title: string
           updated_at: string
+          user_id: string
         }
         Insert: {
-          benefits?: Json | null
+          avatar_url?: string | null
           created_at?: string
-          details?: string | null
+          display_name?: string | null
+          email?: string | null
           id?: string
-          is_featured?: boolean
-          is_published?: boolean
-          price?: number | null
-          title: string
           updated_at?: string
+          user_id: string
         }
         Update: {
-          benefits?: Json | null
+          avatar_url?: string | null
           created_at?: string
-          details?: string | null
+          display_name?: string | null
+          email?: string | null
           id?: string
-          is_featured?: boolean
-          is_published?: boolean
-          price?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      projects: {
+        Row: {
+          categories: string[]
+          challenge: string | null
+          client: string
+          cover_url: string | null
+          created_at: string
+          excerpt: string | null
+          featured: boolean
+          gallery: string[]
+          id: string
+          industry: string | null
+          position: number
+          published: boolean
+          results: Json
+          services: string[]
+          slug: string
+          solution: string | null
+          title: string
+          tools: string[]
+          updated_at: string
+          year: string | null
+        }
+        Insert: {
+          categories?: string[]
+          challenge?: string | null
+          client: string
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured?: boolean
+          gallery?: string[]
+          id?: string
+          industry?: string | null
+          position?: number
+          published?: boolean
+          results?: Json
+          services?: string[]
+          slug: string
+          solution?: string | null
+          title: string
+          tools?: string[]
+          updated_at?: string
+          year?: string | null
+        }
+        Update: {
+          categories?: string[]
+          challenge?: string | null
+          client?: string
+          cover_url?: string | null
+          created_at?: string
+          excerpt?: string | null
+          featured?: boolean
+          gallery?: string[]
+          id?: string
+          industry?: string | null
+          position?: number
+          published?: boolean
+          results?: Json
+          services?: string[]
+          slug?: string
+          solution?: string | null
           title?: string
+          tools?: string[]
           updated_at?: string
+          year?: string | null
         }
         Relationships: []
       }
-      media_library: {
+      site_settings: {
         Row: {
-          bucket_name: string | null
-          created_at: string
-          file_name: string
-          file_size: number | null
-          file_type: string | null
-          file_url: string
+          about_body: string | null
+          about_eyebrow: string | null
+          about_headline: string | null
+          contact_address: string | null
+          contact_email: string | null
+          contact_phone: string | null
+          counter_brands: number | null
+          counter_clients: number | null
+          counter_projects: number | null
+          counter_years: number | null
+          cta_button_label: string | null
+          cta_button_link: string | null
+          cta_headline: string | null
+          cta_subheadline: string | null
+          featured_cta_label: string | null
+          featured_cta_link: string | null
+          featured_eyebrow: string | null
+          featured_headline: string | null
+          footer_body: string | null
+          footer_cta_body: string | null
+          footer_cta_eyebrow: string | null
+          footer_cta_label: string | null
+          footer_cta_link: string | null
+          hero_cta_primary_label: string | null
+          hero_cta_primary_link: string | null
+          hero_cta_secondary_label: string | null
+          hero_cta_secondary_link: string | null
+          hero_eyebrow: string | null
+          hero_headline: string | null
+          hero_subheadline: string | null
           id: string
-          owner_id: string | null
-        }
-        Insert: {
-          bucket_name?: string | null
-          created_at?: string
-          file_name: string
-          file_size?: number | null
-          file_type?: string | null
-          file_url: string
-          id?: string
-          owner_id?: string | null
-        }
-        Update: {
-          bucket_name?: string | null
-          created_at?: string
-          file_name?: string
-          file_size?: number | null
-          file_type?: string | null
-          file_url?: string
-          id?: string
-          owner_id?: string | null
-        }
-        Relationships: []
-      }
-      page_content: {
-        Row: {
-          content: Json | null
-          created_at: string
-          id: string
-          is_published: boolean
-          page_name: string
-          section_key: string
+          nav_cta_label: string | null
+          nav_cta_link: string | null
+          proof_eyebrow: string | null
+          proof_headline: string | null
+          proof_highlight: string | null
+          proof_items: Json | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          studio_capabilities: Json | null
+          testimonials_eyebrow: string | null
+          testimonials_headline: string | null
+          trust_body: string | null
+          trust_eyebrow: string | null
+          trust_headline: string | null
           updated_at: string
         }
         Insert: {
-          content?: Json | null
-          created_at?: string
+          about_body?: string | null
+          about_eyebrow?: string | null
+          about_headline?: string | null
+          contact_address?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          counter_brands?: number | null
+          counter_clients?: number | null
+          counter_projects?: number | null
+          counter_years?: number | null
+          cta_button_label?: string | null
+          cta_button_link?: string | null
+          cta_headline?: string | null
+          cta_subheadline?: string | null
+          featured_cta_label?: string | null
+          featured_cta_link?: string | null
+          featured_eyebrow?: string | null
+          featured_headline?: string | null
+          footer_body?: string | null
+          footer_cta_body?: string | null
+          footer_cta_eyebrow?: string | null
+          footer_cta_label?: string | null
+          footer_cta_link?: string | null
+          hero_cta_primary_label?: string | null
+          hero_cta_primary_link?: string | null
+          hero_cta_secondary_label?: string | null
+          hero_cta_secondary_link?: string | null
+          hero_eyebrow?: string | null
+          hero_headline?: string | null
+          hero_subheadline?: string | null
           id?: string
-          is_published?: boolean
-          page_name: string
-          section_key: string
+          nav_cta_label?: string | null
+          nav_cta_link?: string | null
+          proof_eyebrow?: string | null
+          proof_headline?: string | null
+          proof_highlight?: string | null
+          proof_items?: Json | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          studio_capabilities?: Json | null
+          testimonials_eyebrow?: string | null
+          testimonials_headline?: string | null
+          trust_body?: string | null
+          trust_eyebrow?: string | null
+          trust_headline?: string | null
           updated_at?: string
         }
         Update: {
-          content?: Json | null
-          created_at?: string
+          about_body?: string | null
+          about_eyebrow?: string | null
+          about_headline?: string | null
+          contact_address?: string | null
+          contact_email?: string | null
+          contact_phone?: string | null
+          counter_brands?: number | null
+          counter_clients?: number | null
+          counter_projects?: number | null
+          counter_years?: number | null
+          cta_button_label?: string | null
+          cta_button_link?: string | null
+          cta_headline?: string | null
+          cta_subheadline?: string | null
+          featured_cta_label?: string | null
+          featured_cta_link?: string | null
+          featured_eyebrow?: string | null
+          featured_headline?: string | null
+          footer_body?: string | null
+          footer_cta_body?: string | null
+          footer_cta_eyebrow?: string | null
+          footer_cta_label?: string | null
+          footer_cta_link?: string | null
+          hero_cta_primary_label?: string | null
+          hero_cta_primary_link?: string | null
+          hero_cta_secondary_label?: string | null
+          hero_cta_secondary_link?: string | null
+          hero_eyebrow?: string | null
+          hero_headline?: string | null
+          hero_subheadline?: string | null
           id?: string
-          is_published?: boolean
-          page_name?: string
-          section_key?: string
+          nav_cta_label?: string | null
+          nav_cta_link?: string | null
+          proof_eyebrow?: string | null
+          proof_headline?: string | null
+          proof_highlight?: string | null
+          proof_items?: Json | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          studio_capabilities?: Json | null
+          testimonials_eyebrow?: string | null
+          testimonials_headline?: string | null
+          trust_body?: string | null
+          trust_eyebrow?: string | null
+          trust_headline?: string | null
           updated_at?: string
         }
         Relationships: []
       }
-      portfolio_projects: {
+      testimonials: {
         Row: {
-          category: string | null
-          client_name: string | null
-          completion_date: string | null
-          cover_image_url: string | null
+          author: string
+          avatar_url: string | null
+          company: string | null
           created_at: string
-          description: string | null
-          gallery_urls: Json | null
           id: string
-          is_published: boolean
-          slug: string | null
-          title: string
+          position: number
+          published: boolean
+          quote: string
+          rating: number
+          role: string | null
           updated_at: string
         }
         Insert: {
-          category?: string | null
-          client_name?: string | null
-          completion_date?: string | null
-          cover_image_url?: string | null
+          author: string
+          avatar_url?: string | null
+          company?: string | null
           created_at?: string
-          description?: string | null
-          gallery_urls?: Json | null
           id?: string
-          is_published?: boolean
-          slug?: string | null
-          title: string
+          position?: number
+          published?: boolean
+          quote: string
+          rating?: number
+          role?: string | null
           updated_at?: string
         }
         Update: {
-          category?: string | null
-          client_name?: string | null
-          completion_date?: string | null
-          cover_image_url?: string | null
-          created_at?: string
-          description?: string | null
-          gallery_urls?: Json | null
-          id?: string
-          is_published?: boolean
-          slug?: string | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      pricing_packages: {
-        Row: {
-          created_at: string
-          features: Json | null
-          id: string
-          is_featured: boolean
-          is_published: boolean
-          price: number | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          features?: Json | null
-          id?: string
-          is_featured?: boolean
-          is_published?: boolean
-          price?: number | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          features?: Json | null
-          id?: string
-          is_featured?: boolean
-          is_published?: boolean
-          price?: number | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      seo_settings: {
-        Row: {
-          created_at: string
-          id: string
-          meta_description: string | null
-          meta_keywords: string | null
-          meta_title: string | null
-          page_name: string
-          updated_at: string
-        }
-        Insert: {
+          author?: string
+          avatar_url?: string | null
+          company?: string | null
           created_at?: string
           id?: string
-          meta_description?: string | null
-          meta_keywords?: string | null
-          meta_title?: string | null
-          page_name: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          meta_description?: string | null
-          meta_keywords?: string | null
-          meta_title?: string | null
-          page_name?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      services: {
-        Row: {
-          created_at: string
-          full_description: string | null
-          id: string
-          image_url: string | null
-          is_published: boolean
-          short_description: string | null
-          slug: string | null
-          starting_price: number | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          full_description?: string | null
-          id?: string
-          image_url?: string | null
-          is_published?: boolean
-          short_description?: string | null
-          slug?: string | null
-          starting_price?: number | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          full_description?: string | null
-          id?: string
-          image_url?: string | null
-          is_published?: boolean
-          short_description?: string | null
-          slug?: string | null
-          starting_price?: number | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      shop_products: {
-        Row: {
-          availability_status: string
-          cover_image_url: string | null
-          created_at: string
-          description: string | null
-          downloadable_urls: Json | null
-          id: string
-          is_published: boolean
-          price: number | null
-          slug: string | null
-          title: string
-          updated_at: string
-        }
-        Insert: {
-          availability_status?: string
-          cover_image_url?: string | null
-          created_at?: string
-          description?: string | null
-          downloadable_urls?: Json | null
-          id?: string
-          is_published?: boolean
-          price?: number | null
-          slug?: string | null
-          title: string
-          updated_at?: string
-        }
-        Update: {
-          availability_status?: string
-          cover_image_url?: string | null
-          created_at?: string
-          description?: string | null
-          downloadable_urls?: Json | null
-          id?: string
-          is_published?: boolean
-          price?: number | null
-          slug?: string | null
-          title?: string
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      team_members: {
-        Row: {
-          created_at: string
-          display_order: number
-          full_name: string
-          id: string
-          is_published: boolean
-          photo_url: string | null
-          role_title: string | null
-          short_bio: string | null
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          display_order?: number
-          full_name: string
-          id?: string
-          is_published?: boolean
-          photo_url?: string | null
-          role_title?: string | null
-          short_bio?: string | null
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          display_order?: number
-          full_name?: string
-          id?: string
-          is_published?: boolean
-          photo_url?: string | null
-          role_title?: string | null
-          short_bio?: string | null
+          position?: number
+          published?: boolean
+          quote?: string
+          rating?: number
+          role?: string | null
           updated_at?: string
         }
         Relationships: []
       }
       user_roles: {
         Row: {
+          created_at: string
           id: string
           role: Database["public"]["Enums"]["app_role"]
           user_id: string
         }
         Insert: {
+          created_at?: string
           id?: string
           role: Database["public"]["Enums"]["app_role"]
           user_id: string
         }
         Update: {
+          created_at?: string
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
@@ -428,10 +398,9 @@ export type Database = {
         }
         Returns: boolean
       }
-      is_admin: { Args: never; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "moderator" | "user"
+      app_role: "admin" | "editor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -559,7 +528,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "moderator", "user"],
+      app_role: ["admin", "editor"],
     },
   },
 } as const

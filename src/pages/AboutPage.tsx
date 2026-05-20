@@ -1,161 +1,157 @@
-import PageLayout from "@/components/PageLayout";
-import PageHeader from "@/components/PageHeader";
-import { motion } from "framer-motion";
-import { Target, Eye, Sparkles, ArrowRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import ConversionCTA from '@/components/ConversionCTA';
+import Reveal from '@/components/Reveal';
+import { useSEO } from '@/hooks/useSEO';
 
-const values = [
+const principles = [
   {
-    icon: Target,
-    title: "Our Mission",
-    description:
-      "To empower businesses across Africa and beyond with world-class creative solutions that drive real, measurable growth and lasting brand impact.",
+    n: '01',
+    title: 'Strategic by design',
+    body: 'Focused engagements led by experienced specialists. No agency theatre, no diluted accountability.',
   },
   {
-    icon: Eye,
-    title: "Our Vision",
-    description:
-      "To be the leading creative agency in West Africa, known for transforming brands through innovative design, strategic marketing, and authentic storytelling.",
+    n: '02',
+    title: 'Editorial, not decorative',
+    body: 'Typography, hierarchy and pace come first. Visual flourish is earned, never sprinkled.',
   },
   {
-    icon: Sparkles,
-    title: "What Makes Us Different",
-    description:
-      "We combine creativity with strategy. Every design decision is backed by data, and every campaign is built on genuine audience understanding — no shortcuts, no fake metrics.",
+    n: '03',
+    title: 'Built to outlast a launch',
+    body: 'Identities and sites that hold up six months later — not just on the announcement day.',
+  },
+  {
+    n: '04',
+    title: 'Quiet, useful, honest',
+    body: 'We say what we mean, scope what we can deliver, and tell clients when an idea is not worth doing.',
   },
 ];
 
 const AboutPage = () => {
+  useSEO({
+    title: 'About Mosaic06 Studio | Creative Agency in Accra, Ghana',
+    description:
+      'Learn about Mosaic06 Studio, a creative agency in Accra, Ghana working across brand identity, website design, campaigns, motion and digital product experiences.',
+    path: '/about',
+    keywords: [
+      'Mosaic Hive',
+      'Mosaic06 Studio',
+      'about Mosaic06 Studio',
+      'creative agency Accra Ghana',
+    ],
+  });
+
   return (
-    <PageLayout>
-      <PageHeader
-        title="About"
-        titleAccent="Mosaic Hive"
-        description="We are an integrated creative and digital marketing agency with mastery in visual storytelling, connecting businesses to their customers."
-        breadcrumbs={[{ label: "Home", href: "/" }, { label: "About" }]}
-      />
+    <>
+      <Navbar />
+      <main className="bg-background">
+        {/* Hero */}
+        <section className="pt-40 md:pt-48 pb-20 md:pb-28 border-b border-border/60">
+          <div className="container-editorial grid lg:grid-cols-12 gap-12 items-end">
+            <Reveal as="div" className="lg:col-span-8">
+              <p className="eyebrow mb-8">Studio</p>
+              <h1 className="display-page text-foreground text-balance">
+                A creative organization for brands that want to be{' '}
+                <span className="italic text-secondary">remembered</span>.
+              </h1>
+            </Reveal>
+            <Reveal as="div" className="lg:col-span-4" delay={0.15}>
+              <p className="text-base md:text-lg text-foreground/70 leading-relaxed">
+                Mosaic06 is an independent creative agency based in Accra, Ghana, working with
+                founders, foundations and senior in-house teams. We build brand identity systems,
+                digital platforms and campaigns with strategic depth from start to finish.
+              </p>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* Story */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-2 gap-16 items-center max-w-5xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <p className="text-primary text-sm font-semibold tracking-widest uppercase mb-3">Our Story</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold mb-5 leading-tight">
-                Built by creatives, <span className="text-gradient-gold">for creatives.</span>
+        {/* Stance / what we believe */}
+        <section className="py-24 md:py-32">
+          <div className="container-editorial grid lg:grid-cols-12 gap-12 lg:gap-20">
+            <Reveal as="div" className="lg:col-span-4">
+              <p className="eyebrow mb-6">What we believe</p>
+              <h2 className="display-section text-foreground text-balance">
+                Calm, considered, work-led.
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                Mosaic Hive was founded in Accra, Ghana with a simple belief: every
-                business deserves branding that tells its story with clarity, beauty,
-                and purpose.
+              <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
+                We bring strategy, branding, web design and campaign thinking together so the work
+                is coherent from the first brief to the live experience.
               </p>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                What started as a small design studio has grown into a full-service
-                creative agency serving clients across Ghana, Nigeria, the UK, and
-                the United States. We've helped over 80 brands find their voice
-                through strategic design, compelling video content, and data-driven
-                digital marketing.
-              </p>
-              <p className="text-muted-foreground leading-relaxed">
-                Our team brings together designers, developers, marketers, and
-                strategists who share one common goal — to create work that matters
-                and delivers results.
-              </p>
-            </motion.div>
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="rounded-lg overflow-hidden elegant-shadow"
-            >
-              <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=450&fit=crop"
-                alt="Mosaic Hive agency workspace"
-                className="w-full aspect-[4/3] object-cover"
-                loading="lazy"
-              />
-            </motion.div>
+            </Reveal>
+            <Reveal.Stagger className="lg:col-span-7 lg:col-start-6 divide-y divide-border/60 border-y border-border/60">
+              {principles.map((p) => (
+                <Reveal.Item key={p.n} className="py-10 grid sm:grid-cols-12 gap-6 items-start">
+                  <div className="sm:col-span-2">
+                    <span className="font-display text-sm text-secondary tracking-wider">
+                      {p.n}
+                    </span>
+                  </div>
+                  <div className="sm:col-span-10">
+                    <h3 className="font-display text-2xl md:text-3xl text-foreground tracking-[-0.01em] mb-3">
+                      {p.title}
+                    </h3>
+                    <p className="text-foreground/75 leading-relaxed">{p.body}</p>
+                  </div>
+                </Reveal.Item>
+              ))}
+            </Reveal.Stagger>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Mission / Vision / Difference */}
-      <section className="py-20 md:py-28 bg-secondary/40">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-            {values.map((v, i) => (
-              <motion.div
-                key={v.title}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.1 }}
-                className="bg-card rounded-lg p-8 border border-border/60 elegant-shadow"
+        {/* Studio at a glance */}
+        <section className="py-24 md:py-32 bg-muted/30 border-y border-border/60">
+          <div className="container-editorial">
+            <Reveal as="div" className="max-w-2xl mb-16">
+              <p className="eyebrow mb-6">At a glance</p>
+              <h2 className="display-section text-foreground text-balance">
+                The shape of the studio.
+              </h2>
+            </Reveal>
+            <Reveal.Stagger className="grid md:grid-cols-3 gap-px bg-border/60 border border-border/60">
+              {[
+                { label: 'Founded', value: 'Accra · 2018' },
+                { label: 'Engagements / quarter', value: 'Three to four' },
+                { label: 'Disciplines', value: 'Identity · Web · Campaigns · Motion · Product' },
+              ].map((s) => (
+                <Reveal.Item key={s.label} className="bg-background p-8 md:p-10">
+                  <p className="text-xs uppercase tracking-[0.24em] text-foreground/45 mb-4">
+                    {s.label}
+                  </p>
+                  <p className="font-display text-2xl md:text-3xl text-foreground tracking-[-0.01em]">
+                    {s.value}
+                  </p>
+                </Reveal.Item>
+              ))}
+            </Reveal.Stagger>
+
+            <div className="mt-16 flex flex-wrap gap-4">
+              <Link
+                to="/portfolio"
+                className="group inline-flex items-center gap-2 px-6 py-3 bg-foreground text-background rounded-full font-medium hover:bg-foreground/90 transition-all"
               >
-                <div className="w-11 h-11 rounded-md bg-primary/10 flex items-center justify-center mb-5">
-                  <v.icon size={20} className="text-primary" />
-                </div>
-                <h3 className="font-display text-xl font-semibold mb-3">{v.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{v.description}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Stats */}
-      <section className="py-20 md:py-28 bg-dark">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center">
-            {[
-              { value: "150+", label: "Projects Delivered" },
-              { value: "80+", label: "Happy Clients" },
-              { value: "5+", label: "Years in Business" },
-              { value: "6", label: "Core Services" },
-            ].map((stat, i) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, y: 16 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.08 }}
+                See selected work
+                <ArrowUpRight
+                  size={16}
+                  className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                />
+              </Link>
+              <Link
+                to="/team"
+                className="inline-flex items-center gap-2 px-6 py-3 border border-foreground/25 text-foreground rounded-full font-medium hover:bg-foreground/5 transition-all"
               >
-                <div className="font-display text-3xl md:text-4xl font-bold text-primary">{stat.value}</div>
-                <div className="text-sm text-white/50 mt-1">{stat.label}</div>
-              </motion.div>
-            ))}
+                Meet the team
+              </Link>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="py-20 md:py-28">
-        <div className="container mx-auto px-4 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="font-display text-3xl md:text-4xl font-bold mb-4">
-              Ready to work with us?
-            </h2>
-            <p className="text-muted-foreground max-w-lg mx-auto mb-8">
-              Let's discuss your project and create something remarkable together.
-            </p>
-            <Link
-              to="/contact"
-              className="inline-flex items-center gap-2 bg-gradient-gold text-primary-foreground px-8 py-3.5 rounded-md font-semibold text-sm hover:opacity-90 transition-opacity"
-            >
-              Start a Project <ArrowRight size={16} />
-            </Link>
-          </motion.div>
-        </div>
-      </section>
-    </PageLayout>
+        <ConversionCTA />
+      </main>
+      <Footer />
+    </>
   );
 };
 
