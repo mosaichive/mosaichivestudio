@@ -175,6 +175,103 @@
     animation: marquee 40s linear infinite;
   }
 
+  .testimonial-marquee-shell {
+    @apply relative overflow-hidden;
+    mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 8%, black 92%, transparent);
+  }
+
+  .testimonial-marquee {
+    @apply relative;
+    padding: 0.75rem 1.5rem 1rem;
+  }
+
+  .testimonial-marquee-track {
+    display: flex;
+    gap: 1.5rem;
+    width: max-content;
+    animation: testimonial-marquee 58s linear infinite;
+    will-change: transform;
+  }
+
+  .testimonial-marquee-shell:hover .testimonial-marquee-track {
+    animation-play-state: paused;
+  }
+
+  .testimonial-card {
+    flex: 0 0 clamp(18rem, 42vw, 33rem);
+    box-shadow: 0 24px 60px -34px hsl(var(--foreground) / 0.22);
+    backdrop-filter: blur(14px);
+  }
+
+  .ambient-orb,
+  .ambient-grid,
+  .ambient-sheen {
+    position: fixed;
+    inset: auto;
+  }
+
+  .ambient-orb {
+    border-radius: 9999px;
+    filter: blur(26px);
+    opacity: 0.22;
+  }
+
+  .dark .ambient-orb {
+    opacity: 0.18;
+  }
+
+  .ambient-orb-one {
+    top: 4rem;
+    left: -6rem;
+    width: 24rem;
+    height: 24rem;
+    background: radial-gradient(circle at 35% 35%, hsl(var(--secondary) / 0.34), transparent 70%);
+  }
+
+  .ambient-orb-two {
+    top: 38%;
+    right: -7rem;
+    width: 28rem;
+    height: 28rem;
+    background: radial-gradient(circle at 55% 45%, hsl(var(--primary) / 0.22), transparent 72%);
+  }
+
+  .ambient-orb-three {
+    bottom: 5rem;
+    left: 28%;
+    width: 22rem;
+    height: 22rem;
+    background: radial-gradient(circle at 45% 45%, hsl(var(--secondary) / 0.16), transparent 72%);
+  }
+
+  .ambient-grid {
+    inset: 0;
+    opacity: 0.06;
+    background-image:
+      linear-gradient(to right, hsl(var(--foreground) / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
+    background-size: 7rem 7rem;
+    mask-image: radial-gradient(circle at center, black 20%, transparent 72%);
+    -webkit-mask-image: radial-gradient(circle at center, black 20%, transparent 72%);
+  }
+
+  .dark .ambient-grid {
+    opacity: 0.08;
+  }
+
+  .ambient-sheen {
+    inset: -20%;
+    opacity: 0.2;
+    background:
+      conic-gradient(from 90deg at 50% 50%, hsl(var(--secondary) / 0.12), transparent 28%, hsl(var(--primary) / 0.12) 62%, transparent 82%);
+    filter: blur(90px);
+  }
+
+  .dark .ambient-sheen {
+    opacity: 0.12;
+  }
+
   .nav-link {
     @apply relative text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200;
   }
@@ -194,6 +291,11 @@
   100% { transform: translateX(-50%); }
 }
 
+@keyframes testimonial-marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
 @keyframes bounce-slow {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-10px); }
@@ -204,9 +306,39 @@
   100% { transform: rotate(360deg); }
 }
 
+@keyframes ambient-drift-one {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(4rem, 2rem, 0) scale(1.08); }
+}
+
+@keyframes ambient-drift-two {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(-4rem, -2.5rem, 0) scale(0.94); }
+}
+
+@keyframes ambient-drift-three {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(2rem, -3rem, 0) scale(1.05); }
+}
+
+@keyframes ambient-grid-pan {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(3.5rem, 2rem, 0); }
+}
+
+@keyframes ambient-sheen-rotate {
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1.04); }
+}
+
 .animate-bounce-slow { animation: bounce-slow 6s infinite ease-in-out; }
 .animate-spin-slow { animation: spin-slow 10s linear infinite; }
 .animate-spin-bounce { animation: spin-slow 10s linear infinite, bounce-slow 6s infinite ease-in-out; }
+.ambient-animate-one { animation: ambient-drift-one 18s ease-in-out infinite; }
+.ambient-animate-two { animation: ambient-drift-two 22s ease-in-out infinite; }
+.ambient-animate-three { animation: ambient-drift-three 20s ease-in-out infinite; }
+.ambient-grid-animate { animation: ambient-grid-pan 26s linear infinite alternate; }
+.ambient-sheen-animate { animation: ambient-sheen-rotate 34s linear infinite; }
 
 /* Legacy support for existing components */
 .gradient-text {
@@ -239,4 +371,19 @@
 [data-animate].animated {
   opacity: 1;
   transform: translate(0) scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ambient-animate-one,
+  .ambient-animate-two,
+  .ambient-animate-three,
+  .ambient-grid-animate,
+  .ambient-sheen-animate,
+  .testimonial-marquee-track,
+  .marquee-track,
+  .animate-bounce-slow,
+  .animate-spin-slow,
+  .animate-spin-bounce {
+    animation: none !important;
+  }
 }

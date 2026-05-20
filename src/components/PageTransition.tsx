@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import PublicAmbientMotion from './PublicAmbientMotion';
 
 /**
  * Soft, editorial page transition.
@@ -56,7 +57,12 @@ const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) =
         exit="exit"
         style={{ willChange: 'opacity, transform' }}
       >
-        {children}
+        <div className="relative isolate overflow-x-clip">
+          <PublicAmbientMotion />
+          <div className="relative z-10">
+            {children}
+          </div>
+        </div>
       </motion.div>
     </>
   );
