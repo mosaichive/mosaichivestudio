@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import { useProjects, useSiteSettings } from '@/hooks/useStudioContent';
@@ -6,18 +6,28 @@ import { Skeleton } from '@/components/ui/skeleton';
 import Reveal from '@/components/Reveal';
 
 const FeaturedWork = () => {
-  const { data: projects, isLoading } = useProjects({ onlyPublished: true, onlyFeatured: true });
+  const { data: featuredProjects, isLoading: featuredLoading } = useProjects({ onlyPublished: true, onlyFeatured: true });
+  const { data: publishedProjects, isLoading: publishedLoading } = useProjects({ onlyPublished: true });
   const { data: settings } = useSiteSettings();
   const eyebrow = settings?.featured_eyebrow ?? 'Selected Work';
   const headline = settings?.featured_headline ?? 'Selected work from a serious creative partner.';
   const ctaLabel = settings?.featured_cta_label ?? 'Browse the full index';
   const ctaLink = settings?.featured_cta_link ?? '/portfolio';
-  const list = (projects ?? []).slice(0, 3);
+  const isLoading = featuredLoading || publishedLoading;
+  const list = useMemo(() => {
+    const featured = featuredProjects ?? [];
+    const published = publishedProjects ?? [];
+    if (featured.length >= 4) return featured.slice(0, 4);
+
+    const featuredIds = new Set(featured.map((project) => project.id));
+    const fill = published.filter((project) => !featuredIds.has(project.id));
+    return [...featured, ...fill].slice(0, 4);
+  }, [featuredProjects, publishedProjects]);
 
   if (!isLoading && list.length === 0) return null;
 
   return (
-    <section className="pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="work">
+    <section className="overflow-x-clip pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="work">
       <div className="container-editorial">
         <div className="grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end">
           <div className="lg:col-span-8">
@@ -36,27 +46,34 @@ const FeaturedWork = () => {
 
         {isLoading ? (
           <div className="grid grid-cols-12 gap-5 md:gap-7">
-            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/10] rounded-sm" />
-            <Skeleton className="col-span-12 lg:col-span-4 lg:col-start-9 aspect-[4/4.6] rounded-sm" />
-            <Skeleton className="col-span-12 lg:col-span-7 lg:col-start-4 aspect-[16/7] rounded-sm" />
+            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/10] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-5 aspect-[4/4.2] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-5 aspect-[4/4.2] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/9] rounded-[1.1rem]" />
           </div>
         ) : (
-          <Reveal.Stagger className="grid grid-cols-12 gap-y-10 md:gap-y-14 gap-x-5 md:gap-x-7" stagger={0.12}>
+          <Reveal.Stagger className="grid grid-cols-12 gap-y-10 md:gap-y-14 gap-x-5 md:gap-x-7" stagger={0.1}>
             {list[0] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:max-w-[54rem]" y={26}>
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7" y={24}>
                 <ProjectCard project={list[0]} aspect="aspect-[16/10]" priority />
               </Reveal.Item>
             )}
 
             {list[1] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-4 lg:col-start-9 lg:mt-12 lg:max-w-[22rem]" y={26}>
-                <ProjectCard project={list[1]} aspect="aspect-[4/4.6]" />
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-5 lg:mt-8" y={24}>
+                <ProjectCard project={list[1]} aspect="aspect-[4/4.2]" />
               </Reveal.Item>
             )}
 
             {list[2] && (
-              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:col-start-4 lg:max-w-[54rem]" y={26}>
-                <ProjectCard project={list[2]} aspect="aspect-[16/7]" />
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-5" y={24}>
+                <ProjectCard project={list[2]} aspect="aspect-[4/4.2]" />
+              </Reveal.Item>
+            )}
+
+            {list[3] && (
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:mt-8" y={24}>
+                <ProjectCard project={list[3]} aspect="aspect-[16/9]" />
               </Reveal.Item>
             )}
           </Reveal.Stagger>
