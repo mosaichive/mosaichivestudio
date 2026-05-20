@@ -10,6 +10,7 @@ import TrustLogos from '@/components/TrustLogos';
 import ConversionCTA from '@/components/ConversionCTA';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
+import { useStructuredData } from '@/hooks/useStructuredData';
 import {
   SITE_NAME,
   getAbsoluteUrl,
@@ -31,6 +32,49 @@ const Home = () => {
     ],
   });
 
+  useStructuredData([
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Organization',
+      name: SITE_NAME,
+      alternateName: ['Mosaic Hive', 'Mosaic06 Studio'],
+      url: getAbsoluteUrl('/'),
+      logo: getDefaultSocialImageUrl(),
+      image: getDefaultSocialImageUrl(),
+      email: 'mosaichive@gmail.com',
+      telephone: '+233544909011',
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Accra',
+        addressCountry: 'GH',
+      },
+      description:
+        'Creative agency in Accra, Ghana building identity systems, websites, campaigns, motion and digital product experiences.',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: SITE_NAME,
+      url: getAbsoluteUrl('/'),
+      inLanguage: 'en',
+    },
+    {
+      '@context': 'https://schema.org',
+      '@type': 'ProfessionalService',
+      name: SITE_NAME,
+      url: getAbsoluteUrl('/'),
+      image: getDefaultSocialImageUrl(),
+      areaServed: ['Accra', 'Ghana', 'Worldwide'],
+      address: {
+        '@type': 'PostalAddress',
+        addressLocality: 'Accra',
+        addressCountry: 'GH',
+      },
+      description:
+        'Brand identity design, website design, campaign creative, motion and digital product design for ambitious organizations in Ghana and beyond.',
+    },
+  ]);
+
   return (
     <>
       <ScrollAnimations />
@@ -42,59 +86,10 @@ const Home = () => {
         <StudioIntro />
         <WhyChooseUs />
         <TrustLogos />
-        <Testimonials />
-        <ConversionCTA />
+      <Testimonials />
+      <ConversionCTA />
       </main>
       <Footer />
-
-      {/* Organisation JSON-LD for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([
-            {
-              '@context': 'https://schema.org',
-              '@type': 'Organization',
-              name: SITE_NAME,
-              alternateName: ['Mosaic Hive', 'Mosaic06 Studio'],
-              url: getAbsoluteUrl('/'),
-              logo: getDefaultSocialImageUrl(),
-              image: getDefaultSocialImageUrl(),
-              email: 'mosaichive@gmail.com',
-              telephone: '+233544909011',
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: 'Accra',
-                addressCountry: 'GH',
-              },
-              description:
-                'Creative agency in Accra, Ghana building identity systems, websites, campaigns, motion and digital product experiences.',
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'WebSite',
-              name: SITE_NAME,
-              url: getAbsoluteUrl('/'),
-              inLanguage: 'en',
-            },
-            {
-              '@context': 'https://schema.org',
-              '@type': 'ProfessionalService',
-              name: SITE_NAME,
-              url: getAbsoluteUrl('/'),
-              image: getDefaultSocialImageUrl(),
-              areaServed: ['Accra', 'Ghana', 'Worldwide'],
-              address: {
-                '@type': 'PostalAddress',
-                addressLocality: 'Accra',
-                addressCountry: 'GH',
-              },
-              description:
-                'Brand identity design, website design, campaign creative, motion and digital product design for ambitious organizations in Ghana and beyond.',
-            },
-          ]),
-        }}
-      />
     </>
   );
 };

@@ -8,6 +8,7 @@ import ConversionCTA from '@/components/ConversionCTA';
 import { useProject, useProjects } from '@/hooks/useStudioContent';
 import { getAbsoluteUrl } from '@/lib/site';
 import { useSEO } from '@/hooks/useSEO';
+import { useStructuredData } from '@/hooks/useStructuredData';
 
 const CaseStudyPage = () => {
   const { slug } = useParams();
@@ -41,6 +42,55 @@ const CaseStudyPage = () => {
       : ['Mosaic Hive', 'Mosaic06 Studio', 'creative case studies Ghana'],
   });
 
+  const caseStudyUrl = project ? getAbsoluteUrl(`/portfolio/${project.slug}`) : null;
+  const structuredData = project && caseStudyUrl
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'CreativeWork',
+          name: project.title,
+          headline: `${project.client} — ${project.title}`,
+          description,
+          url: caseStudyUrl,
+          image: project.cover_url ? [project.cover_url] : undefined,
+          creator: {
+            '@type': 'Organization',
+            name: 'Mosaic06 Studio',
+            url: getAbsoluteUrl('/'),
+          },
+          about: project.client,
+          dateCreated: project.created_at,
+          dateModified: project.updated_at,
+        },
+        {
+          '@context': 'https://schema.org',
+          '@type': 'BreadcrumbList',
+          itemListElement: [
+            {
+              '@type': 'ListItem',
+              position: 1,
+              name: 'Home',
+              item: getAbsoluteUrl('/'),
+            },
+            {
+              '@type': 'ListItem',
+              position: 2,
+              name: 'Selected Work',
+              item: getAbsoluteUrl('/portfolio'),
+            },
+            {
+              '@type': 'ListItem',
+              position: 3,
+              name: project.title,
+              item: caseStudyUrl,
+            },
+          ],
+        },
+      ]
+    : null;
+
+  useStructuredData(structuredData);
+
   if (isLoading) {
     return (
       <>
@@ -58,50 +108,6 @@ const CaseStudyPage = () => {
   const list = allProjects ?? [];
   const idx = list.findIndex((c) => c.slug === project.slug);
   const next = list.length > 0 ? list[(idx + 1) % list.length] : null;
-  const caseStudyUrl = getAbsoluteUrl(`/portfolio/${project.slug}`);
-  const structuredData = [
-    {
-      '@context': 'https://schema.org',
-      '@type': 'CreativeWork',
-      name: project.title,
-      headline: `${project.client} — ${project.title}`,
-      description,
-      url: caseStudyUrl,
-      image: project.cover_url ? [project.cover_url] : undefined,
-      creator: {
-        '@type': 'Organization',
-        name: 'Mosaic06 Studio',
-        url: getAbsoluteUrl('/'),
-      },
-      about: project.client,
-      dateCreated: project.created_at,
-      dateModified: project.updated_at,
-    },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: 'Home',
-          item: getAbsoluteUrl('/'),
-        },
-        {
-          '@type': 'ListItem',
-          position: 2,
-          name: 'Selected Work',
-          item: getAbsoluteUrl('/portfolio'),
-        },
-        {
-          '@type': 'ListItem',
-          position: 3,
-          name: project.title,
-          item: caseStudyUrl,
-        },
-      ],
-    },
-  ];
 
   return (
     <>
@@ -342,10 +348,6 @@ const CaseStudyPage = () => {
         <ConversionCTA />
       </main>
       <Footer />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
     </>
   );
 };

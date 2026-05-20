@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -6,6 +5,7 @@ import Footer from '@/components/Footer';
 import Reveal from '@/components/Reveal';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import { useSEO } from '@/hooks/useSEO';
+import { useStructuredData } from '@/hooks/useStructuredData';
 import { getAbsoluteUrl } from '@/lib/site';
 import type { SeoLandingPageDefinition } from '@/data/seoLandingPages';
 
@@ -21,7 +21,7 @@ const SeoLandingPage = ({ page }: SeoLandingPageProps) => {
     keywords: page.keywords,
   });
 
-  const structuredDataJson = JSON.stringify([
+  const structuredData = [
     {
       '@context': 'https://schema.org',
       '@type': 'WebPage',
@@ -74,25 +74,9 @@ const SeoLandingPage = ({ page }: SeoLandingPageProps) => {
         },
       ],
     },
-  ]);
+  ];
 
-  useEffect(() => {
-    const scriptId = `seo-landing-jsonld-${page.path.replace(/[^\w-]/g, '-')}`;
-    let script = document.getElementById(scriptId) as HTMLScriptElement | null;
-
-    if (!script) {
-      script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.id = scriptId;
-      document.head.appendChild(script);
-    }
-
-    script.textContent = structuredDataJson;
-
-    return () => {
-      script?.remove();
-    };
-  }, [page.path, structuredDataJson]);
+  useStructuredData(structuredData);
 
   return (
     <div className="bg-background relative">
