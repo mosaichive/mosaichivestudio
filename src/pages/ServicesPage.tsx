@@ -1,68 +1,128 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link, useParams, Navigate } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
+import {
+  AnimatePresence,
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useSpring,
+} from 'framer-motion';
+import {
+  ArrowUpRight,
+  Camera,
+  Film,
+  Fingerprint,
+  Globe2,
+  Megaphone,
+  PanelsTopLeft,
+  type LucideIcon,
+} from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
 import ConversionCTA from '@/components/ConversionCTA';
 import Reveal from '@/components/Reveal';
+import { cn } from '@/lib/utils';
 import { useSEO } from '@/hooks/useSEO';
 import { seoLandingPages } from '@/data/seoLandingPages';
 
 type Capability = {
+  id: string;
   number: string;
   title: string;
+  icon: LucideIcon;
+  kicker: string;
   description: string;
   deliverables: string[];
+  accent: string;
+  ring: string;
+  glow: string;
   related?: { label: string; to: string };
 };
 
 const capabilities: Capability[] = [
   {
+    id: 'identity-systems',
     number: '01',
     title: 'Identity Systems',
+    icon: Fingerprint,
+    kicker: 'Strategy + design systems',
     description:
       'Brand architecture, identity systems and market-ready visual languages built to scale across every touchpoint.',
     deliverables: ['Brand strategy', 'Logo & wordmark', 'Type & colour system', 'Governance toolkit'],
+    accent: 'rgba(214, 173, 94, 0.88)',
+    ring: 'rgba(214, 173, 94, 0.55)',
+    glow: 'rgba(214, 173, 94, 0.22)',
     related: { label: 'Aurelia Atelier', to: '/portfolio/aurelia-atelier' },
   },
   {
+    id: 'websites',
     number: '02',
     title: 'Websites',
+    icon: Globe2,
+    kicker: 'Editorial web experiences',
     description:
       'High-performing editorial and conversion-led websites engineered for credibility, clarity and growth.',
     deliverables: ['Site architecture', 'UX & UI design', 'Frontend build', 'CMS & analytics'],
+    accent: 'rgba(178, 150, 222, 0.88)',
+    ring: 'rgba(178, 150, 222, 0.48)',
+    glow: 'rgba(178, 150, 222, 0.2)',
     related: { label: 'Terra Aid International', to: '/portfolio/terraaidinternational' },
   },
   {
+    id: 'campaigns',
     number: '03',
     title: 'Campaigns',
+    icon: Megaphone,
+    kicker: 'Launch-ready campaign systems',
     description:
       'Integrated campaigns shaped from strategy to rollout, with assets ready for every channel that matters.',
     deliverables: ['Campaign strategy', 'Concept & art direction', 'Key visuals', 'Launch rollout'],
+    accent: 'rgba(208, 140, 121, 0.88)',
+    ring: 'rgba(208, 140, 121, 0.46)',
+    glow: 'rgba(208, 140, 121, 0.2)',
     related: { label: 'Ghana Gold Expo Foundation', to: '/portfolio/gge' },
   },
   {
+    id: 'motion',
     number: '04',
     title: 'Motion',
+    icon: Film,
+    kicker: 'Animated brand language',
     description:
       'Motion systems, campaign films and animated content that give brands authority, rhythm and recall.',
     deliverables: ['Logo animation', 'Campaign film', 'Social motion', 'Edit & post'],
+    accent: 'rgba(133, 171, 232, 0.9)',
+    ring: 'rgba(133, 171, 232, 0.45)',
+    glow: 'rgba(133, 171, 232, 0.2)',
   },
   {
+    id: 'content',
     number: '05',
     title: 'Content',
+    icon: Camera,
+    kicker: 'Editorial + image direction',
     description:
       'Editorial direction, photography and copy that make brands sound sharper, look stronger and travel further.',
     deliverables: ['Editorial direction', 'Photography', 'Copywriting', 'Asset libraries'],
+    accent: 'rgba(151, 194, 160, 0.88)',
+    ring: 'rgba(151, 194, 160, 0.42)',
+    glow: 'rgba(151, 194, 160, 0.18)',
     related: { label: 'Ghana Gold Expo Foundation', to: '/portfolio/gge' },
   },
   {
+    id: 'product-interfaces',
     number: '06',
     title: 'Product Interfaces',
+    icon: PanelsTopLeft,
+    kicker: 'Digital products + systems',
     description:
       'Dashboards, web apps and operating tools designed with enterprise-grade clarity and brand-level craft.',
     deliverables: ['Product strategy', 'UX & UI design', 'Frontend development', 'Design system'],
+    accent: 'rgba(202, 177, 122, 0.92)',
+    ring: 'rgba(202, 177, 122, 0.44)',
+    glow: 'rgba(202, 177, 122, 0.2)',
     related: { label: 'SikaFlow', to: '/portfolio/salestallysystem' },
   },
 ];
@@ -110,8 +170,216 @@ const process = [
   },
 ];
 
+interface CapabilityCardProps {
+  capability: Capability;
+  expanded: boolean;
+  onToggle: () => void;
+}
+
+const CapabilityCard: React.FC<CapabilityCardProps> = ({ capability, expanded, onToggle }) => {
+  const Icon = capability.icon;
+  const reduceMotion = useReducedMotion();
+  const [hovered, setHovered] = useState(false);
+  const rawX = useMotionValue(50);
+  const rawY = useMotionValue(50);
+  const glowX = useSpring(rawX, { stiffness: 140, damping: 24, mass: 0.6 });
+  const glowY = useSpring(rawY, { stiffness: 140, damping: 24, mass: 0.6 });
+  const active = hovered || expanded;
+
+  const spotlight = useMotionTemplate`radial-gradient(420px circle at ${glowX}% ${glowY}%, ${capability.glow}, transparent 58%)`;
+
+  const handlePointerMove = (event: React.PointerEvent<HTMLElement>) => {
+    if (reduceMotion) return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    rawX.set(((event.clientX - rect.left) / rect.width) * 100);
+    rawY.set(((event.clientY - rect.top) / rect.height) * 100);
+  };
+
+  const resetGlow = () => {
+    setHovered(false);
+    rawX.set(50);
+    rawY.set(50);
+  };
+
+  return (
+    <motion.article
+      layout
+      className="service-motion-card group relative h-full overflow-hidden rounded-[2rem] p-px"
+      data-expanded={expanded}
+      style={
+        {
+          '--service-accent': capability.accent,
+          '--service-ring': capability.ring,
+        } as React.CSSProperties
+      }
+      onPointerMove={handlePointerMove}
+      onPointerEnter={() => setHovered(true)}
+      onPointerLeave={resetGlow}
+      animate={reduceMotion ? undefined : { y: active ? -6 : 0, scale: active ? 1.01 : 1 }}
+      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+    >
+      <motion.div
+        className="service-motion-card__border absolute -inset-[42%] rounded-full"
+        animate={reduceMotion ? undefined : { rotate: 360, opacity: active ? 0.96 : 0.34, scale: active ? 1.02 : 1 }}
+        transition={
+          reduceMotion
+            ? undefined
+            : {
+                rotate: { duration: 20, repeat: Infinity, ease: 'linear' },
+                opacity: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+                scale: { duration: 0.35, ease: [0.22, 1, 0.36, 1] },
+              }
+        }
+      />
+
+      <div className="service-motion-card__panel relative h-full overflow-hidden rounded-[calc(2rem-1px)] border border-white/10 px-7 py-7 md:px-8 md:py-8">
+        <motion.div
+          className="absolute inset-0 opacity-0 transition-opacity duration-500"
+          style={{ background: spotlight }}
+          animate={{ opacity: active ? 1 : 0.36 }}
+        />
+        <div className="service-motion-card__grid absolute inset-0 opacity-40" />
+        <div className="service-motion-card__mesh absolute inset-0" />
+
+        <div className="relative z-10 flex h-full flex-col">
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-expanded={expanded}
+            className="flex h-full flex-col text-left"
+            data-cursor-style="button"
+            data-cursor-label={expanded ? 'Collapse details' : `Open ${capability.title}`}
+            data-cursor-magnetic="true"
+          >
+            <div className="flex items-start justify-between gap-6">
+              <div>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-foreground/46">
+                  {capability.number}
+                </p>
+                <p className="mt-4 text-[0.68rem] uppercase tracking-[0.24em] text-secondary/90">
+                  {capability.kicker}
+                </p>
+              </div>
+
+              <motion.div
+                className="flex h-14 w-14 items-center justify-center rounded-[1.2rem] border border-white/12 bg-white/[0.05] text-foreground"
+                animate={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        rotate: active ? [0, -7, 5, 0] : 0,
+                        y: active ? [0, -2, 0] : 0,
+                        scale: active ? 1.06 : 1,
+                      }
+                }
+                transition={
+                  reduceMotion
+                    ? undefined
+                    : {
+                        duration: 6.4,
+                        repeat: active ? Infinity : 0,
+                        ease: 'easeInOut',
+                      }
+                }
+              >
+                <Icon size={24} strokeWidth={1.35} style={{ color: capability.accent }} />
+              </motion.div>
+            </div>
+
+            <div className="mt-10">
+              <h3 className="font-display text-[1.9rem] leading-[1.02] tracking-[-0.03em] text-foreground md:text-[2.25rem]">
+                {capability.title}
+              </h3>
+              <p className="mt-4 max-w-sm text-[0.98rem] leading-relaxed text-foreground/72">
+                {capability.description}
+              </p>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2">
+              {capability.deliverables.slice(0, 2).map((deliverable) => (
+                <span
+                  key={deliverable}
+                  className="rounded-full border border-white/10 bg-white/[0.05] px-3 py-1.5 text-[0.72rem] uppercase tracking-[0.16em] text-foreground/56"
+                >
+                  {deliverable}
+                </span>
+              ))}
+            </div>
+
+            <div className="mt-auto pt-8">
+              <div className="flex items-center justify-between gap-4 border-t border-white/8 pt-5">
+                <span className="text-sm font-medium text-foreground/68">
+                  {expanded ? 'Hide details' : 'Expand details'}
+                </span>
+                <motion.span
+                  className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/12 bg-white/[0.05] text-foreground"
+                  animate={{ rotate: expanded ? 45 : 0, x: active ? 2 : 0, y: active ? -2 : 0 }}
+                  transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <ArrowUpRight size={16} />
+                </motion.span>
+              </div>
+            </div>
+          </button>
+
+          <AnimatePresence initial={false}>
+            {expanded ? (
+              <motion.div
+                key="details"
+                initial={{ height: 0, opacity: 0, marginTop: 0 }}
+                animate={{ height: 'auto', opacity: 1, marginTop: 20 }}
+                exit={{ height: 0, opacity: 0, marginTop: 0 }}
+                transition={{ duration: 0.36, ease: [0.22, 1, 0.36, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="rounded-[1.4rem] border border-white/10 bg-black/[0.03] p-5 dark:bg-white/[0.03]">
+                  <p className="text-[0.68rem] uppercase tracking-[0.26em] text-secondary/88">
+                    Core outputs
+                  </p>
+                  <div className="mt-4 grid gap-2">
+                    {capability.deliverables.map((deliverable) => (
+                      <div
+                        key={deliverable}
+                        className="flex items-center gap-3 rounded-full border border-white/8 bg-white/[0.04] px-3 py-2 text-sm text-foreground/72"
+                      >
+                        <span
+                          className="h-2 w-2 rounded-full"
+                          style={{ backgroundColor: capability.accent }}
+                        />
+                        <span>{deliverable}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {capability.related ? (
+                    <Link
+                      to={capability.related.to}
+                      onClick={(event) => event.stopPropagation()}
+                      className={cn(
+                        'mt-5 inline-flex items-center gap-2 border-b pb-1 text-sm font-medium text-foreground transition-colors hover:text-secondary',
+                        'border-white/12 hover:border-secondary/50',
+                      )}
+                      data-cursor-style="project"
+                      data-cursor-label={`Open ${capability.related.label}`}
+                      data-cursor-magnetic="true"
+                    >
+                      Recent work · {capability.related.label}
+                      <ArrowUpRight size={14} style={{ color: capability.accent }} />
+                    </Link>
+                  ) : null}
+                </div>
+              </motion.div>
+            ) : null}
+          </AnimatePresence>
+        </div>
+      </div>
+    </motion.article>
+  );
+};
+
 const ServicesPage = () => {
   const { serviceId } = useParams();
+  const [expandedCapability, setExpandedCapability] = useState<string>('identity-systems');
 
   useSEO({
     title: 'Branding, Web Design & Creative Services in Accra, Ghana | Mosaic06 Studio',
@@ -178,60 +446,39 @@ const ServicesPage = () => {
           </div>
         </section>
 
-        {/* 2. Capabilities overview — editorial list, not gradient cards */}
+        {/* 2. Capabilities overview — interactive motion cards */}
         <section className="py-24 md:py-32">
           <div className="container-editorial">
             <Reveal as="div" className="mb-16 max-w-2xl">
               <p className="eyebrow mb-6">What we do</p>
               <h2 className="display-section text-foreground text-balance">
-                Six disciplines, one integrated creative partner.
+                Six disciplines, rebuilt as living surfaces.
               </h2>
               <p className="mt-6 text-lg text-foreground/70 leading-relaxed">
                 Clients usually come to us when they need a branding agency in Accra, a web design
                 studio in Ghana, or a campaign partner that can carry strategy into execution.
+                The work below shows how each capability behaves inside the wider studio system.
               </p>
             </Reveal>
 
-            <Reveal.Stagger className="divide-y divide-border/60 border-y border-border/60">
+            <Reveal.Stagger
+              className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+              stagger={0.1}
+              mode="scale-in"
+            >
               {capabilities.map((cap) => (
                 <Reveal.Item
-                  key={cap.number}
-                  className="group grid lg:grid-cols-12 gap-8 lg:gap-12 py-10 md:py-14"
+                  key={cap.id}
+                  className="h-full"
+                  mode="scale-in"
                 >
-                  <div className="lg:col-span-1">
-                    <span className="font-display text-sm text-secondary tracking-wider">
-                      {cap.number}
-                    </span>
-                  </div>
-                  <div className="lg:col-span-4">
-                    <h3 className="font-display text-3xl md:text-4xl text-foreground tracking-[-0.01em] leading-tight">
-                      {cap.title}
-                    </h3>
-                    {cap.related && (
-                      <Link
-                        to={cap.related.to}
-                        className="inline-flex items-center gap-2 mt-4 text-sm text-foreground/60 hover:text-secondary transition-colors"
-                      >
-                        Recent work · {cap.related.label}
-                        <ArrowUpRight size={14} />
-                      </Link>
-                    )}
-                  </div>
-                  <div className="lg:col-span-5">
-                    <p className="text-base md:text-lg text-foreground/75 leading-relaxed">
-                      {cap.description}
-                    </p>
-                  </div>
-                  <div className="lg:col-span-2">
-                    <ul className="space-y-2 text-sm text-foreground/65">
-                      {cap.deliverables.map((d) => (
-                        <li key={d} className="flex items-start gap-2">
-                          <span className="mt-2 w-1 h-1 rounded-full bg-secondary shrink-0" />
-                          <span>{d}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
+                  <CapabilityCard
+                    capability={cap}
+                    expanded={expandedCapability === cap.id}
+                    onToggle={() =>
+                      setExpandedCapability((current) => (current === cap.id ? '' : cap.id))
+                    }
+                  />
                 </Reveal.Item>
               ))}
             </Reveal.Stagger>

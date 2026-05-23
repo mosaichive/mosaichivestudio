@@ -341,6 +341,104 @@
     opacity: 0.12;
   }
 
+  .floating-navbar-shell {
+    @apply relative overflow-hidden rounded-full border backdrop-blur-2xl;
+    box-shadow:
+      0 26px 68px -42px hsl(var(--foreground) / 0.18),
+      inset 0 1px 0 hsl(0 0% 100% / 0.26);
+  }
+
+  .floating-navbar-shell::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, hsl(0 0% 100% / 0.16), transparent 28%),
+      linear-gradient(135deg, hsl(var(--secondary) / 0.08), transparent 36%, hsl(var(--primary) / 0.08) 100%);
+    opacity: 0.95;
+  }
+
+  .floating-navbar-shell::after {
+    content: '';
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    bottom: -1px;
+    height: 1px;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, hsl(var(--secondary) / 0.8), transparent);
+    opacity: 0.6;
+  }
+
+  .floating-menu-panel {
+    background:
+      linear-gradient(145deg, hsl(var(--background) / 0.9), hsl(var(--background) / 0.72));
+    box-shadow:
+      0 34px 90px -44px hsl(var(--foreground) / 0.24),
+      inset 0 1px 0 hsl(0 0% 100% / 0.18);
+  }
+
+  .floating-menu-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(180deg, hsl(0 0% 100% / 0.08), transparent 22%),
+      linear-gradient(135deg, hsl(var(--secondary) / 0.08), transparent 46%, hsl(var(--primary) / 0.08) 100%);
+    opacity: 1;
+  }
+
+  .service-motion-card {
+    box-shadow: 0 28px 70px -42px hsl(var(--foreground) / 0.16);
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+
+  .service-motion-card__border {
+    background:
+      conic-gradient(
+        from 120deg,
+        transparent 0deg,
+        transparent 36deg,
+        var(--service-ring) 88deg,
+        hsl(0 0% 100% / 0.3) 136deg,
+        transparent 198deg,
+        var(--service-accent) 264deg,
+        transparent 360deg
+      );
+    filter: blur(20px);
+    transform: translateZ(0);
+    will-change: transform, opacity;
+  }
+
+  .service-motion-card__panel {
+    background:
+      linear-gradient(180deg, hsl(var(--background) / 0.94), hsl(var(--background) / 0.8));
+    box-shadow:
+      inset 0 1px 0 hsl(0 0% 100% / 0.22),
+      0 18px 45px -38px hsl(var(--foreground) / 0.28);
+    backdrop-filter: blur(22px);
+  }
+
+  .service-motion-card__mesh {
+    background:
+      radial-gradient(circle at 15% 15%, var(--service-ring), transparent 24%),
+      linear-gradient(135deg, hsl(var(--primary) / 0.08), transparent 40%, hsl(var(--secondary) / 0.07) 100%);
+    opacity: 0.6;
+    mix-blend-mode: screen;
+  }
+
+  .service-motion-card__grid {
+    background-image:
+      linear-gradient(to right, hsl(var(--foreground) / 0.06) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--foreground) / 0.06) 1px, transparent 1px);
+    background-size: 3.6rem 3.6rem;
+    mask-image: linear-gradient(160deg, black, transparent 80%);
+    -webkit-mask-image: linear-gradient(160deg, black, transparent 80%);
+  }
+
   .nav-link {
     @apply relative text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200;
   }
