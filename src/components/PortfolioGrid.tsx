@@ -35,7 +35,7 @@ const PortfolioGrid = () => {
       {/* Header / intro */}
       <section className="pt-32 md:pt-40 pb-10 md:pb-14 bg-background">
         <div className="container-editorial">
-          <Reveal className="max-w-3xl">
+          <Reveal className="max-w-3xl" mode="text">
             <p className="eyebrow mb-6">Selected Work</p>
             <h1 className="display-section text-foreground text-balance">
               Branding, websites and campaigns that move{' '}
@@ -109,6 +109,7 @@ const PortfolioGrid = () => {
               key={active}
               className="grid grid-cols-12 gap-y-14 md:gap-y-24 gap-x-6 md:gap-x-10"
               stagger={0.08}
+              mode="scale-in"
             >
               {filtered.map((project, i) => {
                 const p = PATTERN[i % PATTERN.length];

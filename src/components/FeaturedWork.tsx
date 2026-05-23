@@ -110,14 +110,14 @@ const FeaturedWork = () => {
 
       <div className="container-editorial relative z-10">
         <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-8">
-          <Reveal className="lg:col-span-7">
+          <Reveal className="lg:col-span-7" mode="text">
             <p className="eyebrow mb-6">{eyebrow}</p>
             <h2 className="display-section max-w-[15ch] text-balance text-foreground">
               {headline}
             </h2>
           </Reveal>
 
-          <Reveal className="lg:col-span-5 lg:justify-self-end" delay={0.08}>
+          <Reveal className="lg:col-span-5 lg:justify-self-end" delay={0.08} mode="blur-up">
             <div className="max-w-md rounded-[1.5rem] border border-border/60 bg-background/45 p-5 shadow-[0_18px_60px_-40px_hsl(var(--foreground)/0.28)] backdrop-blur-xl">
               <p className="text-sm leading-relaxed text-foreground/64">
                 A cinematic index of featured engagements. Scroll horizontally through the studio’s selected narratives and open each case for the full story.
@@ -139,6 +139,9 @@ const FeaturedWork = () => {
                 <Link
                   to={ctaLink}
                   className="group inline-flex items-center gap-2 rounded-full border border-foreground/12 bg-background/58 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.24em] text-foreground/76 backdrop-blur-xl transition-colors hover:border-secondary/50 hover:text-secondary"
+                  data-cursor-style="button"
+                  data-cursor-label={ctaLabel}
+                  data-cursor-magnetic="true"
                 >
                   {ctaLabel}
                   <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -158,7 +161,7 @@ const FeaturedWork = () => {
             ))}
           </div>
         ) : (
-          <Reveal className="mt-12 md:mt-14" delay={0.12}>
+          <Reveal className="mt-12 md:mt-14" delay={0.12} mode="scale-in">
             <div
               ref={railRef}
               className="showcase-scroll no-scrollbar overflow-x-auto pb-6 [scrollbar-width:none]"

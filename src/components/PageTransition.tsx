@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import AmbientBackground from './AmbientBackground';
+import CinematicCursor from './CinematicCursor';
 import SiteDecorativeElements from './SiteDecorativeElements';
 
 /**
@@ -61,6 +62,7 @@ const PageTransition: React.FC<{ children: React.ReactNode }> = ({ children }) =
         <div className="relative isolate overflow-x-clip">
           <AmbientBackground />
           <SiteDecorativeElements />
+          <CinematicCursor />
           <div className="relative z-10">
             {children}
           </div>

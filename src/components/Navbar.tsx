@@ -45,7 +45,14 @@ const Navbar = () => {
       }`}
     >
       <div className="container-editorial flex items-center justify-between">
-        <Link to="/" className="flex items-center gap-3" aria-label="Mosaic06 Studio home">
+        <Link
+          to="/"
+          className="flex items-center gap-3"
+          aria-label="Mosaic06 Studio home"
+          data-cursor-style="button"
+          data-cursor-label="Home"
+          data-cursor-magnetic="true"
+        >
           <img
             src={logo}
             alt="Mosaic06 Studio"
@@ -58,7 +65,13 @@ const Navbar = () => {
 
         <nav className="hidden lg:flex items-center gap-10">
           {navLinks.map((l) => (
-            <Link key={l.path} to={l.path} className="nav-link">
+            <Link
+              key={l.path}
+              to={l.path}
+              className="nav-link"
+              data-cursor-style="button"
+              data-cursor-label={l.name}
+            >
               {l.name}
             </Link>
           ))}
@@ -69,6 +82,8 @@ const Navbar = () => {
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="p-2 rounded-full hover:bg-foreground/5 text-foreground/70 hover:text-foreground transition-colors"
             aria-label="Toggle theme"
+            data-cursor-style="button"
+            data-cursor-label="Theme"
           >
             {mounted && (theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
           </button>
@@ -76,6 +91,9 @@ const Navbar = () => {
           <Link
             to={ctaLink}
             className="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full text-sm font-medium hover:bg-primary/90 transition-colors"
+            data-cursor-style="button"
+            data-cursor-label={ctaLabel}
+            data-cursor-magnetic="true"
           >
             {ctaLabel}
             <ArrowUpRight size={14} />
@@ -85,6 +103,8 @@ const Navbar = () => {
             className="lg:hidden p-2 text-foreground"
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
+            data-cursor-style="button"
+            data-cursor-label={isOpen ? 'Close' : 'Menu'}
           >
             {isOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
@@ -104,6 +124,8 @@ const Navbar = () => {
               to={l.path}
               className="font-display text-4xl py-4 border-b border-border text-foreground hover:text-secondary transition-colors"
               style={{ transitionDelay: `${i * 40}ms` }}
+              data-cursor-style="button"
+              data-cursor-label={l.name}
             >
               {l.name}
             </Link>
@@ -111,6 +133,9 @@ const Navbar = () => {
           <Link
             to={ctaLink}
             className="mt-8 inline-flex items-center justify-center gap-2 px-6 py-4 bg-primary text-primary-foreground rounded-full font-medium"
+            data-cursor-style="button"
+            data-cursor-label={ctaLabel}
+            data-cursor-magnetic="true"
           >
             {ctaLabel} <ArrowUpRight size={16} />
           </Link>

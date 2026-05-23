@@ -66,16 +66,6 @@ const ProjectShowcaseCard = ({
     damping: 20,
     mass: 0.45,
   });
-  const cursorX = useSpring(useTransform(rawX, [0, 1], ['14%', '86%']), {
-    stiffness: 140,
-    damping: 18,
-    mass: 0.55,
-  });
-  const cursorY = useSpring(useTransform(rawY, [0, 1], ['16%', '82%']), {
-    stiffness: 140,
-    damping: 18,
-    mass: 0.55,
-  });
   const lighting = useMotionTemplate`radial-gradient(circle at ${useTransform(rawX, [0, 1], [12, 88])}% ${useTransform(rawY, [0, 1], [12, 88])}%, hsl(var(--secondary) / 0.22), transparent 28%), radial-gradient(circle at 80% 22%, hsl(var(--primary) / 0.2), transparent 36%)`;
 
   const previewMedia = useMemo(() => {
@@ -150,6 +140,9 @@ const ProjectShowcaseCard = ({
         onPointerMove={handlePointerMove}
         onPointerEnter={() => setHovered(true)}
         onPointerLeave={handlePointerLeave}
+        data-cursor-style="project"
+        data-cursor-label="Open case"
+        data-cursor-magnetic="true"
       >
         <motion.div
           aria-hidden
@@ -230,17 +223,6 @@ const ProjectShowcaseCard = ({
             </span>
             <span className="rounded-full border border-white/14 bg-background/30 px-3 py-1 text-[0.6rem] uppercase tracking-[0.24em] text-primary-foreground/72 backdrop-blur-md">
               {project.client}
-            </span>
-          </motion.div>
-
-          <motion.div
-            className="absolute z-10 hidden -translate-x-1/2 -translate-y-1/2 md:block"
-            style={reduceMotion ? undefined : { left: cursorX, top: cursorY }}
-            animate={reduceMotion ? undefined : { opacity: hovered ? 1 : 0, scale: hovered ? 1 : 0.9 }}
-            transition={{ duration: 0.3 }}
-          >
-            <span className="inline-flex min-w-[5.5rem] items-center justify-center rounded-full border border-white/16 bg-black/26 px-3 py-1.5 text-[0.58rem] uppercase tracking-[0.24em] text-primary-foreground/82 backdrop-blur-md">
-              Open case
             </span>
           </motion.div>
 
