@@ -4,6 +4,7 @@ import PortfolioGrid from '@/components/PortfolioGrid';
 import ConversionCTA from '@/components/ConversionCTA';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
+import SectionTransition from '@/components/SectionTransition';
 import { useSEO } from '@/hooks/useSEO';
 
 const PortfolioPage = () => {
@@ -25,7 +26,9 @@ const PortfolioPage = () => {
       <ScrollAnimations />
       <Navbar />
       <PortfolioGrid />
-      <ConversionCTA />
+      <SectionTransition tone="secondary" className="-mt-6 md:-mt-8">
+        <ConversionCTA />
+      </SectionTransition>
       <Footer />
     </>
   );

@@ -194,6 +194,21 @@
     @apply block h-px w-10 bg-secondary/70;
   }
 
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .showcase-scroll {
+    scroll-snap-type: x mandatory;
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+  }
+
   .marquee-track {
     animation: marquee 40s linear infinite;
   }
