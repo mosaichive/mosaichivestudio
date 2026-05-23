@@ -317,7 +317,8 @@ const CaseStudyPage = () => {
                         alt={`${project.client} gallery ${i + 1}`}
                         loading="lazy"
                         decoding="async"
-                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-[1.6s] ease-out"
+                        className="absolute inset-0 w-full h-full object-cover group-hover:scale-[1.03] transition-transform ease-out"
+                        style={{ transitionDuration: '1600ms' }}
                       />
                     </div>
                   ))}

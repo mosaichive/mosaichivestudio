@@ -27,7 +27,7 @@ const FeaturedWork = () => {
   if (!isLoading && list.length === 0) return null;
 
   return (
-    <section className="overflow-x-clip pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="work">
+    <section className="overflow-x-clip pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="selected-work">
       <div className="container-editorial">
         <div className="grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end">
           <div className="lg:col-span-8">
@@ -108,7 +108,8 @@ const ProjectCard: React.FC<CardProps> = ({ project, aspect, priority }) => (
           loading={priority ? 'eager' : 'lazy'}
           decoding="async"
           fetchPriority={priority ? 'high' : 'auto'}
-          className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
+          className="absolute inset-0 w-full h-full object-cover transition-transform ease-out group-hover:scale-[1.04]"
+          style={{ transitionDuration: '1600ms' }}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center bg-primary/5">

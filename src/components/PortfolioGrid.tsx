@@ -121,7 +121,8 @@ const PortfolioGrid = () => {
                             alt={`${project.client} — ${project.title}`}
                             loading={i < 2 ? 'eager' : 'lazy'}
                             decoding="async"
-                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
+                            className="absolute inset-0 w-full h-full object-cover transition-transform ease-out group-hover:scale-[1.04]"
+                            style={{ transitionDuration: '1600ms' }}
                           />
                         ) : (
                           <div className="absolute inset-0 flex items-center justify-center bg-primary/5">

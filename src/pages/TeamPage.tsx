@@ -65,7 +65,8 @@ const TeamPage = () => {
                       alt={m.name}
                       loading="lazy"
                       decoding="async"
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
+                      className="absolute inset-0 w-full h-full object-cover transition-transform ease-out group-hover:scale-[1.04]"
+                      style={{ transitionDuration: '1600ms' }}
                     />
                   </div>
                   <p className="text-xs uppercase tracking-[0.24em] text-foreground/45 mb-3">

@@ -180,6 +180,20 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  .hero-glass-card {
+    @apply rounded-[1.35rem] border border-white/35 bg-white/45 p-4 shadow-[0_18px_50px_-32px_hsl(var(--foreground)/0.34)] backdrop-blur-2xl dark:border-white/10 dark:bg-white/[0.06];
+    min-width: 12rem;
+  }
+
+  .hero-scroll-indicator {
+    @apply inline-flex items-center gap-3 rounded-full border border-foreground/10 bg-background/45 px-4 py-3 backdrop-blur-xl;
+    box-shadow: 0 20px 50px -34px hsl(var(--foreground) / 0.2);
+  }
+
+  .hero-scroll-indicator__line {
+    @apply block h-px w-10 bg-secondary/70;
+  }
+
   .marquee-track {
     animation: marquee 40s linear infinite;
   }
