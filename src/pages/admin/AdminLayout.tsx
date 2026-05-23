@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import logo from '@/assets/logo.png';
 import { useSEO } from '@/hooks/useSEO';
+import AmbientBackground from '@/components/AmbientBackground';
 
 const navItems = [
   { to: '/admin', icon: LayoutDashboard, label: 'Overview', end: true },
@@ -54,9 +55,12 @@ const AdminLayout = () => {
   };
 
   return (
-    <div className="min-h-screen flex bg-background">
+    <div className="relative isolate min-h-screen overflow-x-clip bg-background/95">
+      <AmbientBackground />
+      <div className="absolute inset-0 bg-background/72 backdrop-blur-[2px]" />
+      <div className="relative z-10 min-h-screen flex">
       {/* Sidebar */}
-      <aside className="w-64 border-r border-border bg-card flex flex-col sticky top-0 h-screen">
+      <aside className="w-64 border-r border-border bg-card/88 backdrop-blur-md flex flex-col sticky top-0 h-screen">
         <div className="p-6 border-b border-border">
           <div className="flex items-center gap-3">
             <img src={logo} alt="Mosaic06" className="h-8 w-auto" />
@@ -108,6 +112,7 @@ const AdminLayout = () => {
           <Outlet />
         </div>
       </main>
+      </div>
     </div>
   );
 };
