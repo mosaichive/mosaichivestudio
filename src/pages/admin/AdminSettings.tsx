@@ -121,7 +121,7 @@ const AdminSettings = () => {
       return acc;
     }, {} as Record<string, unknown>);
 
-    const { data: updated, error } = await supabase
+    const { data: updated, error } = await (supabase as any)
       .from('site_settings')
       .update(payload)
       .eq('id', form.id)

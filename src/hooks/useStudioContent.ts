@@ -132,7 +132,7 @@ export const useProject = (slug: string | undefined) => {
     queryKey: ['project', slug],
     enabled: !!slug,
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('projects')
         .select('*')
         .eq('slug', slug as string)
@@ -207,7 +207,7 @@ export const useSiteSettings = () => {
   const query = useQuery({
     queryKey: ['site_settings'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await (supabase as any)
         .from('site_settings')
         .select('*')
         .limit(1)
