@@ -140,7 +140,7 @@ const AdminProjects = () => {
     try {
       await Promise.all(
         reordered.map((p, i) =>
-          supabase.from('projects').update({ position: i + 1 }).eq('id', p.id)
+          (supabase as any).from('projects').update({ position: i + 1 }).eq('id', p.id)
         )
       );
       toast({ title: 'Order saved' });
@@ -150,7 +150,7 @@ const AdminProjects = () => {
   };
 
   const toggleFeatured = async (p: ProjectRow) => {
-    const { error } = await supabase.from('projects').update({ featured: !p.featured }).eq('id', p.id);
+    const { error } = await (supabase as any).from('projects').update({ featured: !p.featured }).eq('id', p.id);
     if (error) {
       toast({ title: 'Failed to update homepage selection', description: error.message, variant: 'destructive' });
       return;
@@ -161,7 +161,7 @@ const AdminProjects = () => {
     });
   };
   const togglePublished = async (p: ProjectRow) => {
-    const { error } = await supabase.from('projects').update({ published: !p.published }).eq('id', p.id);
+    const { error } = await (supabase as any).from('projects').update({ published: !p.published }).eq('id', p.id);
     if (error) {
       toast({ title: 'Failed to update visibility', description: error.message, variant: 'destructive' });
       return;
@@ -171,7 +171,7 @@ const AdminProjects = () => {
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
-    const { error } = await supabase.from('projects').delete().eq('id', deleteTarget.id);
+    const { error } = await (supabase as any).from('projects').delete().eq('id', deleteTarget.id);
     if (error) {
       toast({ title: 'Failed to delete', description: error.message, variant: 'destructive' });
     } else {

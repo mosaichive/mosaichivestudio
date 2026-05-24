@@ -82,8 +82,8 @@ const AdminLogos = () => {
       link_url: editing.link_url || null, featured: editing.featured, published: editing.published,
     };
     const { error } = editing.id
-      ? await supabase.from('client_logos').update(payload).eq('id', editing.id)
-      : await supabase.from('client_logos').insert({ ...payload, position: list.length + 1 });
+      ? await (supabase as any).from('client_logos').update(payload).eq('id', editing.id)
+      : await (supabase as any).from('client_logos').insert({ ...payload, position: list.length + 1 });
     setSaving(false);
     if (error) { toast({ title: 'Failed', description: error.message, variant: 'destructive' }); return; }
     toast({ title: editing.id ? 'Updated' : 'Created' });
@@ -95,13 +95,13 @@ const AdminLogos = () => {
     const oldIdx = list.findIndex((p) => p.id === e.active.id);
     const newIdx = list.findIndex((p) => p.id === e.over!.id);
     const reordered = arrayMove(list, oldIdx, newIdx);
-    await Promise.all(reordered.map((p, i) => supabase.from('client_logos').update({ position: i + 1 }).eq('id', p.id)));
+    await Promise.all(reordered.map((p, i) => (supabase as any).from('client_logos').update({ position: i + 1 }).eq('id', p.id)));
     toast({ title: 'Order saved' });
   };
 
   const confirmDelete = async () => {
     if (!deleteTarget) return;
-    await supabase.from('client_logos').delete().eq('id', deleteTarget.id);
+    await (supabase as any).from('client_logos').delete().eq('id', deleteTarget.id);
     toast({ title: 'Deleted' });
     setDeleteTarget(null);
   };

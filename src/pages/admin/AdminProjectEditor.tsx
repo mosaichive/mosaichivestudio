@@ -65,7 +65,7 @@ const AdminProjectEditor = () => {
   useEffect(() => {
     if (isNew) return;
     (async () => {
-      const { data, error } = await supabase.from('projects').select('*').eq('id', id!).maybeSingle();
+      const { data, error } = await (supabase as any).from('projects').select('*').eq('id', id!).maybeSingle();
       if (error || !data) {
         toast({ title: 'Project not found', variant: 'destructive' });
         navigate('/admin/projects');
@@ -132,8 +132,8 @@ const AdminProjectEditor = () => {
     };
 
     const { error } = isNew
-      ? await supabase.from('projects').insert(payload as never)
-      : await supabase.from('projects').update(payload as never).eq('id', id!);
+      ? await (supabase as any).from('projects').insert(payload as never)
+      : await (supabase as any).from('projects').update(payload as never).eq('id', id!);
 
     setSaving(false);
     if (error) {
