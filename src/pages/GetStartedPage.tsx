@@ -139,7 +139,7 @@ const GetStartedPage = () => {
           'Preferred start date': data.startDate || 'Not provided',
           'Project details': data.projectDetails,
         },
-        legacyServiceRequest,
+        legacyServiceRequest: legacyServiceRequest as Parameters<typeof submitLeadNotification>[0]['legacyServiceRequest'],
       });
 
       toast({
