@@ -26,11 +26,11 @@ const AdminInvites = () => {
 
   const load = async () => {
     setLoading(true);
-    const { data } = await supabase
+    const { data } = await (supabase as any)
       .from('admin_invites')
       .select('*')
       .order('created_at', { ascending: false });
-    setInvites((data ?? []) as Invite[]);
+    setInvites((data ?? []) as unknown as Invite[]);
     setLoading(false);
   };
 
