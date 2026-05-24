@@ -102,7 +102,7 @@ export const useProjects = (opts?: { onlyPublished?: boolean; onlyFeatured?: boo
   const query = useQuery({
     queryKey: ['projects', opts],
     queryFn: async () => {
-      let q = supabase.from('projects').select('*').order('position', { ascending: true });
+      let q = (supabase as any).from('projects').select('*').order('position', { ascending: true });
       if (opts?.onlyPublished) q = q.eq('published', true);
       if (opts?.onlyFeatured) q = q.eq('featured', true);
       const { data, error } = await q;
@@ -149,7 +149,7 @@ export const useTestimonials = (opts?: { onlyPublished?: boolean }) => {
   const query = useQuery({
     queryKey: ['testimonials', opts],
     queryFn: async () => {
-      let q = supabase.from('testimonials').select('*').order('position', { ascending: true });
+      let q = (supabase as any).from('testimonials').select('*').order('position', { ascending: true });
       if (opts?.onlyPublished) q = q.eq('published', true);
       const { data, error } = await q;
       if (error) throw error;
@@ -178,7 +178,7 @@ export const useClientLogos = (opts?: { onlyPublished?: boolean }) => {
   const query = useQuery({
     queryKey: ['client_logos', opts],
     queryFn: async () => {
-      let q = supabase.from('client_logos').select('*').order('position', { ascending: true });
+      let q = (supabase as any).from('client_logos').select('*').order('position', { ascending: true });
       if (opts?.onlyPublished) q = q.eq('published', true);
       const { data, error } = await q;
       if (error) throw error;

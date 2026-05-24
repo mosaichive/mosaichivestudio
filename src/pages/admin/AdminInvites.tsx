@@ -40,7 +40,7 @@ const AdminInvites = () => {
     e.preventDefault();
     if (!email) return;
     setSubmitting(true);
-    const { error } = await supabase.from('admin_invites').insert({
+    const { error } = await (supabase as any).from('admin_invites').insert({
       email: email.trim().toLowerCase(),
       role: 'admin',
       invited_by: user?.id ?? null,
@@ -56,7 +56,7 @@ const AdminInvites = () => {
   };
 
   const revoke = async (id: string) => {
-    await supabase.from('admin_invites').delete().eq('id', id);
+    await (supabase as any).from('admin_invites').delete().eq('id', id);
     toast({ title: 'Invite revoked' });
     load();
   };
