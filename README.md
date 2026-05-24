@@ -1,29 +1,41 @@
-# Mosaichive
+# Mosaic06 Studio
 
-Independent Vite + React site for Mosaic06 Studio.
+Premium Vite + React studio site for Mosaic06 Studio, prepared for GitHub-first development and continuous Lovable sync.
 
 ## Stack
 
 - Vite
-- React
+- React 18
 - TypeScript
 - Tailwind CSS
+- Framer Motion
 - shadcn/ui
 - Supabase
+- Vercel Functions
 
-## Local development
+## Quick start
 
 ```sh
 npm install
+cp .env.example .env
 npm run dev
 ```
 
-The app expects the following environment variables:
+The default dev server is Vite on `http://localhost:5173`.
+
+## Environment variables
+
+Client/runtime variables:
 
 - `VITE_SITE_URL`
 - `VITE_SUPABASE_PROJECT_ID`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `VITE_SUPABASE_URL`
+
+Server-side notification variables:
+
+- `LEAD_EMAIL_TO`
+- `LEAD_SMS_TO`
 - `GMAIL_USER`
 - `GMAIL_APP_PASSWORD`
 - `GMAIL_FROM_EMAIL`
@@ -35,42 +47,78 @@ The app expects the following environment variables:
 - `AFRICASTALKING_SENDER_ID`
 - `TWILIO_ACCOUNT_SID`
 - `TWILIO_AUTH_TOKEN`
-- `TWILIO_FROM_NUMBER` or `TWILIO_MESSAGING_SERVICE_SID`
-- `LEAD_EMAIL_TO`
-- `LEAD_SMS_TO`
+- `TWILIO_FROM_NUMBER`
+- `TWILIO_MESSAGING_SERVICE_SID`
 
-Copy `.env.example` to `.env` for local work.
+Important:
+
+- Keep real secrets in Lovable, Vercel, or your local shell only.
+- Do not commit `.env`, `.env.local`, or `.env.production`.
+- `.env.example` is the only tracked env template.
+
+## Project structure
+
+- `src/` app code
+- `src/components/` public UI, motion systems, CMS-driven sections
+- `src/pages/` route pages, plus `/admin` screens
+- `src/hooks/` shared data, SEO, and animation hooks
+- `src/integrations/supabase/` browser client and generated types
+- `api/` Vercel serverless endpoints
+- `supabase/` migrations and edge function source
+- `scripts/prerender.mjs` static prerender pipeline for public routes
+
+See [PROJECT_CONTEXT.md](/Users/mosaic/Documents/Codex/2026-04-21-files-mentioned-by-the-user-mosaichive/mosaichive-main/PROJECT_CONTEXT.md) for the detailed architecture map.
+
+## Lovable workflow
+
+This repository is set up to stay compatible with Lovable while remaining editable locally.
+
+- `playwright.config.ts` and `playwright-fixture.ts` are included for Lovable agent compatibility.
+- Keep `main` deployable at all times.
+- Sync flow:
+  1. Pull the latest `main`.
+  2. Make local changes and commit them normally.
+  3. Push to GitHub.
+  4. Let Lovable continue from the same repository.
+  5. Pull Lovable-authored commits back before the next round of local work.
+
+Recommended guardrails:
+
+- Use environment-variable UIs for secrets, not git.
+- Keep Supabase schema changes in `supabase/migrations/`.
+- Keep reusable motion/background systems in shared components instead of page-only copies.
 
 ## Deployment
 
-This project is ready for Vercel deployment.
+The project is ready for Vercel deployment.
 
-- `vercel.json` rewrites all routes to `index.html` so React Router pages work on refresh.
-- `/api/notify-lead` handles public form notifications through Vercel Functions.
-- Canonical and Open Graph URLs are derived from `VITE_SITE_URL` when available.
-  The production site uses `https://mosaic06studio.design` as the primary hostname.
-- The Lovable-specific dev plugin and hosted scripts have been removed.
+- `vercel.json` rewrites all app routes to `index.html`.
+- `api/notify-lead.js` handles form notifications.
+- `api/sitemap.js` builds the sitemap at request time.
+- `scripts/prerender.mjs` emits static HTML for public routes after `vite build`.
 
-## Lead notifications
-
-Public forms submit to `/api/notify-lead`.
-
-- Email notifications use Gmail SMTP when `GMAIL_USER` and `GMAIL_APP_PASSWORD` are configured, then fall back to Resend.
-- The default lead inbox is `mosaichive@gmail.com`.
-- SMS notifications use Africa's Talking when `AFRICASTALKING_USERNAME` and `AFRICASTALKING_API_KEY` are configured, then fall back to Twilio.
-- The default SMS recipient is `0544909011` (`+233544909011`).
-- If Vercel notification secrets are not configured yet, the forms attempt the existing Supabase `send-service-request` function as an email fallback.
-
-Set the non-`VITE_` notification variables in Vercel project settings, not in client-side code.
+If `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` are missing during build, prerendering still succeeds but skips CMS-driven project route expansion.
 
 ## Supabase
 
-Supabase is used for:
+Supabase powers:
 
-- site content
-- admin authentication
-- project submissions / service requests
+- admin authentication and roles
+- CMS content tables
+- realtime updates for projects, testimonials, logos, and settings
+- storage-backed media uploads
 
-The `supabase/` directory includes migrations and the `send-service-request` edge function export from the original project.
+Apply the latest migrations before using the admin CMS on a fresh project, especially:
 
-Apply `supabase/migrations/20260421110000_extend_site_settings_cms.sql` to enable the expanded Website Editor fields for homepage section copy, footer copy, social links, trust copy, and proof cards.
+- `supabase/migrations/20260419114809_61973c78-711e-442d-b056-a18e23c09848.sql`
+- `supabase/migrations/20260421110000_extend_site_settings_cms.sql`
+
+## Notifications
+
+Public forms submit to `/api/notify-lead`.
+
+- Gmail SMTP is attempted first when configured.
+- Resend is the email fallback.
+- Africa's Talking is the primary SMS provider.
+- Twilio is the SMS fallback.
+- If server-side providers are absent, the app can still fall back to the Supabase `send-service-request` function path already used in the original project.

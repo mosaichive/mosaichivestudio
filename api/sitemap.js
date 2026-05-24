@@ -1,7 +1,4 @@
 const FALLBACK_SITE_URL = 'https://mosaic06studio.design';
-const FALLBACK_SUPABASE_URL = 'https://nqixloyeucqkzytsgkmu.supabase.co';
-const FALLBACK_SUPABASE_PUBLISHABLE_KEY =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xaXhsb3lldWNxa3p5dHNna211Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc0NTA4ODgsImV4cCI6MjA4MzAyNjg4OH0.dxR5_ERx5MXxPsSFjwRyuK2MzV-hEb2QuwN4WUpWWQg';
 
 const trimTrailingSlash = (value) => String(value || '').replace(/\/+$/, '');
 
@@ -43,9 +40,8 @@ const getStaticPages = () => [
 ];
 
 const getPublishedProjects = async () => {
-  const supabaseUrl = process.env.VITE_SUPABASE_URL || FALLBACK_SUPABASE_URL;
-  const supabaseKey =
-    process.env.VITE_SUPABASE_PUBLISHABLE_KEY || FALLBACK_SUPABASE_PUBLISHABLE_KEY;
+  const supabaseUrl = process.env.VITE_SUPABASE_URL;
+  const supabaseKey = process.env.VITE_SUPABASE_PUBLISHABLE_KEY;
 
   if (!supabaseUrl || !supabaseKey) return [];
 
