@@ -1,6 +1,5 @@
 import React from 'react';
 import { motion, useReducedMotion, type Variants } from 'framer-motion';
-import useCinematicInView from '@/hooks/useCinematicInView';
 
 type Tag = 'div' | 'section' | 'article' | 'header' | 'h1' | 'h2' | 'h3' | 'p' | 'li' | 'span' | 'ul';
 type RevealMode = 'fade-up' | 'scale-in' | 'blur-up' | 'text';
@@ -85,16 +84,16 @@ const Reveal: React.FC<RevealProps> = ({
   margin = '0px 0px -10% 0px',
   mode = 'fade-up',
 }) => {
-  const { ref, controls, reduceMotion } = useCinematicInView({ once, amount, margin });
+  const reduceMotion = useReducedMotion();
   const variants = buildVariants(reduceMotion, mode, y, duration, delay);
   const MotionTag = motion[as] as typeof motion.div;
 
   return (
     <MotionTag
-      ref={ref as React.Ref<HTMLElement>}
       className={className}
       initial="hidden"
-      animate={controls}
+      whileInView="show"
+      viewport={{ once, amount, margin }}
       variants={variants}
     >
       {children}
@@ -129,7 +128,7 @@ const Stagger: React.FC<StaggerProps> = ({
   duration = 0.6,
   mode = 'fade-up',
 }) => {
-  const { ref, controls, reduceMotion } = useCinematicInView({ once, amount, margin });
+  const reduceMotion = useReducedMotion();
   const container: Variants = {
     hidden: {},
     show: {
@@ -143,10 +142,10 @@ const Stagger: React.FC<StaggerProps> = ({
 
   return (
     <MotionTag
-      ref={ref as React.Ref<HTMLElement>}
       className={className}
       initial="hidden"
-      animate={controls}
+      whileInView="show"
+      viewport={{ once, amount, margin }}
       variants={container}
       data-reveal-y={y}
       data-reveal-duration={duration}

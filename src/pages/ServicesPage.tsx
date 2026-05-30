@@ -247,9 +247,6 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({ capability, expanded, o
             onClick={onToggle}
             aria-expanded={expanded}
             className="flex h-full flex-col text-left"
-            data-cursor-style="button"
-            data-cursor-label={expanded ? 'Collapse details' : `Open ${capability.title}`}
-            data-cursor-magnetic="true"
           >
             <div className="flex items-start justify-between gap-6">
               <div>
@@ -359,9 +356,6 @@ const CapabilityCard: React.FC<CapabilityCardProps> = ({ capability, expanded, o
                         'mt-5 inline-flex items-center gap-2 border-b pb-1 text-sm font-medium text-foreground transition-colors hover:text-secondary',
                         'border-white/12 hover:border-secondary/50',
                       )}
-                      data-cursor-style="project"
-                      data-cursor-label={`Open ${capability.related.label}`}
-                      data-cursor-magnetic="true"
                     >
                       Recent work · {capability.related.label}
                       <ArrowUpRight size={14} style={{ color: capability.accent }} />

@@ -84,9 +84,6 @@ const MagneticButton: React.FC<MagneticButtonProps> = ({ to, label, variant = 'p
             ? 'border border-primary/10 bg-primary text-primary-foreground shadow-[0_22px_50px_-22px_hsl(var(--primary)/0.55)]'
             : 'border border-foreground/15 bg-background/55 text-foreground backdrop-blur-xl hover:border-foreground/35'
         }`}
-        data-cursor-style="button"
-        data-cursor-label={label}
-        data-cursor-magnetic="true"
       >
         {isPrimary ? (
           <motion.span

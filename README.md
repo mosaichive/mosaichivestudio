@@ -1,19 +1,19 @@
-# Mosaic06 Studio
+# Mosaichive
 
-Premium Vite + React studio site for Mosaic06 Studio, prepared for GitHub-first development and continuous Lovable sync.
+Independent Vite + React site for Mosaic06 Studio.
 
 ## Stack
 
 - Vite
-- React 18
+- React
 - TypeScript
 - Tailwind CSS
 - Framer Motion
 - shadcn/ui
 - Supabase
-- Vercel Functions
+- Vercel
 
-## Quick start
+## Local development
 
 ```sh
 npm install
@@ -25,14 +25,14 @@ The default dev server is Vite on `http://localhost:5173`.
 
 ## Environment variables
 
-Client/runtime variables:
+Client/runtime:
 
 - `VITE_SITE_URL`
 - `VITE_SUPABASE_PROJECT_ID`
 - `VITE_SUPABASE_PUBLISHABLE_KEY`
 - `VITE_SUPABASE_URL`
 
-Server-side notification variables:
+Notifications and server-side delivery:
 
 - `LEAD_EMAIL_TO`
 - `LEAD_SMS_TO`
@@ -50,58 +50,33 @@ Server-side notification variables:
 - `TWILIO_FROM_NUMBER`
 - `TWILIO_MESSAGING_SERVICE_SID`
 
-Important:
-
-- Keep real secrets in Lovable, Vercel, or your local shell only.
-- Do not commit `.env`, `.env.local`, or `.env.production`.
-- `.env.example` is the only tracked env template.
+Keep real secrets in Vercel, Supabase, or your local shell only. Do not commit `.env` files.
 
 ## Project structure
 
-- `src/` app code
-- `src/components/` public UI, motion systems, CMS-driven sections
-- `src/pages/` route pages, plus `/admin` screens
-- `src/hooks/` shared data, SEO, and animation hooks
+- `src/` application code
+- `src/components/` shared UI and motion systems
+- `src/pages/` route pages and admin screens
+- `src/hooks/` shared data and utility hooks
 - `src/integrations/supabase/` browser client and generated types
 - `api/` Vercel serverless endpoints
-- `supabase/` migrations and edge function source
-- `scripts/prerender.mjs` static prerender pipeline for public routes
-
-See [PROJECT_CONTEXT.md](/Users/mosaic/Documents/Codex/2026-04-21-files-mentioned-by-the-user-mosaichive/mosaichive-main/PROJECT_CONTEXT.md) for the detailed architecture map.
-
-## Lovable workflow
-
-This repository is set up to stay compatible with Lovable while remaining editable locally.
-
-- `playwright.config.ts` and `playwright-fixture.ts` are included for Lovable agent compatibility.
-- Keep `main` deployable at all times.
-- Sync flow:
-  1. Pull the latest `main`.
-  2. Make local changes and commit them normally.
-  3. Push to GitHub.
-  4. Let Lovable continue from the same repository.
-  5. Pull Lovable-authored commits back before the next round of local work.
-
-Recommended guardrails:
-
-- Use environment-variable UIs for secrets, not git.
-- Keep Supabase schema changes in `supabase/migrations/`.
-- Keep reusable motion/background systems in shared components instead of page-only copies.
+- `supabase/` migrations and edge functions
+- `scripts/prerender.mjs` public-route prerender script
 
 ## Deployment
 
 The project is ready for Vercel deployment.
 
-- `vercel.json` rewrites all app routes to `index.html`.
-- `api/notify-lead.js` handles form notifications.
-- `api/sitemap.js` builds the sitemap at request time.
-- `scripts/prerender.mjs` emits static HTML for public routes after `vite build`.
+- `vercel.json` rewrites app routes to `index.html`
+- `api/notify-lead.js` handles form notifications
+- `api/sitemap.js` builds the sitemap dynamically
+- `scripts/prerender.mjs` emits static HTML for public routes after `vite build`
 
 If `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` are missing during build, prerendering still succeeds but skips CMS-driven project route expansion.
 
 ## Supabase
 
-Supabase powers:
+Supabase is used for:
 
 - admin authentication and roles
 - CMS content tables
@@ -117,8 +92,8 @@ Apply the latest migrations before using the admin CMS on a fresh project, espec
 
 Public forms submit to `/api/notify-lead`.
 
-- Gmail SMTP is attempted first when configured.
-- Resend is the email fallback.
-- Africa's Talking is the primary SMS provider.
-- Twilio is the SMS fallback.
-- If server-side providers are absent, the app can still fall back to the Supabase `send-service-request` function path already used in the original project.
+- Gmail SMTP is attempted first when configured
+- Resend is the email fallback
+- Africa's Talking is the primary SMS provider
+- Twilio is the SMS fallback
+- If server-side providers are absent, the app can still fall back to the Supabase `send-service-request` function

@@ -81,9 +81,6 @@ const FloatingNavLink: React.FC<FloatingNavLinkProps> = ({
             ? 'w-full px-6 py-4 text-[2rem] font-display tracking-[-0.03em] text-foreground'
             : 'px-4 py-2.5 text-sm font-medium text-foreground/74 hover:text-foreground',
         )}
-        data-cursor-style="button"
-        data-cursor-label={label}
-        data-cursor-magnetic="true"
       >
         <motion.span
           aria-hidden
@@ -200,9 +197,6 @@ const Navbar = () => {
                 to="/"
                 className="inline-flex items-center gap-3 rounded-full px-2 py-1"
                 aria-label="Mosaic06 Studio home"
-                data-cursor-style="button"
-                data-cursor-label="Home"
-                data-cursor-magnetic="true"
               >
                 <img
                   src={logo}
@@ -234,9 +228,6 @@ const Navbar = () => {
                   aria-label="Toggle theme"
                   whileHover={reduceMotion ? undefined : { y: -1.5, scale: 1.02 }}
                   whileTap={reduceMotion ? undefined : { scale: 0.96 }}
-                  data-cursor-style="button"
-                  data-cursor-label="Theme"
-                  data-cursor-magnetic="true"
                 >
                   {mounted && (theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />)}
                 </motion.button>
@@ -249,9 +240,6 @@ const Navbar = () => {
                   <Link
                     to={ctaLink}
                     className="group relative inline-flex items-center gap-2 overflow-hidden rounded-full border border-white/12 bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-[0_20px_40px_-26px_hsl(var(--primary)/0.6)]"
-                    data-cursor-style="button"
-                    data-cursor-label={ctaLabel}
-                    data-cursor-magnetic="true"
                   >
                     <span className="absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--primary-glow)/0.94),hsl(var(--secondary)/0.82)_135%)]" />
                     <span className="absolute inset-0 translate-y-full bg-[linear-gradient(135deg,hsl(var(--secondary)/0.28),transparent_60%)] transition-transform duration-500 group-hover:translate-y-0" />
@@ -268,9 +256,6 @@ const Navbar = () => {
                   onClick={() => setIsOpen((open) => !open)}
                   aria-label="Toggle menu"
                   whileTap={reduceMotion ? undefined : { scale: 0.94 }}
-                  data-cursor-style="button"
-                  data-cursor-label={isOpen ? 'Close' : 'Menu'}
-                  data-cursor-magnetic="true"
                 >
                   <motion.span
                     animate={reduceMotion ? undefined : { rotate: isOpen ? 90 : 0, scale: isOpen ? 1.05 : 1 }}
@@ -379,9 +364,6 @@ const Navbar = () => {
                     to={ctaLink}
                     onClick={() => setIsOpen(false)}
                     className="group relative flex w-full items-center justify-center gap-2 overflow-hidden rounded-full border border-white/12 bg-primary px-6 py-4 text-sm font-medium text-primary-foreground shadow-[0_24px_52px_-30px_hsl(var(--primary)/0.58)]"
-                    data-cursor-style="button"
-                    data-cursor-label={ctaLabel}
-                    data-cursor-magnetic="true"
                   >
                     <span className="absolute inset-0 bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--primary-glow)/0.94),hsl(var(--secondary)/0.82)_135%)]" />
                     <span className="relative z-10">{ctaLabel}</span>

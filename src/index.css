@@ -100,8 +100,6 @@
 
   html {
     scroll-behavior: smooth;
-    --site-scroll-progress: 0;
-    --site-scroll-y: 0;
   }
 
   body {
@@ -121,26 +119,6 @@
   ::selection {
     background: hsl(var(--secondary));
     color: hsl(var(--secondary-foreground));
-  }
-
-  @media (pointer: fine) {
-    .has-cinematic-cursor body,
-    .has-cinematic-cursor a,
-    .has-cinematic-cursor button,
-    .has-cinematic-cursor [role="button"],
-    .has-cinematic-cursor [data-cursor-style] {
-      cursor: none;
-    }
-
-    .has-cinematic-cursor input,
-    .has-cinematic-cursor textarea,
-    .has-cinematic-cursor select,
-    .has-cinematic-cursor option,
-    .has-cinematic-cursor iframe,
-    .has-cinematic-cursor [contenteditable="true"],
-    .has-cinematic-cursor [data-native-cursor] {
-      cursor: auto;
-    }
   }
 }
 

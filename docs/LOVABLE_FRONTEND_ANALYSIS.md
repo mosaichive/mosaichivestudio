@@ -50,7 +50,6 @@ What that means:
 - `src/components/PageTransition.tsx`
 - `src/components/AmbientBackground.tsx`
 - `src/components/SiteDecorativeElements.tsx`
-- `src/components/CinematicCursor.tsx`
 - `src/components/ScrollAnimations.tsx`
 - `src/components/SectionTransition.tsx`
 - `src/index.css`
