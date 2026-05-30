@@ -1,5 +1,4 @@
 import { supabase } from '@/integrations/supabase/client';
-import { getSupabaseFunctionHeaders } from '@/lib/supabaseFunctionHeaders';
 
 type LeadContact = {
   name: string;
@@ -45,11 +44,9 @@ const parseResponse = async (response: Response) => {
 
 const sendLegacyEmail = async (payload: LeadPayload) => {
   if (!payload.legacyServiceRequest) return false;
-  const headers = await getSupabaseFunctionHeaders();
 
   const { error } = await supabase.functions.invoke('send-service-request', {
     body: payload.legacyServiceRequest,
-    headers,
   });
 
   if (error) throw error;

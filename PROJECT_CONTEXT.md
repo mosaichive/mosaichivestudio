@@ -50,8 +50,6 @@ These provide the sitewide cinematic motion, cursor system, layered backgrounds,
   - Resend
   - Africa's Talking
   - Twilio
-- `src/lib/leadNotifications.ts` is the client-side submission service that posts to `/api/notify-lead` and can fall back to the Supabase edge function path.
-- `src/lib/supabaseFunctionHeaders.ts` adds an authenticated Supabase bearer token to edge-function requests when a session exists, without changing public form UI behavior.
 - `api/sitemap.js` generates the XML sitemap dynamically.
 - `supabase/functions/send-service-request/index.ts` is the existing Supabase function fallback path from the earlier project setup.
 
@@ -200,7 +198,6 @@ Realtime-enabled frontend queries:
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_FROM_NUMBER`
 - `TWILIO_MESSAGING_SERVICE_SID`
-- `SEND_SERVICE_REQUEST_REQUIRE_AUTH`
 
 ### Portability note
 

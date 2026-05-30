@@ -49,7 +49,6 @@ Server-side notification variables:
 - `TWILIO_AUTH_TOKEN`
 - `TWILIO_FROM_NUMBER`
 - `TWILIO_MESSAGING_SERVICE_SID`
-- `SEND_SERVICE_REQUEST_REQUIRE_AUTH`
 
 Important:
 
@@ -69,7 +68,6 @@ Important:
 - `scripts/prerender.mjs` static prerender pipeline for public routes
 
 See [PROJECT_CONTEXT.md](/Users/mosaic/Documents/Codex/2026-04-21-files-mentioned-by-the-user-mosaichive/mosaichive-main/PROJECT_CONTEXT.md) for the detailed architecture map.
-See [docs/BACKEND_INTEGRATION.md](/Users/mosaic/Documents/Codex/2026-04-21-files-mentioned-by-the-user-mosaichive/mosaichive-main/docs/BACKEND_INTEGRATION.md) for the backend/frontend ownership contract and integration details.
 
 ## Lovable workflow
 
