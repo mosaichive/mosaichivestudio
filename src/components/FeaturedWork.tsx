@@ -1,16 +1,11 @@
-import React, { useMemo, useRef } from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight } from 'lucide-react';
-import { motion, useReducedMotion, useScroll, useSpring } from 'framer-motion';
+import { ArrowUpRight } from 'lucide-react';
 import { useProjects, useSiteSettings } from '@/hooks/useStudioContent';
 import { Skeleton } from '@/components/ui/skeleton';
 import Reveal from '@/components/Reveal';
-import ProjectShowcaseCard, { ProjectShowcaseProject } from './ProjectShowcaseCard';
 
 const FeaturedWork = () => {
-  const railRef = useRef<HTMLDivElement>(null);
-  const sectionRef = useRef<HTMLElement>(null);
-  const reduceMotion = useReducedMotion();
   const { data: featuredProjects, isLoading: featuredLoading } = useProjects({ onlyPublished: true, onlyFeatured: true });
   const { data: publishedProjects, isLoading: publishedLoading } = useProjects({ onlyPublished: true });
   const { data: settings } = useSiteSettings();
@@ -19,8 +14,7 @@ const FeaturedWork = () => {
   const ctaLabel = settings?.featured_cta_label ?? 'Browse the full index';
   const ctaLink = settings?.featured_cta_link ?? '/portfolio';
   const isLoading = featuredLoading || publishedLoading;
-
-  const list = useMemo<ProjectShowcaseProject[]>(() => {
+  const list = useMemo(() => {
     const featured = featuredProjects ?? [];
     const published = publishedProjects ?? [];
     if (featured.length >= 4) return featured.slice(0, 4);
@@ -30,192 +24,117 @@ const FeaturedWork = () => {
     return [...featured, ...fill].slice(0, 4);
   }, [featuredProjects, publishedProjects]);
 
-  const { scrollXProgress } = useScroll({ container: railRef });
-  const progress = useSpring(scrollXProgress, { stiffness: 120, damping: 28, mass: 0.7 });
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const sectionProgress = useSpring(scrollYProgress, { stiffness: 90, damping: 24, mass: 0.8 });
-
   if (!isLoading && list.length === 0) return null;
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative overflow-hidden bg-background pb-28 pt-20 md:pb-32 md:pt-24"
-      id="selected-work"
-    >
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-40"
-        style={{
-          background:
-            'linear-gradient(180deg, hsl(var(--background)), hsl(var(--background) / 0.24) 62%, transparent)',
-          opacity: sectionProgress,
-        }}
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute left-[8%] top-[22%] hidden h-[24rem] w-[24rem] rounded-full blur-3xl lg:block"
-        style={{
-          background:
-            'radial-gradient(circle at center, hsl(var(--secondary) / 0.14), transparent 72%)',
-          opacity: 0.42,
-        }}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                y: [0, 20, 0],
-                scale: [1, 1.06, 1],
-              }
-        }
-        transition={
-          reduceMotion
-            ? undefined
-            : {
-                duration: 18,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }
-        }
-      />
-      <motion.div
-        aria-hidden
-        className="pointer-events-none absolute bottom-[8%] right-[4%] hidden h-[22rem] w-[22rem] rounded-full blur-3xl lg:block"
-        style={{
-          background:
-            'radial-gradient(circle at center, hsl(var(--primary) / 0.12), transparent 72%)',
-          opacity: 0.38,
-        }}
-        animate={
-          reduceMotion
-            ? undefined
-            : {
-                y: [0, -18, 0],
-                scale: [1, 1.04, 1],
-              }
-        }
-        transition={
-          reduceMotion
-            ? undefined
-            : {
-                duration: 20,
-                repeat: Infinity,
-                ease: 'easeInOut',
-              }
-        }
-      />
-
-      <div className="container-editorial relative z-10">
-        <div className="grid items-end gap-10 lg:grid-cols-12 lg:gap-8">
-          <Reveal className="lg:col-span-7">
+    <section className="overflow-x-clip pt-20 md:pt-24 pb-24 md:pb-32 bg-background" id="selected-work">
+      <div className="container-editorial">
+        <div className="grid lg:grid-cols-12 gap-8 mb-12 md:mb-16 items-end">
+          <div className="lg:col-span-8">
             <p className="eyebrow mb-6">{eyebrow}</p>
-            <h2 className="display-section max-w-[15ch] text-balance text-foreground">
+            <h2 className="display-section text-foreground text-balance max-w-[20ch]">
               {headline}
             </h2>
-          </Reveal>
-
-          <Reveal className="lg:col-span-5 lg:justify-self-end" delay={0.08}>
-            <div className="max-w-md rounded-[1.5rem] border border-border/60 bg-background/45 p-5 shadow-[0_18px_60px_-40px_hsl(var(--foreground)/0.28)] backdrop-blur-xl">
-              <p className="text-sm leading-relaxed text-foreground/64">
-                A cinematic index of featured engagements. Scroll horizontally through the studio’s selected narratives and open each case for the full story.
-              </p>
-              <div className="mt-5 flex items-center justify-between gap-4">
-                <div className="hidden min-w-[12rem] flex-1 md:block">
-                  <div className="h-px bg-foreground/12">
-                    <motion.div
-                      className="h-px origin-left bg-gradient-to-r from-secondary via-primary to-secondary"
-                      style={{ scaleX: progress }}
-                    />
-                  </div>
-                  <div className="mt-2 flex items-center justify-between text-[0.62rem] uppercase tracking-[0.24em] text-foreground/44">
-                    <span>scroll across</span>
-                    <span>{list.length} projects</span>
-                  </div>
-                </div>
-
-                <Link
-                  to={ctaLink}
-                  className="group inline-flex items-center gap-2 rounded-full border border-foreground/12 bg-background/58 px-4 py-2.5 text-xs font-medium uppercase tracking-[0.24em] text-foreground/76 backdrop-blur-xl transition-colors hover:border-secondary/50 hover:text-secondary"
-                >
-                  {ctaLabel}
-                  <ArrowUpRight size={15} className="transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </div>
-          </Reveal>
+          </div>
+          <Link
+            to={ctaLink}
+            className="lg:col-span-4 lg:justify-self-end inline-flex items-center gap-2 text-sm font-medium text-foreground border-b border-foreground/30 pb-1 hover:border-secondary hover:text-secondary transition-colors self-end"
+          >
+            {ctaLabel} <ArrowUpRight size={16} />
+          </Link>
         </div>
 
         {isLoading ? (
-          <div className="mt-12 flex gap-6 overflow-hidden">
-            {Array.from({ length: 3 }).map((_, index) => (
-              <Skeleton
-                key={index}
-                className="h-[30rem] w-[min(84vw,32rem)] shrink-0 rounded-[1.75rem] lg:w-[min(70vw,56rem)]"
-              />
-            ))}
+          <div className="grid grid-cols-12 gap-5 md:gap-7">
+            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/10] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-5 aspect-[4/4.2] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-5 aspect-[4/4.2] rounded-[1.1rem]" />
+            <Skeleton className="col-span-12 lg:col-span-7 aspect-[16/9] rounded-[1.1rem]" />
           </div>
         ) : (
-          <Reveal className="mt-12 md:mt-14" delay={0.12}>
-            <div
-              ref={railRef}
-              className="showcase-scroll no-scrollbar overflow-x-auto pb-6 [scrollbar-width:none]"
-            >
-              <div className="flex min-w-max gap-6 pr-6 md:gap-8 md:pr-10">
-                {list.map((project, index) => (
-                  <motion.div
-                    key={project.id ?? project.slug}
-                    className={`snap-start ${index === 0 ? 'w-[min(88vw,40rem)] lg:w-[min(72vw,58rem)]' : 'w-[min(82vw,32rem)] lg:w-[min(54vw,44rem)]'}`}
-                    initial={{ opacity: 0, y: 24 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, amount: 0.2 }}
-                    transition={{ duration: 0.7, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    <div className="relative">
-                      <ProjectShowcaseCard project={project} priority={index === 0} variant="feature" />
-                      <motion.div
-                        className="pointer-events-none absolute -bottom-5 left-5 rounded-full border border-foreground/12 bg-background/68 px-3 py-1.5 text-[0.58rem] uppercase tracking-[0.24em] text-foreground/52 backdrop-blur-md"
-                        animate={
-                          reduceMotion
-                            ? undefined
-                            : {
-                                y: [0, -4, 0],
-                              }
-                        }
-                        transition={
-                          reduceMotion
-                            ? undefined
-                            : {
-                                duration: 8 + index * 1.4,
-                                repeat: Infinity,
-                                ease: 'easeInOut',
-                              }
-                        }
-                      >
-                        {project.categories?.[0] ?? project.industry ?? 'Studio project'}
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
+          <Reveal.Stagger className="grid grid-cols-12 gap-y-10 md:gap-y-14 gap-x-5 md:gap-x-7" stagger={0.1}>
+            {list[0] && (
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7" y={24}>
+                <ProjectCard project={list[0]} aspect="aspect-[16/10]" priority />
+              </Reveal.Item>
+            )}
 
-            <div className="mt-4 flex items-center justify-between gap-4 text-[0.62rem] uppercase tracking-[0.24em] text-foreground/46">
-              <div className="flex items-center gap-2">
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full border border-foreground/10 bg-background/55 backdrop-blur-sm">
-                  <ArrowRight size={12} />
-                </span>
-                <span>Drag or scroll sideways to move through the story rail</span>
-              </div>
-              <span className="hidden md:inline-flex">{list.length} immersive cards</span>
-            </div>
-          </Reveal>
+            {list[1] && (
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-5 lg:mt-8" y={24}>
+                <ProjectCard project={list[1]} aspect="aspect-[4/4.2]" />
+              </Reveal.Item>
+            )}
+
+            {list[2] && (
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-5" y={24}>
+                <ProjectCard project={list[2]} aspect="aspect-[4/4.2]" />
+              </Reveal.Item>
+            )}
+
+            {list[3] && (
+              <Reveal.Item as="article" className="col-span-12 lg:col-span-7 lg:mt-8" y={24}>
+                <ProjectCard project={list[3]} aspect="aspect-[16/9]" />
+              </Reveal.Item>
+            )}
+          </Reveal.Stagger>
         )}
       </div>
     </section>
   );
 };
+
+type CardProps = {
+  project: {
+    slug: string;
+    title: string;
+    client: string;
+    industry: string | null;
+    year: string | null;
+    cover_url: string | null;
+    excerpt: string | null;
+    categories: string[];
+  };
+  aspect: string;
+  priority?: boolean;
+};
+
+const ProjectCard: React.FC<CardProps> = ({ project, aspect, priority }) => (
+  <Link to={`/portfolio/${project.slug}`} className="group block">
+    <div className={`relative overflow-hidden rounded-[1.1rem] border border-border/60 bg-muted ${aspect} mb-4 shadow-[0_20px_50px_-34px_hsl(var(--foreground)/0.28)]`}>
+      {project.cover_url ? (
+        <img
+          src={project.cover_url}
+          alt={`${project.client} — ${project.title}`}
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          fetchPriority={priority ? 'high' : 'auto'}
+          className="absolute inset-0 w-full h-full object-cover transition-transform ease-out group-hover:scale-[1.04]"
+          style={{ transitionDuration: '1600ms' }}
+        />
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center bg-primary/5">
+          <span className="font-display text-4xl md:text-5xl text-primary/30 tracking-tight">
+            {project.client?.[0] ?? project.title?.[0] ?? 'M'}
+          </span>
+        </div>
+      )}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/45 via-transparent to-transparent opacity-20 group-hover:opacity-100 transition-opacity duration-700" />
+      <div className="absolute bottom-4 right-4 w-10 h-10 rounded-full bg-secondary text-secondary-foreground flex items-center justify-center opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
+        <ArrowUpRight size={15} />
+      </div>
+    </div>
+    <div className="flex items-center gap-3 text-[10px] uppercase tracking-[0.24em] text-foreground/45 mb-2">
+      <span>{project.categories?.[0] ?? project.industry}</span>
+      <span className="w-1 h-1 rounded-full bg-foreground/30" />
+      <span>{project.year}</span>
+    </div>
+    <h3 className="font-display text-[1.55rem] md:text-[2rem] leading-[1.12] text-foreground group-hover:text-secondary transition-colors duration-300 text-balance">
+      {project.title}
+    </h3>
+    {project.excerpt && (
+      <p className="mt-2 text-sm md:text-[0.96rem] text-foreground/60 leading-relaxed max-w-[52ch]">{project.excerpt}</p>
+    )}
+  </Link>
+);
 
 export default FeaturedWork;

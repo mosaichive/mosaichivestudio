@@ -51,7 +51,6 @@ What that means:
 - `src/components/AmbientBackground.tsx`
 - `src/components/SiteDecorativeElements.tsx`
 - `src/components/ScrollAnimations.tsx`
-- `src/components/SectionTransition.tsx`
 - `src/index.css`
 
 ### Published-site shell generation

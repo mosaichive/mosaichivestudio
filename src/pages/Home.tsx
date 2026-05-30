@@ -10,7 +10,6 @@ import TrustLogos from '@/components/TrustLogos';
 import ConversionCTA from '@/components/ConversionCTA';
 import Footer from '@/components/Footer';
 import ScrollAnimations from '@/components/ScrollAnimations';
-import SectionTransition from '@/components/SectionTransition';
 import { useStructuredData } from '@/hooks/useStructuredData';
 import { useSiteSettings } from '@/hooks/useStudioContent';
 import { buildHomeStructuredData } from '@/lib/studioProfile';
@@ -41,24 +40,12 @@ const Home = () => {
       <main>
         {/* Work-first editorial flow: hero poster → selected work → studio → proof → trust → voices → CTA */}
         <Hero />
-        <SectionTransition tone="secondary">
-          <FeaturedWork />
-        </SectionTransition>
-        <SectionTransition tone="primary" className="-mt-6 md:-mt-10">
-          <StudioIntro />
-        </SectionTransition>
-        <SectionTransition tone="neutral" className="-mt-6 md:-mt-8">
-          <WhyChooseUs />
-        </SectionTransition>
-        <SectionTransition tone="secondary" className="-mt-6 md:-mt-8">
-          <TrustLogos />
-        </SectionTransition>
-        <SectionTransition tone="primary" className="-mt-6 md:-mt-8">
-          <Testimonials />
-        </SectionTransition>
-        <SectionTransition tone="secondary" className="-mt-6 md:-mt-8">
-          <ConversionCTA />
-        </SectionTransition>
+        <FeaturedWork />
+        <StudioIntro />
+        <WhyChooseUs />
+        <TrustLogos />
+        <Testimonials />
+        <ConversionCTA />
       </main>
       <Footer />
     </>
